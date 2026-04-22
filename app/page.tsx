@@ -6,6 +6,7 @@ import { HomePageMotion } from "@/components/home-page-motion";
 import { SectionBar } from "@/components/section-bar";
 import { SectionHeading } from "@/components/section-heading";
 import { ShopLaneCard } from "@/components/shop-lane-card";
+import SmoothScrollVideoHero from "@/components/smooth-scroll-video-hero";
 import { TelemetryCard } from "@/components/telemetry-card";
 import { TelemetrySection } from "@/components/telemetry-section";
 import { homepageSections } from "@/lib/site-content";
@@ -18,43 +19,33 @@ export default function HomePage() {
     <>
       <HomePageMotion />
 
-      {/* ── Hero ── */}
       <section className="hero machine-memory-hero" data-motion-root="hero">
-        <div className="hero-inner">
-          <div className="hero-copy-block">
-            <h1>{hero.title}</h1>
-            <div className="hero-copy">
-              <p>{hero.summary}</p>
-              <p className="hero-location">{hero.location}</p>
-              <CtaRow primary={hero.primaryCta} secondary={hero.secondaryCta} />
-            </div>
-          </div>
+        <SmoothScrollVideoHero
+          scrollHeight={1500}
+          desktopVideo={hero.video}
+          mobileVideo={hero.video}
+          poster={hero.media}
+          initialClipPercentage={25}
+          finalClipPercentage={75}
+          initialScale={1.15}
+        />
 
-          <div aria-hidden="true" className="hero-media-shell">
-            <div className="hero-media-mask" />
-            <div className="hero-media">
-              <video
-                className="hero-video"
-                data-scroll-video
-                autoPlay
-                loop
-                muted
-                playsInline
-                poster={hero.media}
-                preload="auto"
-              >
-                <source src={hero.video} type="video/mp4" />
-              </video>
-              <div className="hero-visual-scrim" />
+        <div className="pointer-events-none absolute inset-0 z-10">
+          <div className="hero-inner sticky top-0 flex min-h-screen items-end justify-center">
+            <div className="hero-copy-block pointer-events-auto">
+              <h1>{hero.title}</h1>
+              <div className="hero-copy">
+                <p>{hero.summary}</p>
+                <p className="hero-location">{hero.location}</p>
+                <CtaRow primary={hero.primaryCta} secondary={hero.secondaryCta} />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Brand Strip ── */}
       <BrandStrip brands={brands} />
 
-      {/* ── Service Paths ── */}
       <TelemetrySection
         kicker="Service Paths"
         title="Choose the right lane before the schedule gets involved."
@@ -67,7 +58,6 @@ export default function HomePage() {
         ))}
       </TelemetrySection>
 
-      {/* ── Legacy Preview ── */}
       <TelemetrySection
         kicker={legacyPreview.eyebrow}
         title={legacyPreview.title}
@@ -88,7 +78,6 @@ export default function HomePage() {
         ))}
       </TelemetrySection>
 
-      {/* ── Featured Builds ── */}
       <section className="home-section" data-reveal-group>
         <SectionBar linkHref="/builds" linkLabel="View All Builds">
           <SectionHeading kicker="Featured Builds" title="Featured Builds" data-reveal="slide-up" />
@@ -101,7 +90,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Shop Preview ── */}
       <section className="home-section" data-reveal-group>
         <SectionBar linkHref="/shop" linkLabel="View Shop">
           <SectionHeading kicker="Shop Preview" title="Shop" data-reveal="slide-up">
@@ -116,7 +104,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
       <FinalCta
         kicker="Start The Conversation"
         title={finalCta.title}
