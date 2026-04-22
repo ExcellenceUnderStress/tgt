@@ -1,0 +1,211 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: /
+      - navigation "Primary" [ref=e6]:
+        - link "About" [ref=e7] [cursor=pointer]:
+          - /url: /about
+        - link "Services" [ref=e8] [cursor=pointer]:
+          - /url: /services
+        - link "Builds" [ref=e9] [cursor=pointer]:
+          - /url: /builds
+        - link "Shop" [ref=e10] [cursor=pointer]:
+          - /url: /shop
+        - link "Contact" [ref=e11] [cursor=pointer]:
+          - /url: /contact
+        - link "Book" [ref=e12] [cursor=pointer]:
+          - /url: /book
+    - main [ref=e13]:
+      - generic [ref=e16]:
+        - heading "Tuned to drive. Not just to dyno." [level=1] [ref=e17]
+        - generic [ref=e18]:
+          - paragraph [ref=e19]: Dyno and remote EFI tuning. Street, track, high-power.
+          - paragraph [ref=e20]: Auburn, Washington
+          - generic [ref=e21]:
+            - link "Start Booking" [ref=e22] [cursor=pointer]:
+              - /url: /book
+            - link "View Services" [ref=e23] [cursor=pointer]:
+              - /url: /services
+      - region "Supported systems" [ref=e24]:
+        - listitem [ref=e25]:
+          - img "EcuMaster" [ref=e26]
+        - listitem [ref=e27]:
+          - img "Haltech" [ref=e28]
+        - listitem [ref=e29]:
+          - img "Holley EFI" [ref=e30]
+        - listitem [ref=e31]:
+          - img "Hondata" [ref=e32]
+        - listitem [ref=e33]:
+          - img "HP Tuners" [ref=e34]
+        - listitem [ref=e35]:
+          - img "MegaSquirt" [ref=e36]
+        - listitem [ref=e37]:
+          - img "MoTeC" [ref=e38]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - paragraph [ref=e42]: Recognition
+          - heading "Proof carried in experience, coverage, and process discipline." [level=2] [ref=e43]
+        - generic [ref=e44]:
+          - article [ref=e45]:
+            - generic [ref=e46]: Legacy
+            - strong [ref=e47]: 17+ Years
+            - paragraph [ref=e48]: Independent calibration work built on customer cars, competition pressure, and repeat clients.
+          - article [ref=e49]:
+            - generic [ref=e50]: Coverage
+            - strong [ref=e51]: Dyno + Remote
+            - paragraph [ref=e52]: Local live tuning and disciplined remote revision work for supported combinations.
+          - article [ref=e53]:
+            - generic [ref=e54]: Priority
+            - strong [ref=e55]: Qualified Intake
+            - paragraph [ref=e56]: Serious projects route to direct contact before scheduling.
+      - generic [ref=e57]:
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: Service Paths
+            - heading "Choose the right lane before the schedule gets involved." [level=2] [ref=e61]
+            - paragraph [ref=e62]: The site should route serious projects into dyno, remote, or project review without burying the decision under filler copy.
+          - link "View Services >" [ref=e63] [cursor=pointer]:
+            - /url: /services
+        - generic [ref=e64]:
+          - article [ref=e65]:
+            - generic [ref=e66]:
+              - paragraph [ref=e67]: "01"
+              - paragraph [ref=e68]: In-Person
+              - heading "Dyno Tuning" [level=3] [ref=e69]
+              - paragraph [ref=e70]: Tuned at the Auburn shop under real load. You're there for the pulls.
+            - list [ref=e71]:
+              - listitem [ref=e72]: Auburn, WA
+              - listitem [ref=e73]: Half or full day
+              - listitem [ref=e74]: $200 deposit to book
+            - link "Book Dyno Session >" [ref=e75] [cursor=pointer]:
+              - /url: /book
+          - article [ref=e76]:
+            - generic [ref=e77]:
+              - paragraph [ref=e78]: "02"
+              - paragraph [ref=e79]: Remote
+              - heading "Remote E-Tune" [level=3] [ref=e80]
+              - paragraph [ref=e81]: Tuned from your datalogs. Revisions until it's clean.
+            - list [ref=e82]:
+              - listitem [ref=e83]: Nationwide
+              - listitem [ref=e84]: Requires datalogging
+              - listitem [ref=e85]: Typically 5-17 rounds
+            - link "Start E-Tune >" [ref=e86] [cursor=pointer]:
+              - /url: /book
+          - article [ref=e87]:
+            - generic [ref=e88]:
+              - paragraph [ref=e89]: "03"
+              - paragraph [ref=e90]: Free
+              - heading "Project Review" [level=3] [ref=e91]
+              - paragraph [ref=e92]: Not sure what fits? Send the build details, we'll tell you the next step.
+            - list [ref=e93]:
+              - listitem [ref=e94]: Response in 24-48 hours
+              - listitem [ref=e95]: Good for complex builds
+            - link "Submit for Review >" [ref=e96] [cursor=pointer]:
+              - /url: /book
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - paragraph [ref=e100]: Legacy
+          - heading "Independent shop discipline built from real race and street work." [level=2] [ref=e101]
+          - paragraph [ref=e102]: Seventeen-plus years of EFI calibration, Speed Factory Racing experience, and a methodical approach centered on drivability, data, and controlled power delivery.
+          - link "Read More >" [ref=e103] [cursor=pointer]:
+            - /url: /about
+        - generic [ref=e104]:
+          - article [ref=e105]:
+            - generic [ref=e106]: 01 / Legacy
+            - paragraph [ref=e107]: Started tuning in Florida before stepping into high-pressure Honda drag programs in Tacoma.
+          - article [ref=e108]:
+            - generic [ref=e109]: 02 / Legacy
+            - paragraph [ref=e110]: Built around direct customer work instead of volume-shop churn or generic tune files.
+          - article [ref=e111]:
+            - generic [ref=e112]: 03 / Legacy
+            - paragraph [ref=e113]: Best fit for owners who care about process, communication, and real-world behavior.
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - generic [ref=e116]:
+            - paragraph [ref=e117]: Featured Builds
+            - heading "Featured Builds" [level=2] [ref=e118]
+          - link "View All Builds >" [ref=e119] [cursor=pointer]:
+            - /url: /builds
+        - generic [ref=e120]:
+          - article [ref=e121]:
+            - generic [ref=e122]:
+              - img "2018 Civic Si - Turbo E85" [ref=e123]
+              - generic [ref=e124]: Build 01
+            - generic [ref=e125]:
+              - heading "2018 Civic Si - Turbo E85" [level=3] [ref=e126]
+              - paragraph [ref=e127]: KTuner · 380 WHP
+          - article [ref=e128]:
+            - generic [ref=e129]:
+              - img "2014 Mustang GT - Bolt-ons" [ref=e130]
+              - generic [ref=e131]: Build 02
+            - generic [ref=e132]:
+              - heading "2014 Mustang GT - Bolt-ons" [level=3] [ref=e133]
+              - paragraph [ref=e134]: HP Tuners · 445 WHP
+          - article [ref=e135]:
+            - generic [ref=e136]:
+              - img "K-Swap EG Hatch - All Motor" [ref=e137]
+              - generic [ref=e138]: Build 03
+            - generic [ref=e139]:
+              - heading "K-Swap EG Hatch - All Motor" [level=3] [ref=e140]
+              - paragraph [ref=e141]: Hondata · 240 WHP
+      - generic [ref=e142]:
+        - generic [ref=e143]:
+          - generic [ref=e144]:
+            - paragraph [ref=e145]: Shop Preview
+            - heading "Shop" [level=2] [ref=e146]
+            - paragraph [ref=e147]: Merch and a curated selection of parts we actually use.
+          - link "View Shop >" [ref=e148] [cursor=pointer]:
+            - /url: /shop
+        - generic [ref=e149]:
+          - article [ref=e150]:
+            - img "Merch" [ref=e152]
+            - generic [ref=e153]:
+              - heading "Merch" [level=3] [ref=e154]
+              - paragraph [ref=e155]: Apparel, stickers, and branded goods.
+              - link "Shop Merch >" [ref=e156] [cursor=pointer]:
+                - /url: /shop/merch
+          - article [ref=e157]:
+            - img "Haltech" [ref=e159]
+            - generic [ref=e160]:
+              - heading "Haltech" [level=3] [ref=e161]
+              - paragraph [ref=e162]: Curated ECUs and accessories we trust.
+              - link "View Haltech >" [ref=e163] [cursor=pointer]:
+                - /url: /shop/haltech
+      - generic [ref=e164]:
+        - generic [ref=e165]:
+          - paragraph [ref=e166]: Start The Conversation
+          - heading "TELL US WHAT YOU'RE BUILDING." [level=2] [ref=e167]
+          - paragraph [ref=e168]: The build, the platform, and what you want out of it. We'll take it from there.
+          - generic [ref=e169]:
+            - link "Start Your Project" [ref=e170] [cursor=pointer]:
+              - /url: /book
+            - link "Contact TurboGixxer" [ref=e171] [cursor=pointer]:
+              - /url: /contact
+        - generic [ref=e172]:
+          - article [ref=e173]:
+            - generic [ref=e174]: Location
+            - strong [ref=e175]: Auburn, Washington
+          - article [ref=e176]:
+            - generic [ref=e177]: Response time
+            - strong [ref=e178]: Usually 24-48 hours
+    - contentinfo [ref=e179]:
+      - generic [ref=e180]:
+        - paragraph [ref=e181]: TurboGixxer Tuning
+        - paragraph [ref=e182]: EFI calibration for street, strip, and circuit. Auburn, WA.
+      - navigation "Footer" [ref=e183]:
+        - link "About" [ref=e184] [cursor=pointer]:
+          - /url: /about
+        - link "Services" [ref=e185] [cursor=pointer]:
+          - /url: /services
+        - link "Builds" [ref=e186] [cursor=pointer]:
+          - /url: /builds
+        - link "Shop" [ref=e187] [cursor=pointer]:
+          - /url: /shop
+        - link "Contact" [ref=e188] [cursor=pointer]:
+          - /url: /contact
+        - link "Book" [ref=e189] [cursor=pointer]:
+          - /url: /book
+  - button "Open Next.js Dev Tools" [ref=e195] [cursor=pointer]:
+    - img [ref=e196]
+  - alert [ref=e199]

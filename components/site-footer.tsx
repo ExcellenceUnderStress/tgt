@@ -6,7 +6,6 @@ const footerLinks = [
   { href: "/builds", label: "Builds" },
   { href: "/shop", label: "Shop" },
   { href: "/contact", label: "Contact" },
-  { href: "/book", label: "Book" },
 ];
 
 export function SiteFooter() {

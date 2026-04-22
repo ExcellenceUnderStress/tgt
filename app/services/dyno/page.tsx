@@ -1,6 +1,14 @@
+import { Callout } from "@/components/callout";
+import { ChecklistGrid } from "@/components/checklist-grid";
+import { DetailRail } from "@/components/detail-rail";
+import { FinalCta } from "@/components/final-cta";
 import { RouteIntro } from "@/components/route-intro";
+import { SectionBar } from "@/components/section-bar";
+import { SectionHeading } from "@/components/section-heading";
+import { SplitPanels } from "@/components/split-panels";
+import { StatGrid } from "@/components/stat-grid";
+import { Timeline } from "@/components/timeline";
 import { routeHeroes, serviceDetailPages } from "@/lib/site-content";
-import Link from "next/link";
 
 export default function DynoPage() {
   const page = serviceDetailPages.dyno;
@@ -9,32 +17,22 @@ export default function DynoPage() {
     <>
       <RouteIntro hero={routeHeroes.dyno} />
 
+      {/* ── Intro + Callout ── */}
       <section className="route-section service-detail-shell">
         <div className="service-detail-lead">
-          <div className="section-heading">
-            <p className="section-kicker">{page.laneLabel}</p>
-            <h2>Built for combinations that need live control under load.</h2>
+          <SectionHeading kicker={page.laneLabel} title="Built for combinations that need live control under load.">
             <p>{page.intro}</p>
-          </div>
-
-          <aside className="service-callout">
-            <p className="booking-mini-label">Review First</p>
-            <p>{page.callout}</p>
-          </aside>
+          </SectionHeading>
+          <Callout label="Review First">{page.callout}</Callout>
         </div>
       </section>
 
+      {/* ── Stats ── */}
       <section className="route-section">
-        <div className="service-stat-grid">
-          {page.stats.map((stat) => (
-            <article className="service-stat" key={stat.label}>
-              <span>{stat.label}</span>
-              <strong>{stat.value}</strong>
-            </article>
-          ))}
-        </div>
+        <StatGrid stats={page.stats} />
       </section>
 
+      {/* ── Fit + Goal ── */}
       <section className="route-section service-detail-columns">
         <div>
           <p className="section-kicker">Good Fit</p>
@@ -45,88 +43,43 @@ export default function DynoPage() {
             ))}
           </ul>
         </div>
-
-        <div className="service-detail-rail">
-          <p className="booking-mini-label">Primary goal</p>
-          <h3>Refine drivability, response, and usable power in one controlled session.</h3>
-          <p>
-            The value of dyno tuning is not only what the graph says. It is the ability to inspect
-            the combination live and resolve the issues that would otherwise waste revision time.
-          </p>
-        </div>
+        <DetailRail
+          label="Primary goal"
+          title="Refine drivability, response, and usable power in one controlled session."
+          body="The value of dyno tuning is not only what the graph says. It is the ability to inspect the combination live and resolve the issues that would otherwise waste revision time."
+        />
       </section>
 
+      {/* ── Prep Checklist ── */}
       <section className="route-section">
-        <div className="home-section-bar">
-          <div className="section-heading">
-            <p className="section-kicker">Prep Requirements</p>
-            <h2>Arrive with the right baseline.</h2>
+        <SectionBar linkHref="/contact" linkLabel="Start Intake">
+          <SectionHeading kicker="Prep Requirements" title="Arrive with the right baseline.">
             <p>
               The site should make it clear that dyno time is reserved for combinations that are
               close enough to benefit from live refinement.
             </p>
-          </div>
-
-          <Link className="section-link" href="/book">
-            Start Intake
-          </Link>
-        </div>
-
-        <div className="service-checklist-grid">
-          {page.prepChecklist.map((group) => (
-            <article className="service-checklist" key={group.title}>
-              <p className="booking-mini-label">{group.title}</p>
-              <ul className="service-preview-list">
-                {group.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+          </SectionHeading>
+        </SectionBar>
+        <ChecklistGrid groups={page.prepChecklist} />
       </section>
 
+      {/* ── Process ── */}
       <section className="route-section">
-        <div className="section-heading">
-          <p className="section-kicker">Process</p>
-          <h2>Qualification first. Schedule second.</h2>
-        </div>
-
-        <div className="service-timeline">
-          {page.process.map((step) => (
-            <article className="service-timeline-step" key={step.title}>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </article>
-          ))}
-        </div>
+        <SectionHeading kicker="Process" title="Qualification first. Schedule second." />
+        <Timeline steps={page.process} />
       </section>
 
-      <section className="route-section route-section-split">
-        {page.expectations.map((item) => (
-          <div className="route-section-panel" key={item.title}>
-            <p className="section-kicker">Expectation</p>
-            <h2>{item.title}</h2>
-            <p>{item.body}</p>
-          </div>
-        ))}
-      </section>
+      {/* ── Expectations ── */}
+      <SplitPanels kicker="Expectation" items={page.expectations} />
 
-      <section className="route-section final-cta-panel">
-        <div className="final-cta-copy">
-          <p className="section-kicker">Next Step</p>
-          <h2>{page.finalCta.title}</h2>
-          <p>{page.finalCta.summary}</p>
-          <div className="cta-row">
-            <Link className="button-primary" href={page.finalCta.primaryCta.href}>
-              {page.finalCta.primaryCta.label}
-            </Link>
-            <Link className="button-secondary" href={page.finalCta.secondaryCta.href}>
-              {page.finalCta.secondaryCta.label}
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ── Final CTA ── */}
+      <FinalCta
+        kicker="Next Step"
+        title={page.finalCta.title}
+        summary={page.finalCta.summary}
+        primaryCta={page.finalCta.primaryCta}
+        secondaryCta={page.finalCta.secondaryCta}
+      />
     </>
   );
 }

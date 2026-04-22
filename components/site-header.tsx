@@ -2,19 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { primaryNavigation } from "@/lib/site-content";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemedImage } from "@/components/themed-image";
 
 export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="brand-mark" href="/">
         <span className="brand-logo brand-logo-desktop" aria-hidden="true">
-          <Image
-            src="/images/logo/1x/desktop-logo-color.png"
+          <ThemedImage
             alt=""
-            width={351}
+            darkSrc="/images/logo/1x/desktop-logo-white.png"
             height={76}
+            lightSrc="/images/logo/1x/desktop-logo-color.png"
             priority
+            width={351}
           />
         </span>
         <span className="brand-logo brand-logo-compact" aria-hidden="true">
@@ -28,17 +29,13 @@ export function SiteHeader() {
         </span>
       </Link>
 
-      <div className="site-header-controls">
-        <nav aria-label="Primary" className="site-nav">
-          {primaryNavigation.map((item) => (
-            <Link key={item.href} className="site-nav-link" href={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <ThemeToggle />
-      </div>
+      <nav aria-label="Primary" className="site-nav">
+        {primaryNavigation.map((item) => (
+          <Link key={item.href} className="site-nav-link" href={item.href}>
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }

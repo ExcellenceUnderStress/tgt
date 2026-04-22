@@ -7,7 +7,27 @@ html {
   --site-bg-mid: var(--tg-color-gray-100);
   --site-bg-end: var(--tg-color-gray-25);
   --site-ink: var(--tg-color-gray-950);
+  --site-heading: var(--tg-color-gray-900);
   --site-body-copy: var(--tg-color-gray-700);
+  --site-muted-copy: var(--tg-color-gray-600);
+  --site-subtle-copy: var(--tg-color-gray-500);
+  --site-border-soft: color-mix(in srgb, var(--site-ink) 10%, transparent);
+  --site-border-medium: color-mix(in srgb, var(--site-ink) 14%, transparent);
+  --site-surface-soft: color-mix(in srgb, var(--site-ink) 3%, transparent);
+  --site-surface-panel: color-mix(in srgb, var(--site-ink) 4%, transparent);
+  --site-surface-strong: color-mix(in srgb, var(--site-ink) 6%, transparent);
+  --site-surface-gradient:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--site-ink) 5%, transparent),
+      color-mix(in srgb, var(--site-ink) 2%, transparent)
+    );
+  --site-surface-gradient-angled:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--site-ink) 6%, transparent),
+      color-mix(in srgb, var(--site-ink) 2%, transparent)
+    );
   --site-header-bg: color-mix(in srgb, var(--tg-color-gray-25) 78%, transparent);
   --site-header-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
   --site-header-shadow: 0 1rem 2.5rem rgba(10, 13, 18, 0.08);
@@ -27,10 +47,17 @@ html {
   --site-brand-strip-border: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
   --site-brand-item-bg: color-mix(in srgb, var(--tg-color-gray-25) 3%, transparent);
   --site-brand-item-line: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
-  --site-brand-logo-filter: grayscale(1) brightness(0.95);
-  --site-toggle-bg: color-mix(in srgb, var(--site-ink) 4%, transparent);
-  --site-toggle-border: color-mix(in srgb, var(--site-ink) 14%, transparent);
-  --site-toggle-label: var(--tg-color-gray-500);
+  --site-brand-logo-filter: grayscale(1) invert(1) brightness(0.28) contrast(1.12);
+  --site-shop-logo-filter: grayscale(1) invert(1) brightness(0.24) contrast(1.08);
+  --site-media-panel-bg:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-400) 18%, transparent), transparent 35%),
+    linear-gradient(135deg, color-mix(in srgb, var(--tg-color-gray-300) 64%, white), var(--tg-color-gray-50));
+  --site-media-panel-overlay:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(24, 29, 39, 0.18));
+  --site-media-panel-label: var(--tg-color-gray-700);
+  --site-service-backdrop:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent 40%),
+    linear-gradient(180deg, transparent 10%, rgba(24, 29, 39, 0.12));
   --tg-color-base-white: var(--site-ink);
   --tg-color-base-black: var(--tg-color-gray-950);
   background: var(--site-bg-end);
@@ -42,7 +69,27 @@ html[data-color-mode="dark"] {
   --site-bg-mid: color-mix(in srgb, var(--tg-color-gray-950) 92%, black);
   --site-bg-end: var(--tg-color-gray-950);
   --site-ink: var(--tg-color-gray-25);
+  --site-heading: var(--tg-color-gray-25);
   --site-body-copy: var(--tg-color-gray-300);
+  --site-muted-copy: var(--tg-color-gray-400);
+  --site-subtle-copy: var(--tg-color-gray-500);
+  --site-border-soft: color-mix(in srgb, var(--site-ink) 10%, transparent);
+  --site-border-medium: color-mix(in srgb, var(--site-ink) 14%, transparent);
+  --site-surface-soft: color-mix(in srgb, var(--site-ink) 3%, transparent);
+  --site-surface-panel: color-mix(in srgb, var(--site-ink) 4%, transparent);
+  --site-surface-strong: color-mix(in srgb, var(--site-ink) 6%, transparent);
+  --site-surface-gradient:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--site-ink) 5%, transparent),
+      color-mix(in srgb, var(--site-ink) 2%, transparent)
+    );
+  --site-surface-gradient-angled:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--site-ink) 6%, transparent),
+      color-mix(in srgb, var(--site-ink) 2%, transparent)
+    );
   --site-header-bg: color-mix(in srgb, var(--tg-color-gray-950) 64%, transparent);
   --site-header-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
   --site-header-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.16);
@@ -63,9 +110,16 @@ html[data-color-mode="dark"] {
   --site-brand-item-bg: color-mix(in srgb, var(--site-ink) 2%, transparent);
   --site-brand-item-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
   --site-brand-logo-filter: grayscale(1) brightness(0.95);
-  --site-toggle-bg: color-mix(in srgb, var(--site-ink) 4%, transparent);
-  --site-toggle-border: color-mix(in srgb, var(--site-ink) 14%, transparent);
-  --site-toggle-label: var(--tg-color-gray-500);
+  --site-shop-logo-filter: none;
+  --site-media-panel-bg:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 30%, transparent), transparent 35%),
+    linear-gradient(135deg, color-mix(in srgb, var(--tg-color-gray-700) 70%, black), var(--tg-color-gray-950));
+  --site-media-panel-overlay:
+    linear-gradient(180deg, rgba(7, 10, 13, 0.06), rgba(7, 10, 13, 0.72));
+  --site-media-panel-label: var(--tg-color-gray-300);
+  --site-service-backdrop:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent 40%),
+    linear-gradient(180deg, transparent 10%, rgba(0, 0, 0, 0.26));
 }
 
 body {
@@ -151,6 +205,18 @@ h3 {
   height: auto;
 }
 
+.theme-image-dark {
+  display: none;
+}
+
+html[data-color-mode="dark"] .theme-image-light {
+  display: none;
+}
+
+html[data-color-mode="dark"] .theme-image-dark {
+  display: block;
+}
+
 .brand-logo-desktop {
   display: block;
   width: clamp(12rem, 18vw, 16rem);
@@ -167,14 +233,6 @@ h3 {
   justify-content: flex-end;
   align-items: center;
   gap: clamp(0.4rem, 1vw, 1rem);
-  min-width: 0;
-}
-
-.site-header-controls {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: clamp(0.6rem, 1.2vw, 1rem);
   min-width: 0;
 }
 
@@ -204,52 +262,6 @@ h3 {
 .site-nav-link:last-child {
   border: 1px solid color-mix(in srgb, var(--tg-color-brand-500) 40%, transparent);
   background: color-mix(in srgb, var(--tg-color-brand-500) 14%, transparent);
-}
-
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.75rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-}
-
-.theme-toggle-track {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  min-height: 2.75rem;
-  padding: 0 0.95rem;
-  border: 1px solid var(--site-toggle-border);
-  border-radius: 999px;
-  background: var(--site-toggle-bg);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease;
-}
-
-.theme-toggle:hover .theme-toggle-track,
-.theme-toggle:focus-visible .theme-toggle-track {
-  transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--tg-color-brand-500) 30%, var(--site-toggle-border));
-}
-
-.theme-toggle-label {
-  color: var(--site-toggle-label);
-  font-size: 0.68rem;
-}
-
-.theme-toggle-value {
-  color: var(--site-ink);
-  font-size: 0.72rem;
-  font-weight: 600;
 }
 
 .hero {
@@ -412,6 +424,7 @@ h3 {
 
 h1 {
   margin: 0;
+  color: var(--site-heading);
   font-size: clamp(4rem, 11vw, 8.5rem);
   line-height: 0.92;
   text-transform: uppercase;
@@ -419,6 +432,7 @@ h1 {
 
 h2 {
   margin: 0;
+  color: var(--site-heading);
   font-size: clamp(2.2rem, 5vw, 4rem);
   line-height: 0.96;
   text-transform: uppercase;
@@ -426,6 +440,7 @@ h2 {
 
 h3 {
   margin: 0;
+  color: var(--site-heading);
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   text-transform: uppercase;
 }
@@ -451,7 +466,7 @@ li {
   margin-top: var(--tg-space-6);
   padding: var(--tg-space-4) var(--tg-space-5);
   border-left: 1px solid color-mix(in srgb, var(--tg-color-brand-500) 55%, transparent);
-  background: color-mix(in srgb, var(--tg-color-base-white) 3%, transparent);
+  background: var(--site-surface-soft);
 }
 
 .hero-memory-note span {
@@ -533,7 +548,7 @@ li {
 
 .recognition-item span {
   display: block;
-  color: var(--tg-color-gray-500);
+  color: var(--site-subtle-copy);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -560,8 +575,8 @@ li {
 .page-placeholder {
   margin-top: var(--tg-space-8);
   padding: var(--tg-space-8);
-  background: color-mix(in srgb, var(--tg-color-base-white) 6%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  background: var(--site-surface-strong);
+  border: 1px solid var(--site-border-soft);
   border-radius: 1.25rem;
 }
 
@@ -616,9 +631,9 @@ li {
   justify-content: center;
   min-height: 3rem;
   padding: 0 var(--tg-space-5);
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 14%, transparent);
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, transparent);
-  color: var(--tg-color-base-white);
+  border: 1px solid var(--site-border-medium);
+  background: var(--site-surface-panel);
+  color: var(--site-heading);
   font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -640,8 +655,8 @@ li {
 .pricing-support-card,
 .pricing-policy-panel {
   padding: var(--tg-space-6);
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, transparent);
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  background: var(--site-surface-panel);
+  border-top: 1px solid var(--site-border-soft);
 }
 
 .pricing-card {
@@ -688,7 +703,7 @@ li {
 
 .pricing-row strong,
 .pricing-addon-row strong {
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: 1.1rem;
   line-height: 1.4;
 }
@@ -699,7 +714,7 @@ li {
 }
 
 .pricing-row > span {
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-family: var(--font-display, "Bebas Neue", sans-serif);
   font-size: clamp(1.7rem, 2.5vw, 2.4rem);
   letter-spacing: 0.04em;
@@ -711,7 +726,7 @@ li {
 .pricing-card-footer {
   padding-top: var(--tg-space-4);
   border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
 }
 
 .pricing-support-grid {
@@ -725,7 +740,7 @@ li {
 }
 
 .pricing-support-card strong {
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-family: var(--font-display, "Bebas Neue", sans-serif);
   font-size: clamp(2.8rem, 5vw, 4.25rem);
   line-height: 0.9;
@@ -734,7 +749,7 @@ li {
 }
 
 .pricing-support-subtitle {
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
 }
 
 .pricing-policy-panel {
@@ -769,13 +784,8 @@ li {
   position: relative;
   overflow: hidden;
   padding: var(--tg-space-6);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--tg-color-base-white) 5%, transparent),
-      color-mix(in srgb, var(--tg-color-base-white) 2%, transparent)
-    );
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  background: var(--site-surface-gradient);
+  border-top: 1px solid var(--site-border-soft);
 }
 
 .service-callout::before,
@@ -810,7 +820,7 @@ li {
 
 .service-stat span {
   display: block;
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
   font-size: 0.82rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -819,7 +829,7 @@ li {
 .service-stat strong {
   display: block;
   margin-top: var(--tg-space-4);
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: clamp(1.6rem, 2.5vw, 2.5rem);
   line-height: 1.15;
   text-transform: uppercase;
@@ -858,8 +868,8 @@ li {
 .fit-check-card,
 .route-section-panel {
   padding: var(--tg-space-6);
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, transparent);
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  background: var(--site-surface-panel);
+  border-top: 1px solid var(--site-border-soft);
 }
 
 .service-compare-card {
@@ -933,7 +943,7 @@ li {
 }
 
 .statement-detail {
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
   font-size: 0.98rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -970,13 +980,8 @@ li {
   position: relative;
   overflow: hidden;
   padding: var(--tg-space-6);
-  background:
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--tg-color-base-white) 6%, transparent),
-      color-mix(in srgb, var(--tg-color-base-white) 2%, transparent)
-    );
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  background: var(--site-surface-gradient-angled);
+  border-top: 1px solid var(--site-border-soft);
 }
 
 .telemetry-card::before,
@@ -992,7 +997,7 @@ li {
 .telemetry-card span,
 .legacy-stat span {
   display: block;
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
   font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -1002,7 +1007,7 @@ li {
 .legacy-stat strong {
   display: block;
   margin-top: var(--tg-space-4);
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-family: var(--font-display, "Bebas Neue", sans-serif);
   font-size: clamp(2.8rem, 6vw, 5rem);
   line-height: 0.88;
@@ -1012,6 +1017,19 @@ li {
 
 .telemetry-card p {
   max-width: 34rem;
+}
+
+.telemetry-card-list {
+  display: grid;
+  gap: var(--tg-space-3);
+  margin: var(--tg-space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.telemetry-card-list li {
+  padding-top: var(--tg-space-3);
+  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
 }
 
 .legacy-layout {
@@ -1046,13 +1064,8 @@ li {
   gap: var(--tg-space-6);
   min-height: 26rem;
   padding: var(--tg-space-6);
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--tg-color-base-white) 4%, transparent),
-      color-mix(in srgb, var(--tg-color-base-white) 2%, transparent)
-    );
+  border-top: 1px solid var(--site-border-soft);
+  background: var(--site-surface-gradient);
   transition:
     transform 240ms ease,
     border-color 240ms ease,
@@ -1062,9 +1075,7 @@ li {
 .service-preview-backdrop {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent 40%),
-    linear-gradient(180deg, transparent 10%, rgba(0, 0, 0, 0.26));
+  background: var(--site-service-backdrop);
   opacity: 0.65;
   transition: opacity 240ms ease;
   pointer-events: none;
@@ -1107,7 +1118,7 @@ li {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: 0.88rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1131,7 +1142,7 @@ li {
 
 .build-preview {
   min-height: 26rem;
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, transparent);
+  background: var(--site-surface-panel);
   transition: transform 240ms ease, background-color 240ms ease;
 }
 
@@ -1139,9 +1150,7 @@ li {
 .shop-lane-media {
   position: relative;
   min-height: 14rem;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 30%, transparent), transparent 35%),
-    linear-gradient(135deg, color-mix(in srgb, var(--tg-color-gray-700) 70%, black), var(--tg-color-gray-950));
+  background: var(--site-media-panel-bg);
 }
 
 .build-preview-media {
@@ -1154,13 +1163,13 @@ li {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(7, 10, 13, 0.06), rgba(7, 10, 13, 0.72));
+  background: var(--site-media-panel-overlay);
 }
 
 .build-preview-media span {
   position: relative;
   z-index: 1;
-  color: var(--tg-color-gray-300);
+  color: var(--site-media-panel-label);
   font-size: 0.82rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1194,7 +1203,7 @@ li {
 .build-preview:focus-within,
 .shop-lane:hover,
 .shop-lane:focus-within {
-  background: color-mix(in srgb, var(--tg-color-base-white) 6%, transparent);
+  background: var(--site-surface-strong);
 }
 
 .shop-lane-grid {
@@ -1203,7 +1212,7 @@ li {
 }
 
 .shop-lane {
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, transparent);
+  background: var(--site-surface-panel);
   transition: transform 240ms ease, background-color 240ms ease;
 }
 
@@ -1219,13 +1228,15 @@ li {
   padding: var(--tg-space-8);
 }
 
+.shop-lane-image--brandmark {
+  filter: var(--site-shop-logo-filter);
+}
+
 .shop-lane-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 14%, transparent), transparent 30%),
-    linear-gradient(180deg, rgba(7, 10, 13, 0.08), rgba(7, 10, 13, 0.36));
+  background: var(--site-media-panel-overlay);
 }
 
 .brand-rail {
@@ -1286,18 +1297,18 @@ li {
   gap: var(--tg-space-2);
   padding-top: var(--tg-space-4);
   min-height: 100%;
-  background: color-mix(in srgb, var(--tg-color-base-white) 3%, transparent);
+  background: var(--site-surface-soft);
 }
 
 .final-cta-detail span {
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
   font-size: 0.82rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .final-cta-detail strong {
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: 1.1rem;
   line-height: 1.5;
 }
@@ -1312,8 +1323,8 @@ li {
 .booking-intake-card,
 .booking-next-card {
   padding: var(--tg-space-6);
-  background: color-mix(in srgb, var(--tg-color-base-white) 6%, transparent);
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  background: var(--site-surface-strong);
+  border: 1px solid var(--site-border-soft);
   border-radius: 1.25rem;
 }
 
@@ -1363,19 +1374,19 @@ li {
   display: grid;
   gap: var(--tg-space-2);
   padding: var(--tg-space-4);
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
-  background: color-mix(in srgb, var(--tg-color-base-white) 2%, transparent);
+  border-top: 1px solid var(--site-border-soft);
+  background: var(--site-surface-soft);
 }
 
 .booking-progress-step span {
-  color: var(--tg-color-gray-400);
+  color: var(--site-muted-copy);
   font-size: 0.82rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .booking-progress-step strong {
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1418,7 +1429,7 @@ li {
 .booking-label,
 .footer-label {
   margin: 0 0 var(--tg-space-3);
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -1449,7 +1460,7 @@ li {
 }
 
 .booking-field-label {
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -1458,10 +1469,10 @@ li {
 .booking-input {
   width: 100%;
   min-height: 3.25rem;
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  border: 1px solid var(--site-border-soft);
   border-radius: 0.9rem;
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, transparent);
-  color: var(--tg-color-base-white);
+  background: var(--site-surface-panel);
+  color: var(--site-heading);
   padding: 0 var(--tg-space-4);
   font: inherit;
 }
@@ -1485,9 +1496,9 @@ li {
 .booking-submit-bar,
 .booking-success-state {
   padding: var(--tg-space-6);
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  border: 1px solid var(--site-border-soft);
   border-radius: 1.25rem;
-  background: color-mix(in srgb, var(--tg-color-base-white) 5%, transparent);
+  background: var(--site-surface-gradient);
 }
 
 .booking-path-summary strong {
@@ -1524,7 +1535,7 @@ li {
   margin-top: var(--tg-space-4);
   padding-top: var(--tg-space-4);
   border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
-  color: var(--tg-color-base-white);
+  color: var(--site-heading);
 }
 
 .booking-next-grid-single {
@@ -1551,6 +1562,7 @@ li {
 .footer-copy {
   max-width: 28rem;
   margin: 0;
+  color: var(--site-muted-copy);
 }
 
 .footer-nav {
@@ -1559,6 +1571,505 @@ li {
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+}
+
+/* ─── Intake Form ─── */
+
+.intake-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--tg-space-10) var(--tg-space-5) var(--tg-space-16);
+}
+
+.intake-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tg-space-4);
+  margin-bottom: var(--tg-space-8);
+}
+
+.intake-header h1 {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 0.96;
+}
+
+.intake-step-counter {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tg-space-2);
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--site-muted-copy);
+}
+
+.intake-step-counter strong {
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--site-heading);
+}
+
+/* ── Progress ── */
+
+.intake-progress {
+  margin-bottom: var(--tg-space-8);
+}
+
+.intake-progress-bar {
+  height: 2px;
+  background: var(--site-border-soft);
+  margin-bottom: var(--tg-space-5);
+}
+
+.intake-progress-fill {
+  height: 100%;
+  background: var(--tg-color-brand-500);
+  transition: width 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.intake-markers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tg-space-4);
+}
+
+.intake-marker {
+  display: flex;
+  align-items: center;
+  gap: var(--tg-space-2);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--site-subtle-copy);
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: default;
+  transition: color 250ms ease;
+}
+
+.intake-marker svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.intake-marker-num {
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.intake-marker.is-active {
+  color: var(--site-heading);
+}
+
+.intake-marker.is-complete {
+  color: var(--tg-color-brand-500);
+  cursor: pointer;
+}
+
+.intake-marker.is-complete:hover {
+  color: var(--tg-color-brand-400);
+}
+
+/* ── Form Card ── */
+
+.intake-card {
+  border: 1px solid var(--site-border-medium);
+  background: var(--site-surface-panel);
+}
+
+.intake-card-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--tg-space-3) var(--tg-space-5);
+  border-bottom: 1px solid var(--site-border-soft);
+  color: var(--site-muted-copy);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.intake-card-body {
+  min-height: 440px;
+  overflow: hidden;
+  position: relative;
+}
+
+.intake-step-track {
+  display: flex;
+  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.intake-step {
+  min-width: 100%;
+  flex-shrink: 0;
+  padding: var(--tg-space-6) var(--tg-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tg-space-5);
+}
+
+/* ── Fields ── */
+
+.intake-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tg-space-4);
+}
+
+.intake-row-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.intake-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tg-space-1-5);
+}
+
+.intake-field-label {
+  color: var(--site-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.intake-input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 var(--tg-space-4);
+  border: 1px solid var(--site-border-soft);
+  background: transparent;
+  color: var(--site-heading);
+  font: inherit;
+  font-size: 0.95rem;
+  transition: border-color 180ms ease;
+}
+
+.intake-input:focus {
+  outline: none;
+  border-color: var(--tg-color-brand-500);
+}
+
+.intake-input::placeholder {
+  color: var(--site-subtle-copy);
+}
+
+select.intake-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23717680' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--tg-space-4) center;
+  padding-right: var(--tg-space-8);
+}
+
+.intake-textarea {
+  min-height: 6rem;
+  padding: var(--tg-space-3) var(--tg-space-4);
+  resize: vertical;
+}
+
+/* ── Radio Grid ── */
+
+.intake-radio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tg-space-3);
+}
+
+.intake-radio-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.intake-radio-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: var(--tg-space-2) var(--tg-space-3);
+  border: 1px solid var(--site-border-soft);
+  background: transparent;
+  color: var(--site-body-copy);
+  font: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.intake-radio-btn:hover {
+  border-color: var(--site-border-medium);
+  background: var(--site-surface-soft);
+}
+
+.intake-radio-btn.is-selected {
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 50%, transparent);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 12%, transparent);
+  color: var(--site-heading);
+}
+
+/* ── Review Box ── */
+
+.intake-review {
+  padding: var(--tg-space-5);
+  border: 1px solid var(--site-border-soft);
+  background: var(--site-surface-soft);
+}
+
+.intake-review-title {
+  display: block;
+  margin-bottom: var(--tg-space-4);
+  color: var(--site-muted-copy);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.intake-review-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--tg-space-4);
+  padding: var(--tg-space-2) 0;
+  border-top: 1px solid color-mix(in srgb, var(--site-ink) 6%, transparent);
+}
+
+.intake-review-row:first-of-type {
+  border-top: 0;
+}
+
+.intake-review-label {
+  color: var(--site-muted-copy);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.intake-review-value {
+  color: var(--site-heading);
+  font-size: 0.92rem;
+  text-align: right;
+}
+
+/* ── Card Footer ── */
+
+.intake-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--tg-space-4) var(--tg-space-5);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.intake-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tg-space-1);
+  padding: var(--tg-space-2) var(--tg-space-3);
+  border: 0;
+  background: none;
+  color: var(--site-muted-copy);
+  font: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.intake-back:hover:not(:disabled) {
+  color: var(--site-heading);
+}
+
+.intake-back:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.intake-continue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.85rem;
+  min-width: 9rem;
+  padding: 0 var(--tg-space-5);
+  border: 1px solid var(--site-border-soft);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 14%, transparent);
+  color: var(--site-muted-copy);
+  font: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: default;
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    border-color 250ms ease,
+    transform 180ms ease;
+}
+
+.intake-continue.is-valid {
+  background: var(--tg-color-brand-500);
+  border-color: var(--tg-color-brand-500);
+  color: var(--tg-color-base-black);
+  cursor: pointer;
+}
+
+.intake-continue.is-valid:hover {
+  transform: translateY(-2px);
+}
+
+.intake-continue:disabled {
+  cursor: wait;
+}
+
+/* ── Spinner ── */
+
+.intake-spinner {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid color-mix(in srgb, var(--site-heading) 25%, transparent);
+  border-top-color: var(--site-heading);
+  border-radius: 50%;
+  animation: intake-spin 0.65s linear infinite;
+}
+
+@keyframes intake-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Success State ── */
+
+.intake-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 440px;
+  padding: var(--tg-space-10) var(--tg-space-6);
+  gap: var(--tg-space-4);
+}
+
+.intake-success h2 {
+  margin: 0;
+}
+
+.intake-success p {
+  max-width: 28rem;
+}
+
+.intake-success-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--tg-color-brand-500);
+  stroke-width: 2.5;
+}
+
+/* ── Footer Meta ── */
+
+.intake-meta {
+  margin-top: var(--tg-space-8);
+  text-align: center;
+  color: var(--site-subtle-copy);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ── Toast ── */
+
+.intake-toast {
+  position: fixed;
+  top: var(--tg-space-5);
+  right: var(--tg-space-5);
+  z-index: 50;
+  padding: var(--tg-space-3) var(--tg-space-5);
+  border: 1px solid color-mix(in srgb, var(--tg-color-success-500) 40%, transparent);
+  background: color-mix(in srgb, var(--tg-color-success-500) 14%, var(--site-bg-end));
+  color: var(--site-heading);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  transform: translateY(-1rem);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 350ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.intake-toast.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Intake Responsive ── */
+
+@media (max-width: 900px) {
+  .intake-row {
+    grid-template-columns: 1fr;
+  }
+
+  .intake-row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .intake-radio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .intake-radio-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .intake-markers {
+    gap: var(--tg-space-2);
+  }
+
+  .intake-marker span:last-child {
+    display: none;
+  }
+
+  .intake-header {
+    flex-direction: column;
+    gap: var(--tg-space-2);
+  }
+}
+
+@media (max-width: 640px) {
+  .intake-container {
+    padding-inline: var(--tg-space-3);
+  }
+
+  .intake-step {
+    padding: var(--tg-space-5) var(--tg-space-3);
+  }
+
+  .intake-card-strip,
+  .intake-card-footer {
+    padding-inline: var(--tg-space-3);
+  }
+
+  .intake-radio-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1616,17 +2127,12 @@ li {
   }
 
   .site-nav,
-  .footer-nav,
-  .site-header-controls {
+  .footer-nav {
     justify-content: flex-start;
   }
 
   .site-header {
     gap: var(--tg-space-4);
-  }
-
-  .site-header-controls {
-    flex-wrap: wrap;
   }
 
   .site-nav {
@@ -1637,11 +2143,6 @@ li {
     min-height: 2.5rem;
     padding-inline: 0.8rem;
     font-size: 0.76rem;
-  }
-
-  .theme-toggle,
-  .theme-toggle-track {
-    min-height: 2.5rem;
   }
 
   .hero {
@@ -1713,19 +2214,6 @@ li {
     letter-spacing: 0.11em;
   }
 
-  .theme-toggle,
-  .theme-toggle-track {
-    min-height: 2.35rem;
-  }
-
-  .theme-toggle-track {
-    padding-inline: 0.8rem;
-  }
-
-  .theme-toggle-label,
-  .theme-toggle-value {
-    font-size: 0.66rem;
-  }
 }
 
 @media (max-width: 1024px) {

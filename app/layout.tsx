@@ -49,15 +49,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-color-mode="dark" lang="en" suppressHydrationWarning>
+    <html data-color-mode="dark" data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable}`}>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                var storedMode = window.localStorage.getItem("tg-color-mode");
-                var mode = storedMode === "light" || storedMode === "dark" ? storedMode : "dark";
-                document.documentElement.dataset.colorMode = mode;
+                var mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+                var applyMode = function(event) {
+                  document.documentElement.dataset.colorMode = event.matches ? "dark" : "light";
+                };
+                applyMode(mediaQuery);
+                if (typeof mediaQuery.addEventListener === "function") {
+                  mediaQuery.addEventListener("change", applyMode);
+                } else if (typeof mediaQuery.addListener === "function") {
+                  mediaQuery.addListener(applyMode);
+                }
               } catch (error) {}
             `,
           }}

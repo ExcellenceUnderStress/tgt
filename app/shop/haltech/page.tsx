@@ -1,13 +1,40 @@
+import { ChecklistGrid } from "@/components/checklist-grid";
+import { DetailRail } from "@/components/detail-rail";
+import { FinalCta } from "@/components/final-cta";
 import { RouteIntro } from "@/components/route-intro";
-import { routeHeroes } from "@/lib/site-content";
+import { SectionHeading } from "@/components/section-heading";
+import { haltechPageContent, routeHeroes } from "@/lib/site-content";
 
 export default function HaltechPage() {
+  const page = haltechPageContent;
+
   return (
     <>
       <RouteIntro hero={routeHeroes.haltech} />
-      <section className="page-placeholder">
-        <p>Placeholder for curated Haltech collections, product cards, and inquiry guidance.</p>
+
+      {/* ── Intro + Note ── */}
+      <section className="route-section service-detail-shell">
+        <div className="service-detail-columns">
+          <SectionHeading kicker={page.introLabel} title={page.introTitle}>
+            <p>{page.introBody}</p>
+          </SectionHeading>
+          <DetailRail as="aside" label={page.noteLabel} title={page.noteTitle} body={page.noteBody} />
+        </div>
       </section>
+
+      {/* ── Bullets ── */}
+      <section className="route-section">
+        <ChecklistGrid groups={[{ title: "What this route is for", items: page.bullets }]} />
+      </section>
+
+      {/* ── Final CTA ── */}
+      <FinalCta
+        kicker="Inquiry First"
+        title={page.finalCta.title}
+        summary={page.finalCta.summary}
+        primaryCta={page.finalCta.primaryCta}
+        secondaryCta={page.finalCta.secondaryCta}
+      />
     </>
   );
 }

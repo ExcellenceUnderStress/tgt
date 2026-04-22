@@ -1,4 +1,4 @@
-﻿export type NavItem = {
+export type NavItem = {
   href: string;
   label: string;
 };
@@ -30,6 +30,8 @@ export type HomepageShopLane = {
   description: string;
   cta: NavItem;
   image: string;
+  darkImage?: string;
+  imageMode?: "default" | "brandmark";
 };
 
 export type HomepageBrand = {
@@ -111,15 +113,14 @@ export type ServiceDetailPage = {
     title: string;
     summary: string;
     primaryCta: NavItem;
-    secondaryCta: NavItem;
+    secondaryCta?: NavItem;
   };
 };
 
 export type AboutPageContent = {
-  backgroundLabel: string;
-  backgroundTitle: string;
-  backgroundBody: string;
-  stats: ServiceDetailStat[];
+  introLabel: string;
+  introTitle: string;
+  introBody: string;
   approachLabel: string;
   approachTitle: string;
   approachItems: string[];
@@ -131,7 +132,7 @@ export type AboutPageContent = {
     title: string;
     summary: string;
     primaryCta: NavItem;
-    secondaryCta: NavItem;
+    secondaryCta?: NavItem;
   };
 };
 
@@ -150,7 +151,49 @@ export type ContactPageContent = {
     title: string;
     summary: string;
     primaryCta: NavItem;
-    secondaryCta: NavItem;
+    secondaryCta?: NavItem;
+  };
+};
+
+export type BuildsPageContent = {
+  introLabel: string;
+  introTitle: string;
+  introBody: string;
+  credibility: ServiceDetailSection[];
+  finalCta: {
+    title: string;
+    summary: string;
+    primaryCta: NavItem;
+    secondaryCta?: NavItem;
+  };
+};
+
+export type ShopPageContent = {
+  introLabel: string;
+  introTitle: string;
+  introBody: string;
+  guidance: ServiceDetailSection[];
+  finalCta: {
+    title: string;
+    summary: string;
+    primaryCta: NavItem;
+    secondaryCta?: NavItem;
+  };
+};
+
+export type ShopCollectionPageContent = {
+  introLabel: string;
+  introTitle: string;
+  introBody: string;
+  bullets: string[];
+  noteLabel: string;
+  noteTitle: string;
+  noteBody: string;
+  finalCta: {
+    title: string;
+    summary: string;
+    primaryCta: NavItem;
+    secondaryCta?: NavItem;
   };
 };
 
@@ -203,7 +246,6 @@ export const primaryNavigation: NavItem[] = [
   { href: "/builds", label: "Builds" },
   { href: "/shop", label: "Shop" },
   { href: "/contact", label: "Contact" },
-  { href: "/book", label: "Book" },
 ];
 
 export const homepageSections = {
@@ -212,7 +254,7 @@ export const homepageSections = {
     title: "Tuned to drive. Not just to dyno.",
     summary:
       "Dyno and remote EFI tuning. Street, track, high-power.",
-    primaryCta: { href: "/book", label: "Start Booking" },
+    primaryCta: { href: "/contact", label: "Start Booking" },
     secondaryCta: { href: "/services", label: "View Services" },
     location: "Auburn, Washington",
     logo: "/images/logo/1x/desktop-logo-white.png",
@@ -242,6 +284,18 @@ export const homepageSections = {
       detail: "Serious projects route to direct contact before scheduling.",
     },
   ] satisfies HomepageSignal[],
+  legacyPreview: {
+    eyebrow: "Legacy",
+    title: "Independent shop discipline built from real race and street work.",
+    summary:
+      "Seventeen-plus years of EFI calibration, Speed Factory Racing experience, and a methodical approach centered on drivability, data, and controlled power delivery.",
+    bullets: [
+      "Started tuning in Florida before stepping into high-pressure Honda drag programs in Tacoma.",
+      "Built around direct customer work instead of volume-shop churn or generic tune files.",
+      "Best fit for owners who care about process, communication, and real-world behavior.",
+    ],
+    cta: { href: "/about", label: "Read More" },
+  },
   servicePaths: [
     {
       eyebrow: "In-Person",
@@ -253,7 +307,7 @@ export const homepageSections = {
         "Half or full day",
         "$200 deposit to book",
       ],
-      cta: { href: "/book", label: "Book Dyno Session" },
+      cta: { href: "/contact", label: "Book Dyno Session" },
     },
     {
       eyebrow: "Remote",
@@ -265,7 +319,7 @@ export const homepageSections = {
         "Requires datalogging",
         "Typically 5-17 rounds",
       ],
-      cta: { href: "/book", label: "Start E-Tune" },
+      cta: { href: "/contact", label: "Start E-Tune" },
     },
     {
       eyebrow: "Free",
@@ -276,7 +330,7 @@ export const homepageSections = {
         "Response in 24-48 hours",
         "Good for complex builds",
       ],
-      cta: { href: "/book", label: "Submit for Review" },
+      cta: { href: "/contact", label: "Submit for Review" },
     },
   ] satisfies HomepageServicePath[],
   featuredBuilds: [
@@ -303,50 +357,53 @@ export const homepageSections = {
         "Apparel, stickers, and branded goods.",
       cta: { href: "/shop/merch", label: "Shop Merch" },
       image: "/images/logo/1x/desktop-logo-color.png",
+      darkImage: "/images/logo/1x/desktop-logo-white.png",
+      imageMode: "brandmark",
     },
     {
       title: "Haltech",
       description:
         "Curated ECUs and accessories we trust.",
       cta: { href: "/shop/haltech", label: "View Haltech" },
-      image: "/images/brands/haltech-light.svg",
+      image: "/images/brands/logos/haltech.svg",
+      imageMode: "brandmark",
     },
   ] satisfies HomepageShopLane[],
   brands: [
     {
       name: "EcuMaster",
-      logo: "/images/brands/Company logo/EcuMaster/Company=EcuMaster, Dark Mode=True.svg",
+      logo: "/images/brands/logos/ecumaster.svg",
     },
     {
       name: "Haltech",
-      logo: "/images/brands/Company logo/Haltech/Company=Haltech, Dark Mode=True.svg",
+      logo: "/images/brands/logos/haltech.svg",
     },
     {
       name: "Holley EFI",
-      logo: "/images/brands/Company logo/HolleyEfi/Company=HolleyEfi, Dark Mode=True.svg",
+      logo: "/images/brands/logos/holley-efi.svg",
     },
     {
       name: "Hondata",
-      logo: "/images/brands/Company logo/Hondata/Company=Hondata, Dark Mode=True.svg",
+      logo: "/images/brands/logos/hondata.svg",
     },
     {
       name: "HP Tuners",
-      logo: "/images/brands/Company logo/HpTuners/Company=HpTuners, Dark Mode=True.svg",
+      logo: "/images/brands/logos/hp-tuners.svg",
     },
     {
       name: "MegaSquirt",
-      logo: "/images/brands/Company logo/MegaSquirt/Company=MegaSquirt, Dark Mode=True.svg",
+      logo: "/images/brands/logos/megasquirt.svg",
     },
     {
       name: "MoTeC",
-      logo: "/images/brands/Company logo/Motec/Company=Motec, Dark Mode=True.svg",
+      logo: "/images/brands/logos/motec.svg",
     },
   ] satisfies HomepageBrand[],
   finalCta: {
     title: "TELL US WHAT YOU'RE BUILDING.",
     summary:
       "The build, the platform, and what you want out of it. We'll take it from there.",
-    primaryCta: { href: "/book", label: "Start Your Project" },
+    primaryCta: { href: "/contact", label: "Start Your Project" },
     details: [
       { label: "Location", value: "Auburn, Washington" },
       { label: "Response time", value: "Usually 24-48 hours" },
@@ -411,8 +468,7 @@ export const servicesOverview = {
     title: "Start with fit, then move into booking.",
     summary:
       "The goal is to route serious customers into the correct next step without wasting calendar time or forcing the wrong path.",
-    primaryCta: { href: "/book", label: "Start Booking" },
-    secondaryCta: { href: "/contact", label: "Contact" },
+    primaryCta: { href: "/contact", label: "Start Booking" },
   },
 };
 
@@ -578,14 +634,13 @@ export const routeHeroes: Record<string, RouteHero> = {
     summary:
       "Kenny Sampson has been calibrating EFI systems since Florida, through Speed Factory Racing, and now independently out of Auburn, WA.",
     primaryCta: { href: "/contact", label: "Contact" },
-    secondaryCta: { href: "/book", label: "Book" },
   },
   services: {
     eyebrow: "Service Paths",
     title: "Clear service lanes for dyno sessions, remote tuning, and project review.",
     summary:
       "This page should help customers self-select the right path without burying them in filler copy or unqualified scheduling.",
-    primaryCta: { href: "/book", label: "Start Booking" },
+    primaryCta: { href: "/contact", label: "Start Booking" },
     secondaryCta: { href: "/services/remote", label: "Remote Details" },
   },
   dyno: {
@@ -593,16 +648,14 @@ export const routeHeroes: Record<string, RouteHero> = {
     title: "In-person calibration for local customers and travel-in builds.",
     summary:
       "The dyno page will explain prep requirements, fit, and the review-first booking expectations before a session is confirmed.",
-    primaryCta: { href: "/book", label: "Book Dyno" },
-    secondaryCta: { href: "/contact", label: "Contact" },
+    primaryCta: { href: "/contact", label: "Book Dyno" },
   },
   remote: {
     eyebrow: "Remote Tuning",
     title: "Revision-based e-tuning centered on datalogs, communication, and control.",
     summary:
       "This route should position remote tuning as a serious iterative process rather than a one-file download transaction.",
-    primaryCta: { href: "/book", label: "Start Remote Intake" },
-    secondaryCta: { href: "/contact", label: "Contact" },
+    primaryCta: { href: "/contact", label: "Start Remote Intake" },
   },
   builds: {
     eyebrow: "Featured Builds",
@@ -610,7 +663,6 @@ export const routeHeroes: Record<string, RouteHero> = {
     summary:
       "The builds page will stay curated, image-led, and brand-aligned instead of turning into an endless catalog.",
     primaryCta: { href: "/contact", label: "Discuss Your Build" },
-    secondaryCta: { href: "/book", label: "Book" },
   },
   shop: {
     eyebrow: "Curated Shop",
@@ -633,21 +685,19 @@ export const routeHeroes: Record<string, RouteHero> = {
     summary:
       "The Haltech page should support both customers who know what they need and those who need direction first.",
     primaryCta: { href: "/contact", label: "Inquire" },
-    secondaryCta: { href: "/book", label: "Start Booking" },
   },
   contact: {
     eyebrow: "Contact",
     title: "Get In Touch.",
     summary: "Questions, project review, or ready to book - start here.",
     primaryCta: { href: "/contact", label: "Submit Inquiry" },
-    secondaryCta: { href: "/book", label: "Go To Booking" },
   },
   booking: {
     eyebrow: "Book",
     title: "Tell us about the build.",
     summary:
       "Three paths, one short form. Pick the one that fits, send the details, we'll take it from there.",
-    primaryCta: { href: "/book", label: "Begin Intake" },
+    primaryCta: { href: "/contact", label: "Begin Intake" },
   },
 };
 
@@ -714,8 +764,7 @@ export const serviceDetailPages: Record<"dyno" | "remote", ServiceDetailPage> = 
       title: "Send the build first. Then lock the right dyno plan.",
       summary:
         "The goal is to protect calendar time and route serious projects into a productive session instead of a rushed appointment.",
-      primaryCta: { href: "/book", label: "Book Dyno" },
-      secondaryCta: { href: "/contact", label: "Contact" },
+      primaryCta: { href: "/contact", label: "Book Dyno" },
     },
   },
   remote: {
@@ -780,22 +829,16 @@ export const serviceDetailPages: Record<"dyno" | "remote", ServiceDetailPage> = 
       title: "Start with compatibility, then move into revisions.",
       summary:
         "If the setup and communication path look right, remote tuning can move forward with clear expectations instead of wasted back-and-forth.",
-      primaryCta: { href: "/book", label: "Start Remote Intake" },
-      secondaryCta: { href: "/contact", label: "Contact" },
+      primaryCta: { href: "/contact", label: "Start Remote Intake" },
     },
   },
 };
 
 export const aboutPageContent: AboutPageContent = {
-  backgroundLabel: "Background",
-  backgroundTitle: "Florida, Speed Factory, and now.",
-  backgroundBody:
-    "Hands-on tuning started in Florida - learning how different combinations actually behave. From 2016 to 2020, Kenny was the primary tuner at Speed Factory Racing in Tacoma, running competitive Honda drag programs including the former world's fastest FWD quarter-mile car. TurboGixxer is the independent shop that experience built.",
-  stats: [
-    { label: "Experience", value: "17+ years in EFI calibration" },
-    { label: "Speed Factory Racing", value: "Primary tuner, 2016-2020" },
-    { label: "Track results", value: "World-record Honda drag builds" },
-  ],
+  introLabel: "INDEPENDENT CALIBRATION SHOP",
+  introTitle: "BUILT AROUND REPEATABLE RESULTS.",
+  introBody:
+    "TurboGixxer is for owners who want a tuner who explains the why, not just sends back a file. Calibrations should be safe, understandable, and matched to how you actually drive the car.",
   approachLabel: "Approach",
   approachTitle: "Conservative timing. Drivability first. No black boxes.",
   approachItems: [
@@ -820,7 +863,6 @@ export const aboutPageContent: AboutPageContent = {
     title: "Have a build to talk about?",
     summary: "Tell us what you're running. We'll tell you the right next step.",
     primaryCta: { href: "/contact", label: "Contact TurboGixxer" },
-    secondaryCta: { href: "/book", label: "Start Booking" },
   },
 };
 
@@ -851,7 +893,7 @@ export const contactPageContent: ContactPageContent = {
         "Unclear between dyno and remote",
         "Free, no commitment",
       ],
-      cta: { href: "/book", label: "Start Review" },
+      cta: { href: "/contact", label: "Start Review" },
     },
     {
       title: "Ready For Intake",
@@ -862,7 +904,7 @@ export const contactPageContent: ContactPageContent = {
         "Clear goals",
         "Ready for structured intake",
       ],
-      cta: { href: "/book", label: "Go To Booking" },
+      cta: { href: "/contact", label: "Go To Booking" },
     },
   ],
   expectations: [
@@ -879,7 +921,96 @@ export const contactPageContent: ContactPageContent = {
     title: "Not sure which to pick?",
     summary: "Start with contact. We'll route you from there.",
     primaryCta: { href: "mailto:contact@turbogixxer.com", label: "Contact TurboGixxer" },
-    secondaryCta: { href: "/book", label: "Start Booking" },
+    secondaryCta: { href: "/contact", label: "Start Booking" },
+  },
+};
+
+export const buildsPageContent: BuildsPageContent = {
+  introLabel: "Curated Proof",
+  introTitle: "Selected builds that show the kind of work this shop is known for.",
+  introBody:
+    "The builds page is intentionally selective. It should feel like proof of method and platform familiarity, not a noisy archive. The point is to show the level of work TurboGixxer supports across street, drag, and higher-power combinations.",
+  credibility: [
+    {
+      title: "Why this stays curated",
+      body: "The site should highlight builds that reinforce trust, technical range, and repeatable results instead of turning into an endless gallery with no filtering.",
+    },
+    {
+      title: "What these builds communicate",
+      body: "Platform knowledge, calibration discipline, and a record of work that extends beyond one engine family or one style of customer project.",
+    },
+  ],
+  finalCta: {
+    title: "Have a build that needs the right path?",
+    summary: "Use the site to confirm fit, then start the conversation with the real project details.",
+    primaryCta: { href: "/contact", label: "Discuss Your Build" },
+  },
+};
+
+export const shopPageContent: ShopPageContent = {
+  introLabel: "Curated Storefront",
+  introTitle: "Two clear lanes: merch for the brand, Haltech for supported hardware.",
+  introBody:
+    "The shop should stay narrow and intentional. This is not a generic catalog. It is a controlled storefront for branded goods and a guided hardware lane built around products and platforms the shop actually trusts.",
+  guidance: [
+    {
+      title: "Merch",
+      body: "Straightforward branded goods presented cleanly, without turning the site into a cluttered lifestyle shop.",
+    },
+    {
+      title: "Haltech",
+      body: "A guided inquiry lane for ECUs and accessories, built for customers who either know the parts they need or want direction before buying.",
+    },
+  ],
+  finalCta: {
+    title: "Need help choosing the right lane?",
+    summary: "Reach out before ordering if the platform, package, or next step is not clear yet.",
+    primaryCta: { href: "/shop/haltech", label: "Shop Haltech" },
+    secondaryCta: { href: "/contact", label: "Contact TurboGixxer" },
+  },
+};
+
+export const merchPageContent: ShopCollectionPageContent = {
+  introLabel: "Merch",
+  introTitle: "Brand goods presented simply and kept secondary to the tuning work.",
+  introBody:
+    "Merch exists to support the brand, not to overpower the site. This lane should stay clean, selective, and easy to understand.",
+  bullets: [
+    "Curated apparel and branded goods only.",
+    "Clean presentation without oversized inventory sprawl.",
+    "Direct path out to purchase when products are live.",
+  ],
+  noteLabel: "Scope",
+  noteTitle: "Merch should feel intentional, not like a separate business.",
+  noteBody:
+    "Keep the assortment tight and the experience simple. The primary job of this route is visibility and brand reinforcement, not deep ecommerce complexity.",
+  finalCta: {
+    title: "Looking for a specific item or drop?",
+    summary: "Contact the shop if you need details on current merch availability or upcoming releases.",
+    primaryCta: { href: "/contact", label: "Contact" },
+    secondaryCta: { href: "/shop", label: "Back To Shop" },
+  },
+};
+
+export const haltechPageContent: ShopCollectionPageContent = {
+  introLabel: "Haltech",
+  introTitle: "A guided hardware lane for customers who need the right package, not guesswork.",
+  introBody:
+    "This route should help both customers who already know the Haltech parts they want and customers who need direction before committing to hardware.",
+  bullets: [
+    "Curated ECU and accessory visibility only.",
+    "Inquiry-first flow for fit, package selection, and next steps.",
+    "Built to support serious projects without bloating the storefront.",
+  ],
+  noteLabel: "How this works",
+  noteTitle: "Use contact when the package or platform fit is still unclear.",
+  noteBody:
+    "The best Haltech conversations start with the car, the power goal, and the features you actually need. This keeps recommendations grounded instead of upsold.",
+  finalCta: {
+    title: "Need Haltech guidance before buying?",
+    summary: "Send the vehicle, goals, and current setup details so the shop can point you toward the correct hardware path.",
+    primaryCta: { href: "/contact", label: "Inquire" },
+    secondaryCta: { href: "/shop", label: "Back To Shop" },
   },
 };
 
