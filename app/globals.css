@@ -3,8 +3,69 @@
 }
 
 html {
-  background: var(--tg-color-gray-950);
+  --site-bg-start: var(--tg-color-gray-50);
+  --site-bg-mid: var(--tg-color-gray-100);
+  --site-bg-end: var(--tg-color-gray-25);
+  --site-ink: var(--tg-color-gray-950);
+  --site-body-copy: var(--tg-color-gray-700);
+  --site-header-bg: color-mix(in srgb, var(--tg-color-gray-25) 78%, transparent);
+  --site-header-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
+  --site-header-shadow: 0 1rem 2.5rem rgba(10, 13, 18, 0.08);
+  --site-hero-mask-glow: rgba(255, 255, 255, 0.34);
+  --site-hero-mask-shade-top: rgba(255, 255, 255, 0.12);
+  --site-hero-mask-shade-bottom: rgba(24, 29, 39, 0.18);
+  --site-hero-frame-shadow:
+    0 0 0 100vmax rgba(245, 247, 250, 0.72),
+    0 2rem 4rem rgba(10, 13, 18, 0.12);
+  --site-hero-section-overlay:
+    radial-gradient(circle at 50% 12%, color-mix(in srgb, var(--tg-color-brand-400) 10%, transparent), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(245, 247, 250, 0.56));
+  --site-hero-video-scrim:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(24, 29, 39, 0.18)),
+    linear-gradient(90deg, rgba(245, 247, 250, 0.32) 0%, rgba(245, 247, 250, 0.08) 45%, rgba(245, 247, 250, 0.32) 100%);
+  --site-brand-strip-bg: color-mix(in srgb, var(--tg-color-gray-950) 94%, transparent);
+  --site-brand-strip-border: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
+  --site-brand-item-bg: color-mix(in srgb, var(--tg-color-gray-25) 3%, transparent);
+  --site-brand-item-line: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
+  --site-brand-logo-filter: grayscale(1) brightness(0.95);
+  --site-toggle-bg: color-mix(in srgb, var(--site-ink) 4%, transparent);
+  --site-toggle-border: color-mix(in srgb, var(--site-ink) 14%, transparent);
+  --site-toggle-label: var(--tg-color-gray-500);
+  --tg-color-base-white: var(--site-ink);
+  --tg-color-base-black: var(--tg-color-gray-950);
+  background: var(--site-bg-end);
   scroll-behavior: smooth;
+}
+
+html[data-color-mode="dark"] {
+  --site-bg-start: color-mix(in srgb, var(--tg-color-gray-900) 78%, black);
+  --site-bg-mid: color-mix(in srgb, var(--tg-color-gray-950) 92%, black);
+  --site-bg-end: var(--tg-color-gray-950);
+  --site-ink: var(--tg-color-gray-25);
+  --site-body-copy: var(--tg-color-gray-300);
+  --site-header-bg: color-mix(in srgb, var(--tg-color-gray-950) 64%, transparent);
+  --site-header-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
+  --site-header-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.16);
+  --site-hero-mask-glow: rgba(255, 255, 255, 0.08);
+  --site-hero-mask-shade-top: rgba(8, 10, 13, 0.18);
+  --site-hero-mask-shade-bottom: rgba(8, 10, 13, 0.72);
+  --site-hero-frame-shadow:
+    0 0 0 100vmax rgba(5, 7, 10, 0.72),
+    0 2rem 4rem rgba(0, 0, 0, 0.3);
+  --site-hero-section-overlay:
+    radial-gradient(circle at 50% 12%, color-mix(in srgb, var(--tg-color-brand-500) 14%, transparent), transparent 28%),
+    linear-gradient(180deg, rgba(7, 10, 13, 0.08), rgba(7, 10, 13, 0.52));
+  --site-hero-video-scrim:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.48)),
+    linear-gradient(90deg, rgba(7, 10, 13, 0.22) 0%, rgba(7, 10, 13, 0.06) 45%, rgba(7, 10, 13, 0.22) 100%);
+  --site-brand-strip-bg: transparent;
+  --site-brand-strip-border: color-mix(in srgb, var(--site-ink) 12%, transparent);
+  --site-brand-item-bg: color-mix(in srgb, var(--site-ink) 2%, transparent);
+  --site-brand-item-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
+  --site-brand-logo-filter: grayscale(1) brightness(0.95);
+  --site-toggle-bg: color-mix(in srgb, var(--site-ink) 4%, transparent);
+  --site-toggle-border: color-mix(in srgb, var(--site-ink) 14%, transparent);
+  --site-toggle-label: var(--tg-color-gray-500);
 }
 
 body {
@@ -13,11 +74,11 @@ body {
     radial-gradient(circle at top, color-mix(in srgb, var(--tg-color-brand-500) 22%, transparent), transparent 30%),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--tg-color-gray-900) 78%, black) 0%,
-      color-mix(in srgb, var(--tg-color-gray-950) 92%, black) 55%,
-      var(--tg-color-gray-950) 100%
+      var(--site-bg-start) 0%,
+      var(--site-bg-mid) 55%,
+      var(--site-bg-end) 100%
     );
-  color: var(--tg-color-base-white);
+  color: var(--site-ink);
   font-family: var(--font-body, "Barlow", sans-serif);
 }
 
@@ -55,9 +116,13 @@ main {
   position: sticky;
   top: 0;
   z-index: 20;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
   align-items: center;
-  padding: var(--tg-space-4) 0;
+  gap: clamp(var(--tg-space-4), 2vw, var(--tg-space-8));
+  padding: clamp(var(--tg-space-3), 1.6vw, var(--tg-space-4)) 0;
+  background: var(--site-header-bg);
+  border-bottom: 1px solid var(--site-header-line);
+  box-shadow: var(--site-header-shadow);
   backdrop-filter: blur(16px);
 }
 
@@ -73,49 +138,190 @@ h3 {
 
 .brand-mark {
   display: inline-flex;
-  flex-direction: column;
-  line-height: 0.9;
-  text-transform: uppercase;
+  align-items: center;
+  min-width: 0;
 }
 
-.brand-kicker {
-  font-size: 0.85rem;
-  color: var(--tg-color-gray-400);
-  letter-spacing: 0.24em;
+.brand-logo {
+  flex: 0 0 auto;
 }
 
-.brand-wordmark {
-  font-size: clamp(2rem, 4vw, 3rem);
+.brand-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.brand-logo-desktop {
+  display: block;
+  width: clamp(12rem, 18vw, 16rem);
+}
+
+.brand-logo-compact {
+  display: none;
+  width: clamp(2.6rem, 5vw, 3.2rem);
 }
 
 .site-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: var(--tg-space-4);
-  font-size: 0.95rem;
+  align-items: center;
+  gap: clamp(0.4rem, 1vw, 1rem);
+  min-width: 0;
+}
+
+.site-header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.6rem, 1.2vw, 1rem);
+  min-width: 0;
+}
+
+.site-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  font-size: clamp(0.72rem, 0.32vw + 0.66rem, 0.92rem);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: clamp(0.1em, 0.22vw, 0.14em);
+  white-space: nowrap;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.site-nav-link:hover,
+.site-nav-link:focus-visible {
+  background: color-mix(in srgb, var(--tg-color-base-white) 6%, transparent);
+  color: var(--tg-color-base-white);
+}
+
+.site-nav-link:last-child {
+  border: 1px solid color-mix(in srgb, var(--tg-color-brand-500) 40%, transparent);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 14%, transparent);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.theme-toggle-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0 0.95rem;
+  border: 1px solid var(--site-toggle-border);
+  border-radius: 999px;
+  background: var(--site-toggle-bg);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.theme-toggle:hover .theme-toggle-track,
+.theme-toggle:focus-visible .theme-toggle-track {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 30%, var(--site-toggle-border));
+}
+
+.theme-toggle-label {
+  color: var(--site-toggle-label);
+  font-size: 0.68rem;
+}
+
+.theme-toggle-value {
+  color: var(--site-ink);
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
 .hero {
   position: relative;
-  min-height: calc(100svh - 6rem);
+  min-height: 100svh;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  padding: var(--tg-space-20) 0 var(--tg-space-12);
+  padding: 0;
   display: grid;
-  align-items: end;
+  align-items: center;
 }
 
 .machine-memory-hero {
   overflow: hidden;
 }
 
+.hero-media-shell {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-media-mask,
 .hero-media {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-media-mask {
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+  background:
+    radial-gradient(circle at 50% 38%, var(--site-hero-mask-glow), transparent 34%),
+    linear-gradient(180deg, var(--site-hero-mask-shade-top), var(--site-hero-mask-shade-bottom));
+  box-shadow:
+    var(--site-hero-frame-shadow),
+    inset 0 0 0 1px color-mix(in srgb, var(--tg-color-base-white) 6%, transparent);
+  transform: scale(0.86);
+  transform-origin: center center;
+  filter: blur(0px);
+  clip-path: inset(
+    clamp(6.25rem, 12vh, 8.5rem)
+    max(calc(var(--tg-space-5) - 0.6rem), calc((100vw - min(100%, 1600px)) / 2 + var(--tg-space-5) - 0.6rem))
+    clamp(2.75rem, 7vh, 5rem)
+    max(calc(var(--tg-space-5) - 0.6rem), calc((100vw - min(100%, 1600px)) / 2 + var(--tg-space-5) - 0.6rem))
+    round 1.5rem
+  );
+  opacity: 0.92;
+  will-change: transform, clip-path, opacity, filter;
+}
+
+.hero-media {
   overflow: hidden;
+  border-radius: 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+  box-shadow:
+    0 2rem 4rem rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px color-mix(in srgb, var(--tg-color-base-white) 6%, transparent);
+  transform: scale(0.8);
+  transform-origin: center center;
+  clip-path: inset(
+    clamp(7rem, 13vh, 9rem)
+    max(var(--tg-space-5), calc((100vw - min(100%, 1600px)) / 2 + var(--tg-space-5)))
+    clamp(3.5rem, 8vh, 6rem)
+    max(var(--tg-space-5), calc((100vw - min(100%, 1600px)) / 2 + var(--tg-space-5)))
+    round 1.1rem
+  );
+  will-change: transform, clip-path, border-radius;
 }
 
 .hero-video {
@@ -123,69 +329,31 @@ h3 {
   height: 100%;
   object-fit: cover;
   filter: saturate(0.92) contrast(1.02);
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform, filter;
 }
 
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 70% 18%, color-mix(in srgb, var(--tg-color-brand-500) 22%, transparent), transparent 26%),
-    linear-gradient(180deg, rgba(7, 10, 13, 0.18), rgba(7, 10, 13, 0.6));
+  background: var(--site-hero-section-overlay);
   z-index: 0;
 }
 
 .machine-memory-hero::after {
   content: "";
   position: absolute;
-  inset: 6% 4% auto auto;
-  width: min(24rem, 36vw);
-  height: min(24rem, 36vw);
+  inset: 8% auto auto 8%;
+  width: min(14rem, 18vw);
+  height: min(14rem, 18vw);
   background:
-    radial-gradient(circle, color-mix(in srgb, var(--tg-color-base-white) 3%, transparent), transparent 68%);
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
+    radial-gradient(circle, color-mix(in srgb, var(--tg-color-base-white) 2%, transparent), transparent 70%);
+  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 8%, transparent);
   border-radius: 1.25rem;
-  transform: skewX(-18deg);
+  transform: none;
   z-index: 0;
-}
-
-.memory-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.65;
-}
-
-.memory-grid,
-.memory-scanline {
-  position: absolute;
-  inset: 0;
-}
-
-.memory-grid {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--tg-color-base-white) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in srgb, var(--tg-color-base-white) 4%, transparent) 1px, transparent 1px);
-  background-size: 5.5rem 5.5rem;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 90%);
-}
-
-.memory-scanline {
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent);
-}
-
-.memory-scanline-a {
-  inset: 18% auto auto -10%;
-  width: 60%;
-  height: 1px;
-  transform: rotate(-10deg);
-}
-
-.memory-scanline-b {
-  inset: auto -6% 24% auto;
-  width: 48%;
-  height: 1px;
-  transform: rotate(-7deg);
 }
 
 .hero-inner,
@@ -198,8 +366,22 @@ h3 {
 .hero-inner {
   display: grid;
   gap: var(--tg-space-8);
-  max-width: 46rem;
+  width: 100%;
+  min-height: 100svh;
+  max-width: none;
+  padding-block: clamp(6rem, 12vh, 8rem) clamp(4rem, 10vh, 6rem);
   padding-inline: max(var(--tg-space-5), calc((100vw - min(100%, 1600px)) / 2 + var(--tg-space-5)));
+  justify-items: center;
+  text-align: center;
+}
+
+.hero-copy-block {
+  display: grid;
+  gap: var(--tg-space-6);
+  max-width: 58rem;
+  position: relative;
+  z-index: 2;
+  align-self: end;
 }
 
 .hero-video,
@@ -211,21 +393,8 @@ h3 {
 .hero-visual-scrim {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.82)),
-    linear-gradient(90deg, rgba(7, 10, 13, 0.68) 0%, rgba(7, 10, 13, 0.3) 45%, rgba(7, 10, 13, 0.56) 100%);
-}
-
-.hero-visual-orbit {
-  position: absolute;
-  inset: 18% auto auto 58%;
-  width: 36rem;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
-  box-shadow:
-    0 0 0 1.5rem color-mix(in srgb, var(--tg-color-base-white) 2%, transparent),
-    0 0 0 4rem color-mix(in srgb, var(--tg-color-base-white) 1%, transparent);
+  background: var(--site-hero-video-scrim);
+  will-change: opacity;
 }
 
 .hero-location {
@@ -263,7 +432,7 @@ h3 {
 
 p,
 li {
-  color: var(--tg-color-gray-300);
+  color: var(--site-body-copy);
   font-size: 1.02rem;
   line-height: 1.7;
 }
@@ -271,6 +440,11 @@ li {
 .hero-copy,
 .route-copy {
   max-width: 34rem;
+  margin-inline: auto;
+}
+
+.hero-copy-block .hero-copy {
+  max-width: 28rem;
 }
 
 .hero-memory-note {
@@ -296,6 +470,7 @@ li {
 .cta-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--tg-space-3);
   margin-top: var(--tg-space-6);
 }
@@ -1065,8 +1240,8 @@ li {
   justify-content: center;
   min-height: 5.5rem;
   padding: var(--tg-space-4);
-  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
-  background: color-mix(in srgb, var(--tg-color-base-white) 2%, transparent);
+  border-top: 1px solid var(--site-brand-item-line);
+  background: var(--site-brand-item-bg);
 }
 
 .brand-rail-logo {
@@ -1074,7 +1249,7 @@ li {
   max-width: 10rem;
   max-height: 2rem;
   opacity: 0.66;
-  filter: grayscale(1) brightness(0.95);
+  filter: var(--site-brand-logo-filter);
   transition:
     filter 180ms ease,
     opacity 180ms ease,
@@ -1367,6 +1542,12 @@ li {
   margin-top: var(--tg-space-16);
 }
 
+.recognition-strip-brands {
+  background: var(--site-brand-strip-bg);
+  border-top-color: var(--site-brand-strip-border);
+  border-bottom: 1px solid var(--site-brand-strip-border);
+}
+
 .footer-copy {
   max-width: 28rem;
   margin: 0;
@@ -1435,19 +1616,38 @@ li {
   }
 
   .site-nav,
-  .footer-nav {
+  .footer-nav,
+  .site-header-controls {
     justify-content: flex-start;
+  }
+
+  .site-header {
+    gap: var(--tg-space-4);
+  }
+
+  .site-header-controls {
+    flex-wrap: wrap;
+  }
+
+  .site-nav {
+    gap: 0.5rem;
+  }
+
+  .site-nav-link {
+    min-height: 2.5rem;
+    padding-inline: 0.8rem;
+    font-size: 0.76rem;
+  }
+
+  .theme-toggle,
+  .theme-toggle-track {
+    min-height: 2.5rem;
   }
 
   .hero {
     min-height: auto;
     grid-template-columns: 1fr;
     padding-top: var(--tg-space-12);
-  }
-
-  .hero-visual-orbit {
-    inset: auto auto -10% 58%;
-    width: 24rem;
   }
 
   .page-shell {
@@ -1463,7 +1663,26 @@ li {
   }
 
   .hero-inner {
-    padding-inline: 0;
+    min-height: 100svh;
+    padding-inline: var(--tg-space-4);
+  }
+
+  .hero-media-shell {
+    inset: 0;
+  }
+
+  .hero-copy-block {
+    align-self: end;
+  }
+
+  .hero-media {
+    transform: scale(0.9);
+    clip-path: inset(7rem 1rem 2.5rem 1rem round 1rem);
+  }
+
+  .hero-media-mask {
+    transform: scale(0.94);
+    clip-path: inset(6.5rem 0.5rem 2rem 0.5rem round 1.15rem);
   }
 
   .telemetry-intro,
@@ -1475,5 +1694,46 @@ li {
   .build-preview,
   .shop-lane {
     min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding-top: var(--tg-space-3);
+  }
+
+  .site-nav {
+    gap: 0.4rem;
+  }
+
+  .site-nav-link {
+    min-height: 2.35rem;
+    padding-inline: 0.72rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.11em;
+  }
+
+  .theme-toggle,
+  .theme-toggle-track {
+    min-height: 2.35rem;
+  }
+
+  .theme-toggle-track {
+    padding-inline: 0.8rem;
+  }
+
+  .theme-toggle-label,
+  .theme-toggle-value {
+    font-size: 0.66rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .brand-logo-desktop {
+    display: none;
+  }
+
+  .brand-logo-compact {
+    display: block;
   }
 }

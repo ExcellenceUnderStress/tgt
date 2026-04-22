@@ -211,7 +211,7 @@ export const homepageSections = {
     eyebrow: "TurboGixxer Tuning",
     title: "Tuned to drive. Not just to dyno.",
     summary:
-      "Dyno and remote EFI tuning for street cars, track builds, and high-power combinations.",
+      "Dyno and remote EFI tuning. Street, track, high-power.",
     primaryCta: { href: "/book", label: "Start Booking" },
     secondaryCta: { href: "/services", label: "View Services" },
     location: "Auburn, Washington",
@@ -273,7 +273,6 @@ export const homepageSections = {
       description:
         "Not sure what fits? Send the build details, we'll tell you the next step.",
       bullets: [
-        "No commitment",
         "Response in 24-48 hours",
         "Good for complex builds",
       ],
@@ -283,17 +282,17 @@ export const homepageSections = {
   featuredBuilds: [
     {
       title: "2018 Civic Si - Turbo E85",
-      meta: "KTuner Â· 380 WHP",
+      meta: "KTuner · 380 WHP",
       image: "/images/builds/Artboard 1.png",
     },
     {
       title: "2014 Mustang GT - Bolt-ons",
-      meta: "HP Tuners Â· 445 WHP",
+      meta: "HP Tuners · 445 WHP",
       image: "/images/builds/Artboard 2.png",
     },
     {
       title: "K-Swap EG Hatch - All Motor",
-      meta: "Hondata Â· 240 WHP",
+      meta: "Hondata · 240 WHP",
       image: "/images/builds/Artboard 3.png",
     },
   ] satisfies HomepageBuild[],

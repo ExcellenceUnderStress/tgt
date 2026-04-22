@@ -23,6 +23,24 @@ export const metadata: Metadata = {
   title: "TurboGixxer Tuning",
   description:
     "Technical, proven, disciplined EFI calibration for dyno tuning, remote tuning, and project review.",
+  icons: {
+    icon: [
+      { url: "/images/logo/favicon_io/favicon.ico" },
+      {
+        url: "/images/logo/favicon_io/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "/images/logo/favicon_io/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+    ],
+    apple: "/images/logo/favicon_io/apple-touch-icon.png",
+    shortcut: "/images/logo/favicon_io/favicon.ico",
+  },
+  manifest: "/images/logo/favicon_io/site.webmanifest",
 };
 
 export default function RootLayout({
@@ -31,8 +49,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-color-mode="dark" lang="en">
+    <html data-color-mode="dark" lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${body.variable}`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var storedMode = window.localStorage.getItem("tg-color-mode");
+                var mode = storedMode === "light" || storedMode === "dark" ? storedMode : "dark";
+                document.documentElement.dataset.colorMode = mode;
+              } catch (error) {}
+            `,
+          }}
+        />
         <div className="page-shell">
           <SiteHeader />
           <main>{children}</main>

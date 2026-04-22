@@ -5,6 +5,7 @@ import { useEffect } from "react";
 export function HomePageMotion() {
   useEffect(() => {
     let cleanup = () => {};
+    let detachVideoMetadataListener = () => {};
 
     void (async () => {
       const shouldReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -20,21 +21,58 @@ export function HomePageMotion() {
       gsap.registerPlugin(ScrollTrigger);
 
       const ctx = gsap.context(() => {
+        const hero = document.querySelector<HTMLElement>("[data-motion-root='hero']");
+        const scrollVideo = document.querySelector<HTMLVideoElement>("[data-scroll-video]");
+
+        if (hero && scrollVideo) {
+          const keepVideoPlaying = () => {
+            void scrollVideo.play().catch(() => {});
+          };
+
+          const heroTimeline = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "+=180%",
+              scrub: 1.1,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          heroTimeline
+            .to(".hero-media-mask", {
+              scale: 1.18,
+              clipPath: "inset(-8% -8% -8% -8% round 0rem)",
+              filter: "blur(20px)",
+              opacity: 0,
+              duration: 1,
+            }, 0)
+            .to(".hero-visual-scrim", {
+              opacity: 0.22,
+              duration: 1,
+            }, 0);
+
+          heroTimeline.scrollTrigger?.refresh();
+
+          if (scrollVideo.readyState >= 2) {
+            keepVideoPlaying();
+          } else {
+            scrollVideo.addEventListener("loadeddata", keepVideoPlaying, { once: true });
+            detachVideoMetadataListener = () => {
+              scrollVideo.removeEventListener("loadeddata", keepVideoPlaying);
+            };
+          }
+        }
+
         gsap.from(".hero-inner > *", {
           y: 32,
           autoAlpha: 0,
           duration: 0.9,
           ease: "power3.out",
           stagger: 0.12,
-        });
-
-        gsap.to(".hero-visual-orbit", {
-          rotate: 8,
-          scale: 1.04,
-          duration: 5,
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
         });
 
         gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((element) => {
@@ -72,7 +110,10 @@ export function HomePageMotion() {
         });
       });
 
-      cleanup = () => ctx.revert();
+      cleanup = () => {
+        detachVideoMetadataListener();
+        ctx.revert();
+      };
     })();
 
     return () => cleanup();
