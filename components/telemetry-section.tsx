@@ -7,7 +7,7 @@ type TelemetrySectionProps = {
   summary: string;
   linkHref: string;
   linkLabel: string;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export function TelemetrySection({
@@ -30,7 +30,7 @@ export function TelemetrySection({
           </Link>
         </div>
 
-        <div className="telemetry-grid">{children}</div>
+        {children ? <div className="telemetry-grid">{children}</div> : null}
       </div>
     </section>
   );
