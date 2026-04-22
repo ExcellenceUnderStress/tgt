@@ -286,9 +286,9 @@ export const homepageSections = {
   ] satisfies HomepageSignal[],
   legacyPreview: {
     eyebrow: "Legacy",
-    title: "Independent shop discipline built from real race and street work.",
-    summary:
-      "Seventeen-plus years of EFI calibration, Speed Factory Racing experience, and a methodical approach centered on drivability, data, and controlled power delivery.",
+    title:
+      "Seventeen-plus years of EFI calibration, and a methodical approach centered on drivability, data, and controlled power delivery.",
+    summary: "",
     bullets: [
       "Started tuning in Florida before stepping into high-pressure Honda drag programs in Tacoma.",
       "Built around direct customer work instead of volume-shop churn or generic tune files.",
