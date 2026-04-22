@@ -424,6 +424,63 @@ html[data-color-mode="dark"] .theme-image-dark {
   will-change: opacity;
 }
 
+.hero-cinematic-grain {
+  position: absolute;
+  inset: -45% -45%;
+  opacity: 0.2;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.07) 0.6px, transparent 0.8px),
+    radial-gradient(circle at 25% 30%, rgba(255, 255, 255, 0.06) 0.4px, transparent 0.6px);
+  background-size: 4px 4px, 6px 6px;
+  mix-blend-mode: soft-light;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 34%, transparent 28%, rgba(4, 8, 16, 0.38) 100%),
+    linear-gradient(180deg, rgba(8, 11, 20, 0.12), rgba(8, 11, 20, 0.72));
+  pointer-events: none;
+}
+
+.hero-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(2rem, 5vh, 3.8rem);
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  color: color-mix(in srgb, var(--tg-color-base-white) 82%, transparent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.66rem;
+  z-index: 3;
+  pointer-events: none;
+  text-shadow: 0 0.4rem 1.25rem rgba(0, 0, 0, 0.35);
+}
+
+.hero-scroll-cue-line {
+  width: 1px;
+  height: 3.2rem;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tg-color-base-white) 84%, transparent), transparent 100%);
+  transform-origin: top center;
+  animation: scrollCuePulse 1.9s ease-in-out infinite;
+}
+
+@keyframes scrollCuePulse {
+  0%,
+  100% {
+    transform: scaleY(0.48);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 .hero-video-overlay,
 .hero-video-scrim-layer,
 .hero-video-standby {
@@ -2279,6 +2336,14 @@ select.intake-input {
 
   .hero-copy-block {
     align-self: end;
+  }
+
+  .hero-scroll-cue {
+    bottom: 1.8rem;
+  }
+
+  .hero-scroll-cue-line {
+    height: 2.4rem;
   }
 
   .hero-media {

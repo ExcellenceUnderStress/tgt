@@ -23,6 +23,8 @@ export function HomePageMotion() {
       const ctx = gsap.context(() => {
         const hero = document.querySelector<HTMLElement>("[data-motion-root='hero']");
         const scrollVideo = document.querySelector<HTMLVideoElement>("[data-scroll-video]");
+        const heroHeading = document.querySelector<HTMLElement>(".hero-copy-block h1");
+        const heroCopy = document.querySelector<HTMLElement>(".hero-copy-block .hero-copy");
 
         if (hero && scrollVideo) {
           const keepVideoPlaying = () => {
@@ -43,6 +45,10 @@ export function HomePageMotion() {
           });
 
           heroTimeline
+            .to(".hero-media", {
+              scale: 1.04,
+              duration: 1,
+            }, 0)
             .to(".hero-media-mask", {
               scale: 1.18,
               clipPath: "inset(-8% -8% -8% -8% round 0rem)",
@@ -51,7 +57,11 @@ export function HomePageMotion() {
               duration: 1,
             }, 0)
             .to(".hero-visual-scrim", {
-              opacity: 0.22,
+              opacity: 0.2,
+              duration: 1,
+            }, 0)
+            .to(".hero-cinematic-grain", {
+              opacity: 0.34,
               duration: 1,
             }, 0);
 
@@ -65,6 +75,19 @@ export function HomePageMotion() {
               scrollVideo.removeEventListener("loadeddata", keepVideoPlaying);
             };
           }
+        }
+
+        if (hero && heroHeading && heroCopy) {
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "+=140%",
+              scrub: 0.8,
+            },
+          })
+            .to(heroHeading, { yPercent: -24, autoAlpha: 0.18, ease: "none" }, 0)
+            .to(heroCopy, { yPercent: -10, autoAlpha: 0, ease: "none" }, 0);
         }
 
         gsap.from(".hero-inner > *", {
