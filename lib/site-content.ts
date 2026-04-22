@@ -301,11 +301,11 @@ export const homepageSections = {
       eyebrow: "In-Person",
       title: "Dyno Tuning",
       description:
-        "Tuned at the Auburn shop under real load. You're there for the pulls.",
+        "Best for in-person sessions at the shop. Bring a car that's mechanically ready to run.",
       bullets: [
-        "Auburn, WA",
-        "Half or full day",
-        "$200 deposit to book",
+        "Location: Auburn, WA",
+        "Process: Live session after intake review",
+        "Deposit: $200 to secure the slot",
       ],
       cta: { href: "/contact", label: "Book Dyno Session" },
     },
@@ -313,11 +313,11 @@ export const homepageSections = {
       eyebrow: "Remote",
       title: "Remote E-Tune",
       description:
-        "Tuned from your datalogs. Revisions until it's clean.",
+        "Best for out-of-area builds. You log, we revise, we repeat until it's clean.",
       bullets: [
-        "Nationwide",
-        "Requires datalogging",
-        "Typically 5-17 rounds",
+        "Location: Nationwide",
+        "Process: Datalog review + revision rounds",
+        "Deposit: Reviewed before scheduling",
       ],
       cta: { href: "/contact", label: "Start E-Tune" },
     },
@@ -325,10 +325,11 @@ export const homepageSections = {
       eyebrow: "Free",
       title: "Project Review",
       description:
-        "Not sure what fits? Send the build details, we'll tell you the next step.",
+        "Best for builds where the path is unclear. Send the details, we'll tell you.",
       bullets: [
-        "Response in 24-48 hours",
-        "Good for complex builds",
+        "Location: Remote or local",
+        "Process: Conversation first",
+        "Deposit: None",
       ],
       cta: { href: "/contact", label: "Submit for Review" },
     },
@@ -1013,5 +1014,4 @@ export const haltechPageContent: ShopCollectionPageContent = {
     secondaryCta: { href: "/shop", label: "Back To Shop" },
   },
 };
-
 

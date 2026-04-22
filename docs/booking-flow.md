@@ -20,7 +20,7 @@ Visitors choose one of three paths:
 2. User selects service path.
 3. User completes structured intake.
 4. User submits request.
-5. Next step depends on service type and qualification.
+5. Schedule or submit path-specific next action after qualification.
 
 ## Path Logic
 
@@ -204,8 +204,8 @@ If Sanity is used, it should hold booking page content and settings, not actual 
 1. Intro
 2. Service path selector
 3. Intake form
-4. Expectations / notes
-5. Submit action
+4. SCHEDULE OR SUBMIT
+5. Expectations / notes
 6. Success state
 
 ## Non-Goals For V2
