@@ -49,7 +49,7 @@ export default function HomePage() {
       <TelemetrySection
         kicker="Service Paths"
         title="Choose the right lane before the schedule gets involved."
-        summary="The site should route serious projects into dyno, remote, or project review without burying the decision under filler copy."
+        summary="Dyno, remote, or project review — pick the path that fits your build before the calendar gets involved."
         linkHref="/services"
         linkLabel="View Services"
       >
@@ -64,23 +64,11 @@ export default function HomePage() {
         summary={legacyPreview.summary}
         linkHref={legacyPreview.cta.href}
         linkLabel={legacyPreview.cta.label}
-      >
-        {legacyPreview.bullets.map((bullet, index) => (
-          <article
-            className="telemetry-card"
-            data-reveal="slide-up"
-            key={bullet}
-            style={{ ["--telemetry-index" as string]: index } as React.CSSProperties}
-          >
-            <span>{String(index + 1).padStart(2, "0")} / Legacy</span>
-            <p>{bullet}</p>
-          </article>
-        ))}
-      </TelemetrySection>
+      />
 
       <section className="home-section" data-reveal-group>
         <SectionBar linkHref="/builds" linkLabel="View All Builds">
-          <SectionHeading kicker="Featured Builds" title="Featured Builds" data-reveal="slide-up" />
+          <SectionHeading kicker="Selected Work" title="Featured Builds" data-reveal="slide-up" />
         </SectionBar>
 
         <div className="build-preview-grid">
@@ -92,8 +80,8 @@ export default function HomePage() {
 
       <section className="home-section" data-reveal-group>
         <SectionBar linkHref="/shop" linkLabel="View Shop">
-          <SectionHeading kicker="Shop Preview" title="Shop" data-reveal="slide-up">
-            <p>Merch and a curated selection of parts we actually use.</p>
+          <SectionHeading kicker="The Shop" title="Merch & Haltech" data-reveal="slide-up">
+            <p>Branded goods and Haltech hardware from a shop that runs the same equipment.</p>
           </SectionHeading>
         </SectionBar>
 
