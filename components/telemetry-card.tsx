@@ -15,7 +15,7 @@ export function TelemetryCard({ path, index }: TelemetryCardProps) {
       data-reveal="slide-up"
       style={{ ["--telemetry-index" as string]: index } as CSSProperties}
     >
-      <span>{path.eyebrow}</span>
+      {path.eyebrow ? <span>{path.eyebrow}</span> : null}
       <strong>{path.title}</strong>
       <p>{path.description}</p>
       <ul className="telemetry-card-list">

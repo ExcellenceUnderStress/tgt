@@ -35,11 +35,10 @@ export default function HomePage() {
       <BrandStrip brands={brands} />
 
       <TelemetrySection
-        kicker="Service Paths"
-        title="Choose the right lane before the schedule gets involved."
-        summary="Dyno, remote, or project review — pick the path that fits your build before the calendar gets involved."
+        kicker="SERVICE PATHS"
+        summary="Dyno, remote, or project review — find the one that fits your build."
         linkHref="/services"
-        linkLabel="View Services"
+        linkLabel="View Services →"
       >
         {servicePaths.map((path, index) => (
           <TelemetryCard key={path.title} path={path} index={index} />
