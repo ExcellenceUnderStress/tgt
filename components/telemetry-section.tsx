@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 type TelemetrySectionProps = {
   kicker: string;
-  title: string;
+  title?: string;
   summary: string;
   linkHref: string;
   linkLabel: string;
@@ -23,7 +23,7 @@ export function TelemetrySection({
       <div className="telemetry-shell">
         <div className="telemetry-intro" data-reveal="slide-up">
           <p className="section-kicker">{kicker}</p>
-          <h2>{title}</h2>
+          {title ? <h2>{title}</h2> : null}
           <p>{summary}</p>
           <Link className="section-link" href={linkHref}>
             {linkLabel}

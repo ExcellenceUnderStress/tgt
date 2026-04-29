@@ -298,40 +298,38 @@ export const homepageSections = {
   },
   servicePaths: [
     {
-      eyebrow: "In-Person",
+      eyebrow: "IN-PERSON",
       title: "Dyno Tuning",
       description:
-        "Best for in-person sessions at the shop. Bring a car that's mechanically ready to run.",
+        "Tuned in-house on our dyno.",
       bullets: [
-        "Location: Auburn, WA",
-        "Process: Live session after intake review",
-        "Deposit: $200 to secure the slot",
+        "Auburn, WA",
+        "Half day — 9am or 1pm start",
+        "$200 deposit to book",
       ],
-      cta: { href: "/contact", label: "Book Dyno Session" },
+      cta: { href: "/contact", label: "Book Dyno Session →" },
     },
     {
-      eyebrow: "Remote",
-      title: "Remote E-Tune",
+      eyebrow: "REMOTE",
+      title: "E-Tune",
       description:
-        "Best for out-of-area builds. You log, we revise, we repeat until it's clean.",
+        "Tuned from your datalogs. Revisions until it's clean.",
       bullets: [
-        "Location: Nationwide",
-        "Process: Datalog review + revision rounds",
-        "Deposit: Reviewed before scheduling",
+        "Nationwide",
+        "Requires datalogging capability",
       ],
-      cta: { href: "/contact", label: "Start E-Tune" },
+      cta: { href: "/contact", label: "Start E-Tune →" },
     },
     {
-      eyebrow: "Free",
+      eyebrow: "",
       title: "Project Review",
       description:
-        "Best for builds where the path is unclear. Send the details, we'll tell you.",
+        "Not sure what fits? Send us the build details and we'll point you to the next step.",
       bullets: [
-        "Location: Remote or local",
-        "Process: Conversation first",
-        "Deposit: None",
+        "Response in 24–48 hours",
+        "Good for complex builds",
       ],
-      cta: { href: "/contact", label: "Submit for Review" },
+      cta: { href: "/contact", label: "Submit for Review →" },
     },
   ] satisfies HomepageServicePath[],
   featuredBuilds: [
@@ -1014,4 +1012,3 @@ export const haltechPageContent: ShopCollectionPageContent = {
     secondaryCta: { href: "/shop", label: "Back To Shop" },
   },
 };
-
