@@ -155,9 +155,19 @@ a {
   text-decoration: none;
 }
 
-img {
+img,
+svg,
+video,
+canvas {
   max-width: 100%;
+  height: auto;
   display: block;
+}
+
+/* Keep layout children from causing overflow in flex/grid contexts. */
+.page-shell * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 main {
@@ -167,7 +177,8 @@ main {
 .page-shell {
   width: min(100%, 1600px);
   margin: 0 auto;
-  padding: 0 var(--tg-space-5) var(--tg-space-12);
+  /* Fluid shell padding scales smoothly from mobile to desktop. */
+  padding: 0 clamp(1rem, 2.2vw, var(--tg-space-5)) clamp(2.5rem, 6vw, var(--tg-space-12));
 }
 
 .site-header,
@@ -296,7 +307,7 @@ html[data-color-mode="dark"] .theme-image-dark {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   display: grid;
   place-items: center;
   pointer-events: none;
@@ -308,7 +319,9 @@ html[data-color-mode="dark"] .theme-image-dark {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 2rem;
+  /* Responsive frame ratio keeps hero media proportional on all viewports. */
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(0.9rem, 2.4vw, 2rem);
   transform-origin: center center;
   will-change: transform, border-radius;
 }
@@ -367,7 +380,7 @@ html[data-color-mode="dark"] .theme-image-dark {
 .hero-copy-block {
   display: grid;
   gap: var(--tg-space-6);
-  max-width: 58rem;
+  max-width: min(58rem, 92vw);
   position: relative;
   z-index: 2;
   align-self: end;
@@ -490,7 +503,7 @@ html[data-color-mode="dark"] .theme-image-dark {
 .smooth-scroll-video-hero-background {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   overflow: hidden;
   background: #000;
@@ -591,7 +604,7 @@ li {
 
 .hero-memory-note {
   margin-top: var(--tg-space-6);
-  padding: var(--tg-space-4) var(--tg-space-5);
+  padding: clamp(0.9rem, 1.8vw, var(--tg-space-4)) clamp(1rem, 2.4vw, var(--tg-space-5));
   border-left: 1px solid color-mix(in srgb, var(--tg-color-brand-500) 55%, transparent);
   background: var(--site-surface-soft);
 }
@@ -1052,7 +1065,7 @@ li {
 }
 
 .statement-wrap {
-  max-width: 58rem;
+  max-width: min(58rem, 92vw);
   padding: var(--tg-space-10) var(--tg-space-8);
   text-align: center;
   border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 12%, transparent);
@@ -1997,7 +2010,7 @@ select.intake-input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--tg-space-4) var(--tg-space-5);
+  padding: clamp(0.9rem, 1.8vw, var(--tg-space-4)) clamp(1rem, 2.4vw, var(--tg-space-5));
   border-top: 1px solid var(--site-border-soft);
 }
 
@@ -2213,7 +2226,29 @@ select.intake-input {
   }
 }
 
-@media (max-width: 900px) {
+/* Mobile-first responsive layout breakpoints:
+   Mobile: <=640px (base + optional max-width overrides)
+   Tablet: 641px-1024px
+   Desktop: >=1025px */
+
+@media (max-width: 640px) {
+  .site-header {
+    padding-top: var(--tg-space-3);
+  }
+
+  .site-nav {
+    gap: 0.4rem;
+  }
+
+  .site-nav-link {
+    min-height: 2.35rem;
+    padding-inline: 0.72rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.11em;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
   .site-header,
   .route-grid,
   .service-path-grid,
@@ -2275,15 +2310,12 @@ select.intake-input {
   .hero {
     min-height: auto;
     grid-template-columns: 1fr;
-    padding-top: var(--tg-space-12);
+    padding-top: clamp(2rem, 6vw, var(--tg-space-12));
   }
 
-  .page-shell {
-    padding-inline: var(--tg-space-4);
-  }
-
+  .page-shell,
   .trust-layer {
-    padding-inline: var(--tg-space-4);
+    padding-inline: clamp(1rem, 2vw, var(--tg-space-4));
   }
 
   .statement-wrap {
@@ -2292,7 +2324,7 @@ select.intake-input {
 
   .hero-inner {
     min-height: 100svh;
-    padding-inline: var(--tg-space-4);
+    padding-inline: clamp(1rem, 2vw, var(--tg-space-4));
   }
 
   .hero-media-shell {
@@ -2304,21 +2336,22 @@ select.intake-input {
   }
 
   .hero-scroll-cue {
-    bottom: 1.8rem;
+    bottom: clamp(1.2rem, 3vw, 1.8rem);
   }
 
   .hero-scroll-cue-line {
-    height: 2.4rem;
+    height: clamp(2rem, 4vw, 2.4rem);
   }
 
+  /* Maintain existing animation behavior; only fluidly scale masked frame size. */
   .hero-media {
-    transform: scale(0.9);
-    clip-path: inset(7rem 1rem 2.5rem 1rem round 1rem);
+    transform: scale(clamp(0.9, 0.86 + 0.2vw, 0.95));
+    clip-path: inset(clamp(5rem, 10vw, 7rem) clamp(0.5rem, 1vw, 1rem) clamp(1.5rem, 3vw, 2.5rem) clamp(0.5rem, 1vw, 1rem) round clamp(0.8rem, 1.6vw, 1rem));
   }
 
   .hero-media-mask {
-    transform: scale(0.94);
-    clip-path: inset(6.5rem 0.5rem 2rem 0.5rem round 1.15rem);
+    transform: scale(clamp(0.92, 0.9 + 0.1vw, 0.96));
+    clip-path: inset(clamp(4.8rem, 9vw, 6.5rem) clamp(0.4rem, 0.8vw, 0.5rem) clamp(1.25rem, 2.6vw, 2rem) clamp(0.4rem, 0.8vw, 0.5rem) round clamp(0.9rem, 1.8vw, 1.15rem));
   }
 
   .telemetry-intro,
@@ -2333,6 +2366,16 @@ select.intake-input {
   }
 }
 
+@media (max-width: 1024px) {
+  .brand-logo-desktop {
+    display: none;
+  }
+
+  .brand-logo-compact {
+    display: block;
+  }
+}
+
 @media (min-width: 768px) {
   .smooth-scroll-video-hero-video-mobile {
     display: none;
@@ -2343,30 +2386,13 @@ select.intake-input {
   }
 }
 
-@media (max-width: 640px) {
-  .site-header {
-    padding-top: var(--tg-space-3);
-  }
-
-  .site-nav {
-    gap: 0.4rem;
-  }
-
-  .site-nav-link {
-    min-height: 2.35rem;
-    padding-inline: 0.72rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.11em;
-  }
-
-}
-
-@media (max-width: 1024px) {
+@media (min-width: 1025px) {
+  /* Desktop keeps the wide logo and default nav density. */
   .brand-logo-desktop {
-    display: none;
+    display: block;
   }
 
   .brand-logo-compact {
-    display: block;
+    display: none;
   }
 }
