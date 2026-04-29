@@ -1,6 +1,5 @@
 import { BrandStrip } from "@/components/brand-strip";
 import { BuildPreviewCard } from "@/components/build-preview-card";
-import { CtaRow } from "@/components/cta-row";
 import { FinalCta } from "@/components/final-cta";
 import { HomePageMotion } from "@/components/home-page-motion";
 import { SectionBar } from "@/components/section-bar";
@@ -25,23 +24,12 @@ export default function HomePage() {
           desktopVideo={hero.video}
           mobileVideo={hero.video}
           poster={hero.media}
-          initialClipPercentage={25}
-          finalClipPercentage={75}
-          initialScale={1.15}
+          initialScale={0.66}
+          title={hero.title}
+          summary={hero.summary}
+          location={hero.location}
+          learnMoreHref={hero.primaryCta.href}
         />
-
-        <div className="pointer-events-none absolute inset-0 z-10">
-          <div className="hero-inner sticky top-0 flex min-h-screen items-end justify-center">
-            <div className="hero-copy-block pointer-events-auto">
-              <h1>{hero.title}</h1>
-              <div className="hero-copy">
-                <p>{hero.summary}</p>
-                <p className="hero-location">{hero.location}</p>
-                <CtaRow primary={hero.primaryCta} secondary={hero.secondaryCta} />
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <BrandStrip brands={brands} />
