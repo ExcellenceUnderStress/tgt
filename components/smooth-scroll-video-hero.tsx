@@ -36,12 +36,23 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   const mobileVideoRef = React.useRef<HTMLVideoElement | null>(null);
   const desktopVideoRef = React.useRef<HTMLVideoElement | null>(null);
 
+  const [isMobileViewport, setIsMobileViewport] = React.useState(false);
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 640px)");
+    const updateViewport = () => setIsMobileViewport(mediaQuery.matches);
+    updateViewport();
+    mediaQuery.addEventListener("change", updateViewport);
+    return () => mediaQuery.removeEventListener("change", updateViewport);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
-  const mediaScale = useTransform(scrollYProgress, [0, 0.75], [initialScale, 1]);
+  const resolvedInitialScale = isMobileViewport ? Math.max(initialScale, 0.76) : initialScale;
+  const mediaScale = useTransform(scrollYProgress, [0, 0.75], [resolvedInitialScale, 1]);
   const mediaRadius = useTransform(scrollYProgress, [0, 0.75], [32, 0]);
 
   const headlineY = useTransform(scrollYProgress, [0, 0.3], [0, -64]);
@@ -63,7 +74,11 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   }, []);
 
   return (
-    <div ref={heroRef} className="smooth-scroll-video-hero" style={{ height: `calc(${scrollHeight}px + 100vh)` }}>
+    <div
+      ref={heroRef}
+      className="smooth-scroll-video-hero"
+      style={{ height: `calc(clamp(760px, 125vw, ${scrollHeight}px) + 100vh)` }}
+    >
       <div className="hero-inner sticky top-0 z-20 flex min-h-screen items-start justify-center pt-20 md:pt-24">
         <div className="hero-copy-block pointer-events-auto">
           <motion.h1 style={{ y: reduceMotion ? 0 : headlineY, opacity: reduceMotion ? 1 : headlineOpacity }}>{title}</motion.h1>
