@@ -23,7 +23,6 @@ export default function HomePage() {
           scrollHeight={1500}
           desktopVideo={hero.video}
           mobileVideo={hero.video}
-          poster={hero.media}
           initialScale={0.66}
           title={hero.title}
           summary={hero.summary}
@@ -83,8 +82,7 @@ export default function HomePage() {
         kicker="Start The Conversation"
         title={finalCta.title}
         summary={finalCta.summary}
-        primaryCta={finalCta.primaryCta}
-        secondaryCta={{ href: "/contact", label: "Contact TurboGixxer" }}
+        primaryCta={{ href: "/contact", label: "Contact" }}
         details={finalCta.details}
         sectionClass="home-section"
       />

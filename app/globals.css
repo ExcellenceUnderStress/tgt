@@ -54,7 +54,7 @@ html {
   --site-brand-strip-border: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
   --site-brand-item-bg: color-mix(in srgb, var(--tg-color-gray-25) 3%, transparent);
   --site-brand-item-line: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
-  --site-brand-logo-filter: grayscale(1) invert(1) brightness(0.28) contrast(1.12);
+  --site-brand-logo-filter: grayscale(1) brightness(0.2) contrast(1.15);
   --site-shop-logo-filter: grayscale(1) invert(1) brightness(0.24) contrast(1.08);
   --site-media-panel-bg:
     radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-400) 18%, transparent), transparent 35%),
@@ -2402,4 +2402,33 @@ select.intake-input {
   .brand-logo-compact {
     display: none;
   }
+}
+
+
+.services-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tg-space-3);
+}
+
+.services-tab-button {
+  border: 1px solid var(--site-border-medium);
+  background: var(--site-surface-panel);
+  color: var(--site-heading);
+  padding: 0.7rem 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.72rem, 0.5vw + 0.62rem, 0.92rem);
+}
+
+.services-tab-button[aria-selected="true"] {
+  background: color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 45%, var(--site-border-medium));
+}
+
+.pricing-section-header h2,
+.pricing-card-header h3,
+.pricing-row strong,
+.pricing-row > span {
+  overflow-wrap: anywhere;
 }

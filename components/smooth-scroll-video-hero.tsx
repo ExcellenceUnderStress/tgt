@@ -19,7 +19,9 @@ interface ISmoothScrollVideoHeroProps {
 }
 
 
-const PLAYBACK_START_PROGRESS = 0.55;
+const PLAYBACK_START_PROGRESS = 0.45;
+const TEXT_REVEAL_START = 0.12;
+const TEXT_REVEAL_END = 0.3;
 
 const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   scrollHeight = 1400,
@@ -47,8 +49,8 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
 
   const mediaScale = useTransform(scrollYProgress, [0, 0.75], [initialScale, 1]);
   const mediaRadius = useTransform(scrollYProgress, [0, 0.75], [32, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.42], [0, -88]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.42], [1, 0]);
+  const textY = useTransform(scrollYProgress, [TEXT_REVEAL_START, 0.42], [0, -88]);
+  const textOpacity = useTransform(scrollYProgress, [TEXT_REVEAL_START, TEXT_REVEAL_END], [0, 1]);
 
   React.useEffect(() => {
     const controlledVideos = [mobileVideoRef.current, desktopVideoRef.current].filter(
@@ -75,7 +77,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
 
   return (
     <div ref={heroRef} className="smooth-scroll-video-hero" style={{ height: `calc(${scrollHeight}px + 100vh)` }}>
-      <div className="hero-inner sticky top-0 z-20 flex min-h-screen items-start justify-center pt-20 md:pt-24">
+      <div className="hero-inner sticky top-0 z-20 flex min-h-screen items-start justify-center pt-8 md:pt-12">
         <motion.div className="hero-copy-block pointer-events-auto" style={{ y: reduceMotion ? 0 : textY, opacity: reduceMotion ? 1 : textOpacity }}>
           <h1>{title}</h1>
           <div className="hero-copy">
@@ -102,7 +104,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             loop
             playsInline
             preload="auto"
-            poster={poster}
+            poster={poster ?? undefined}
           >
             {mobileVideoWebm ? <source src={mobileVideoWebm} type="video/webm" /> : null}
             <source src={mobileVideo ?? desktopVideo} type="video/mp4" />
@@ -115,7 +117,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             loop
             playsInline
             preload="auto"
-            poster={poster}
+            poster={poster ?? undefined}
           >
             {desktopVideoWebm ? <source src={desktopVideoWebm} type="video/webm" /> : null}
             <source src={desktopVideo} type="video/mp4" />
