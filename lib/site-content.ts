@@ -255,10 +255,8 @@ export const homepageSections = {
     summary:
       "Dyno and remote EFI tuning. Street, track, high-power.",
     primaryCta: { href: "/contact", label: "Start Booking" },
-    secondaryCta: { href: "/services", label: "View Services" },
     location: "Auburn, Washington",
     logo: "/images/logo/1x/desktop-logo-white.png",
-    media: "/images/builds/Artboard 1.png",
     video: "/Heromp4.mp4",
   },
   brandStatement: {
@@ -844,7 +842,7 @@ export const aboutPageContent: AboutPageContent = {
     "Safe, reliable power beats empty peak numbers.",
     "Drivability and throttle response are part of the result, not extras.",
     "Tunes start conservative and refine through datalogs and observation.",
-    "You should understand what's happening in your car. No mystery files.",
+    "You should understand what's happening in your car.",
   ],
   fitLabel: "Who this fits",
   fitTitle: "Built for owners who care about the process.",

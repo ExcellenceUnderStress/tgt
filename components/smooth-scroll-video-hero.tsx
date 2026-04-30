@@ -115,7 +115,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             playsInline
             autoPlay
             preload="auto"
-            poster={poster}
+            poster={poster ?? undefined}
           >
             {mobileVideoWebm ? <source src={mobileVideoWebm} type="video/webm" /> : null}
             <source src={mobileVideo ?? desktopVideo} type="video/mp4" />
@@ -129,7 +129,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             playsInline
             autoPlay
             preload="auto"
-            poster={poster}
+            poster={poster ?? undefined}
           >
             {desktopVideoWebm ? <source src={desktopVideoWebm} type="video/webm" /> : null}
             <source src={desktopVideo} type="video/mp4" />
