@@ -18,9 +18,6 @@ interface ISmoothScrollVideoHeroProps {
   learnMoreHref: string;
 }
 
-
-const PLAYBACK_START_PROGRESS = 0.55;
-
 const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   scrollHeight = 1400,
   desktopVideo,
@@ -38,7 +35,6 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   const heroRef = React.useRef<HTMLDivElement | null>(null);
   const mobileVideoRef = React.useRef<HTMLVideoElement | null>(null);
   const desktopVideoRef = React.useRef<HTMLVideoElement | null>(null);
-  const playbackStartedRef = React.useRef(false);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -47,43 +43,44 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
 
   const mediaScale = useTransform(scrollYProgress, [0, 0.75], [initialScale, 1]);
   const mediaRadius = useTransform(scrollYProgress, [0, 0.75], [32, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.42], [0, -88]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.42], [1, 0]);
+
+  const headlineY = useTransform(scrollYProgress, [0, 0.3], [0, -64]);
+  const copyY = useTransform(scrollYProgress, [0.05, 0.36], [0, -80]);
+  const buttonY = useTransform(scrollYProgress, [0.1, 0.42], [0, -96]);
+
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.22], [1, 0]);
+  const copyOpacity = useTransform(scrollYProgress, [0.08, 0.3], [1, 0]);
+  const buttonOpacity = useTransform(scrollYProgress, [0.14, 0.38], [1, 0]);
 
   React.useEffect(() => {
     const controlledVideos = [mobileVideoRef.current, desktopVideoRef.current].filter(
       (video): video is HTMLVideoElement => Boolean(video),
     );
 
-    if (!controlledVideos.length) return;
-
-    const maybeStartPlayback = (progress: number) => {
-      if (playbackStartedRef.current) return;
-      if (!reduceMotion && progress < PLAYBACK_START_PROGRESS) return;
-
-      playbackStartedRef.current = true;
-      controlledVideos.forEach((video) => {
-        void video.play().catch(() => {});
-      });
-    };
-
-    maybeStartPlayback(scrollYProgress.get());
-    const unsubscribe = scrollYProgress.on("change", maybeStartPlayback);
-
-    return unsubscribe;
-  }, [reduceMotion, scrollYProgress]);
+    controlledVideos.forEach((video) => {
+      void video.play().catch(() => {});
+    });
+  }, []);
 
   return (
     <div ref={heroRef} className="smooth-scroll-video-hero" style={{ height: `calc(${scrollHeight}px + 100vh)` }}>
       <div className="hero-inner sticky top-0 z-20 flex min-h-screen items-start justify-center pt-20 md:pt-24">
-        <motion.div className="hero-copy-block pointer-events-auto" style={{ y: reduceMotion ? 0 : textY, opacity: reduceMotion ? 1 : textOpacity }}>
-          <h1>{title}</h1>
+        <div className="hero-copy-block pointer-events-auto">
+          <motion.h1 style={{ y: reduceMotion ? 0 : headlineY, opacity: reduceMotion ? 1 : headlineOpacity }}>{title}</motion.h1>
           <div className="hero-copy">
-            <p>{summary}</p>
-            <p className="hero-location">{location}</p>
-            <a className="button button-primary" href={learnMoreHref}>Learn More</a>
+            <motion.p style={{ y: reduceMotion ? 0 : copyY, opacity: reduceMotion ? 1 : copyOpacity }}>{summary}</motion.p>
+            <motion.p className="hero-location" style={{ y: reduceMotion ? 0 : copyY, opacity: reduceMotion ? 1 : copyOpacity }}>
+              {location}
+            </motion.p>
+            <motion.a
+              className="button button-primary"
+              href={learnMoreHref}
+              style={{ y: reduceMotion ? 0 : buttonY, opacity: reduceMotion ? 1 : buttonOpacity }}
+            >
+              Learn More
+            </motion.a>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="hero-media-shell">
@@ -101,6 +98,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             muted
             loop
             playsInline
+            autoPlay
             preload="auto"
             poster={poster}
           >
@@ -114,6 +112,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             muted
             loop
             playsInline
+            autoPlay
             preload="auto"
             poster={poster}
           >
