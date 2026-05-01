@@ -491,10 +491,10 @@ export const servicesOverview = {
 
 export const servicesPricingContent: ServicesPricingContent = {
   hero: {
-    eyebrow: "Pricing",
-    title: "Transparent pricing by platform.",
+    eyebrow: "Services & Pricing",
+    title: "Pricing by platform.",
     summary:
-      "Every session includes full calibration across all operating ranges. Price depends on your ECU platform — not a vague package tier.",
+      "Tuning for street cars, track builds, and race programs. Priced by ECU platform — licensing credits included on factory ECUs.",
   },
   prompt: {
     question: "Not sure what you need?",
