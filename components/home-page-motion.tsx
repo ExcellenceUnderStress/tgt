@@ -47,6 +47,19 @@ export function HomePageMotion() {
           );
         });
 
+
+        gsap.utils.toArray<HTMLVideoElement>("[data-scroll-video]").forEach((video) => {
+          ScrollTrigger.create({
+            trigger: video.closest("section") ?? video,
+            start: "top 75%",
+            end: "bottom 25%",
+            onEnter: () => void video.play().catch(() => {}),
+            onEnterBack: () => void video.play().catch(() => {}),
+            onLeave: () => video.pause(),
+            onLeaveBack: () => video.pause(),
+          });
+        });
+
         gsap.utils.toArray<HTMLElement>("[data-parallax-card]").forEach((card) => {
           const media = card.querySelector<HTMLElement>(".build-preview-image");
           if (!media) return;
