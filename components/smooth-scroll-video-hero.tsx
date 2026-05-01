@@ -4,8 +4,8 @@ import * as React from "react";
 
 const HERO_SCROLL_HEIGHT = 2400;
 const HERO_MEDIA_BORDER_RADIUS = 32;
-const HERO_COPY_ENTRY_Y_PERCENT = 14;
-const HERO_COPY_EXIT_Y_PERCENT = -12;
+const HERO_COPY_ENTRY_Y = -72;
+const HERO_COPY_EXIT_Y = 72;
 const HERO_ZOOM_DURATION = 0.45;
 const HERO_COPY_REVEAL_DURATION = 0.22;
 const HERO_COPY_HOLD_DURATION = 0.16;
@@ -52,7 +52,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
       gsap.registerPlugin(ScrollTrigger);
 
       const ctx = gsap.context(() => {
-        gsap.set(copyRef.current, { autoAlpha: 0, yPercent: HERO_COPY_ENTRY_Y_PERCENT });
+        gsap.set(copyRef.current, { autoAlpha: 0, y: HERO_COPY_ENTRY_Y });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -71,9 +71,14 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             { scale: initialScale, borderRadius: HERO_MEDIA_BORDER_RADIUS },
             { scale: 1, borderRadius: 0, ease: "power2.out", duration: HERO_ZOOM_DURATION },
           )
-          .to(copyRef.current, { autoAlpha: 1, yPercent: 0, ease: "power2.out", duration: HERO_COPY_REVEAL_DURATION })
+          .fromTo(
+            copyRef.current,
+            { autoAlpha: 0, y: HERO_COPY_ENTRY_Y },
+            { autoAlpha: 1, y: 0, ease: "power2.out", duration: HERO_COPY_REVEAL_DURATION },
+            ">-0.05",
+          )
           .to({}, { duration: HERO_COPY_HOLD_DURATION })
-          .to(copyRef.current, { autoAlpha: 0, yPercent: HERO_COPY_EXIT_Y_PERCENT, ease: "power2.in", duration: HERO_COPY_DISMISS_DURATION });
+          .to(copyRef.current, { autoAlpha: 0, y: HERO_COPY_EXIT_Y, ease: "power2.in", duration: HERO_COPY_DISMISS_DURATION });
       }, heroRef);
 
       cleanup = () => ctx.revert();
@@ -106,7 +111,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
         </div>
       </div>
 
-      <div className="hero-inner z-30 flex min-h-screen items-end justify-center pb-16 pt-20 md:pb-24 md:pt-24">
+      <div className="hero-inner hero-overlay-copy z-30 flex min-h-screen items-end justify-center pb-16 pt-20 md:pb-24 md:pt-24">
         <div ref={copyRef} className="hero-copy-block pointer-events-auto">
           <h1>{title}</h1>
           <div className="hero-copy">

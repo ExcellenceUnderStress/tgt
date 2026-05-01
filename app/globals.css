@@ -499,6 +499,17 @@ html[data-color-mode="dark"] .theme-image-dark {
   width: 100%;
 }
 
+.hero-overlay-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.hero-overlay-copy .hero-copy-block {
+  pointer-events: auto;
+}
+
 .smooth-scroll-video-hero-background {
   position: sticky;
   top: 0;
