@@ -2468,35 +2468,10 @@ select.intake-input {
   overflow-wrap: anywhere;
 }
 
-.pricing-prompt-strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--tg-space-4);
-  padding: var(--tg-space-4) 0;
-  border-top: 1px solid var(--site-border-soft);
-  border-bottom: 1px solid var(--site-border-soft);
-}
-
-.pricing-prompt-strip p {
-  margin: 0;
-  color: var(--site-heading);
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-}
-
-.pricing-prompt-link {
-  color: var(--tg-color-brand-500);
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.pricing-prompt-link:hover {
-  color: var(--tg-color-brand-400);
+/* Sticky-header offset for scroll-into-view targets. */
+#pricing-tabs,
+#pricing-cheat-sheet {
+  scroll-margin-top: clamp(4.5rem, 8vw, 6rem);
 }
 
 .pricing-cheat-sheet-grid {

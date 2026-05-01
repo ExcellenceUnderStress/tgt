@@ -213,11 +213,6 @@ export type ServicesPricingContent = {
     title: string;
     summary: string;
   };
-  prompt: {
-    question: string;
-    linkLabel: string;
-    linkHref: string;
-  };
   cheatSheet: {
     eyebrow: string;
     title: string;
@@ -229,6 +224,10 @@ export type ServicesPricingContent = {
     summary: string;
     flag: string;
     cards: ServicePricingCard[];
+    addons: {
+      title: string;
+      items: ServicePricingAddon[];
+    };
   };
   standalone: {
     eyebrow: string;
@@ -236,6 +235,10 @@ export type ServicesPricingContent = {
     summary: string;
     flag: string;
     cards: ServicePricingCard[];
+    addons: {
+      title: string;
+      items: ServicePricingAddon[];
+    };
   };
   remote: {
     eyebrow: string;
@@ -243,10 +246,6 @@ export type ServicesPricingContent = {
     summary: string;
     flag: string;
     cards: ServicePricingHighlightCard[];
-  };
-  addons: {
-    eyebrow: string;
-    items: ServicePricingAddon[];
   };
   policy: {
     eyebrow: string;
@@ -496,11 +495,6 @@ export const servicesPricingContent: ServicesPricingContent = {
     summary:
       "Tuning for street cars, track builds, and race programs. Priced by ECU platform — licensing credits included on factory ECUs.",
   },
-  prompt: {
-    question: "Not sure what you need?",
-    linkLabel: "Tell us what you're building",
-    linkHref: "#pricing-cheat-sheet",
-  },
   cheatSheet: {
     eyebrow: "Quick Reference",
     title: "Common builds and what they cost.",
@@ -580,6 +574,13 @@ export const servicesPricingContent: ServicesPricingContent = {
         footer: "Licensing credits included.",
       },
     ],
+    addons: {
+      title: "Factory ECU Add-ons",
+      items: [
+        { label: "Flex Fuel setup", value: "+$100" },
+        { label: "TCM Unlock (GM 2017+)", value: "+$350" },
+      ],
+    },
   },
   standalone: {
     eyebrow: "Standalone ECU",
@@ -622,6 +623,15 @@ export const servicesPricingContent: ServicesPricingContent = {
         ],
       },
     ],
+    addons: {
+      title: "Standalone Add-ons",
+      items: [
+        { label: "Traction Control Setup", value: "+$250" },
+        { label: "Flex Fuel", value: "+$100" },
+        { label: "Dash Setup (Standard)", value: "+$200" },
+        { label: "Dash Setup (MoTeC)", value: "+$1,000" },
+      ],
+    },
   },
   remote: {
     eyebrow: "Remote & Track",
@@ -647,17 +657,6 @@ export const servicesPricingContent: ServicesPricingContent = {
         subtitle: "4-hour minimum (local)",
         body: "Travel rate $1,650 / day plus travel and lodging.",
       },
-    ],
-  },
-  addons: {
-    eyebrow: "Available Add-ons",
-    items: [
-      { label: "Flex Fuel setup", value: "+$100" },
-      { label: "TCM Unlock (GM 2017+)", value: "+$350" },
-      { label: "Traction Control Setup (Standalone)", value: "+$250" },
-      { label: "Flex Fuel (Standalone)", value: "+$100" },
-      { label: "Dash Setup (Standard)", value: "+$200" },
-      { label: "Dash Setup (MoTeC)", value: "+$1,000" },
     ],
   },
   policy: {
