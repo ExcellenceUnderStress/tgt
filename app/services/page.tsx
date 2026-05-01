@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import { PageHero } from "@/components/page-hero";
 import { PricingAddonPanel } from "@/components/pricing-addon-panel";
 import { PricingCheatSheet } from "@/components/pricing-cheat-sheet";
 import { PricingPromptStrip } from "@/components/pricing-prompt-strip";
@@ -22,13 +23,16 @@ export default function ServicesPage() {
   return (
     <>
       {/* ── Pricing Hero ── */}
-      <section className="route-intro pricing-hero">
-        <div className="pricing-hero-shell">
-          <p className="section-kicker">{hero.eyebrow}</p>
-          <h1>{hero.title}</h1>
-          <p className="pricing-hero-summary">{hero.summary}</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        summary={hero.summary}
+        media={{
+          primary: { label: "DYNO / 01" },
+          secondary: { label: "TELEMETRY / 02" },
+          tertiary: { label: "BUILD / 03" },
+        }}
+      />
 
       {/* ── "Not sure?" prompt ── */}
       <section className="route-section pricing-section pricing-prompt-section">
