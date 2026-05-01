@@ -4,10 +4,8 @@ import * as React from "react";
 
 interface ISmoothScrollVideoHeroProps {
   scrollHeight?: number;
-  desktopVideo: string;
-  mobileVideo?: string;
-  desktopVideoWebm?: string;
-  mobileVideoWebm?: string;
+  video: string;
+  videoWebm?: string;
   poster?: string;
   initialScale?: number;
   title: string;
@@ -17,11 +15,9 @@ interface ISmoothScrollVideoHeroProps {
 }
 
 const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
-  scrollHeight = 1800,
-  desktopVideo,
-  mobileVideo,
-  desktopVideoWebm,
-  mobileVideoWebm,
+  scrollHeight = 2400,
+  video,
+  videoWebm,
   poster,
   initialScale = 0.66,
   title,
@@ -32,8 +28,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   const heroRef = React.useRef<HTMLDivElement | null>(null);
   const mediaRef = React.useRef<HTMLDivElement | null>(null);
   const copyRef = React.useRef<HTMLDivElement | null>(null);
-  const mobileVideoRef = React.useRef<HTMLVideoElement | null>(null);
-  const desktopVideoRef = React.useRef<HTMLVideoElement | null>(null);
+  const videoRef = React.useRef<HTMLVideoElement | null>(null);
 
   React.useEffect(() => {
     let cleanup = () => {};
@@ -48,7 +43,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
       gsap.registerPlugin(ScrollTrigger);
 
       const ctx = gsap.context(() => {
-        gsap.set(copyRef.current, { autoAlpha: 0, y: 36 });
+        gsap.set(copyRef.current, { autoAlpha: 0, yPercent: 14 });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -65,21 +60,19 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
           .fromTo(
             mediaRef.current,
             { scale: initialScale, borderRadius: 32 },
-            { scale: 1, borderRadius: 0, ease: "power2.out", duration: 0.7 },
+            { scale: 1, borderRadius: 0, ease: "power2.out", duration: 0.45 },
           )
-          .to(copyRef.current, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.3 }, ">-0.02");
+          .to(copyRef.current, { autoAlpha: 1, yPercent: 0, ease: "power2.out", duration: 0.22 })
+          .to({}, { duration: 0.16 })
+          .to(copyRef.current, { autoAlpha: 0, yPercent: -12, ease: "power2.in", duration: 0.2 });
       }, heroRef);
 
       cleanup = () => ctx.revert();
     })();
 
-    const controlledVideos = [mobileVideoRef.current, desktopVideoRef.current].filter(
-      (video): video is HTMLVideoElement => Boolean(video),
-    );
-
-    controlledVideos.forEach((video) => {
-      void video.play().catch(() => {});
-    });
+    if (videoRef.current) {
+      void videoRef.current.play().catch(() => {});
+    }
 
     return () => cleanup();
   }, [initialScale, scrollHeight]);
@@ -89,8 +82,8 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
       <div className="hero-media-shell">
         <div ref={mediaRef} className="hero-media hero-media-pinnable">
           <video
-            ref={mobileVideoRef}
-            className="absolute inset-0 h-full w-full object-cover md:hidden hero-video"
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full object-cover hero-video"
             muted
             loop
             playsInline
@@ -98,22 +91,8 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             preload="auto"
             poster={poster ?? undefined}
           >
-            {mobileVideoWebm ? <source src={mobileVideoWebm} type="video/webm" /> : null}
-            <source src={mobileVideo ?? desktopVideo} type="video/mp4" />
-          </video>
-
-          <video
-            ref={desktopVideoRef}
-            className="absolute inset-0 hidden h-full w-full object-cover md:block hero-video"
-            muted
-            loop
-            playsInline
-            autoPlay
-            preload="auto"
-            poster={poster ?? undefined}
-          >
-            {desktopVideoWebm ? <source src={desktopVideoWebm} type="video/webm" /> : null}
-            <source src={desktopVideo} type="video/mp4" />
+            {videoWebm ? <source src={videoWebm} type="video/webm" /> : null}
+            <source src={video} type="video/mp4" />
           </video>
         </div>
       </div>
