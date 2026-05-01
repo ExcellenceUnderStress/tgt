@@ -100,6 +100,16 @@ export type ServicePolicyItem = {
   body: string;
 };
 
+export type ServicePricingTabKey = "factory" | "standalone" | "remote";
+
+export type ServicePricingCheatSheetItem = {
+  build: string;
+  path: string;
+  price: string;
+  timeline: string;
+  targetTab: ServicePricingTabKey;
+};
+
 export type ServiceDetailPage = {
   laneLabel: string;
   intro: string;
@@ -203,16 +213,22 @@ export type ServicesPricingContent = {
     title: string;
     summary: string;
   };
+  prompt: {
+    question: string;
+    linkLabel: string;
+    linkHref: string;
+  };
+  cheatSheet: {
+    eyebrow: string;
+    title: string;
+    items: ServicePricingCheatSheetItem[];
+  };
   factory: {
     eyebrow: string;
     title: string;
     summary: string;
     flag: string;
     cards: ServicePricingCard[];
-    addons: {
-      title: string;
-      items: ServicePricingAddon[];
-    };
   };
   standalone: {
     eyebrow: string;
@@ -220,10 +236,6 @@ export type ServicesPricingContent = {
     summary: string;
     flag: string;
     cards: ServicePricingCard[];
-    addons: {
-      title: string;
-      items: ServicePricingAddon[];
-    };
   };
   remote: {
     eyebrow: string;
@@ -232,11 +244,19 @@ export type ServicesPricingContent = {
     flag: string;
     cards: ServicePricingHighlightCard[];
   };
+  addons: {
+    eyebrow: string;
+    items: ServicePricingAddon[];
+  };
   policy: {
     eyebrow: string;
     title: string;
     summary: string;
     items: ServicePolicyItem[];
+  };
+  finalCta: {
+    label: string;
+    href: string;
   };
 };
 
@@ -471,43 +491,84 @@ export const servicesOverview = {
 
 export const servicesPricingContent: ServicesPricingContent = {
   hero: {
-    eyebrow: "Services & Pricing",
-    title: "Services & Pricing",
+    eyebrow: "Pricing",
+    title: "Transparent pricing by platform.",
     summary:
-      "Tuning for street cars, track builds, and race programs. Factory ECU pricing includes licensing credits.",
+      "Every session includes full calibration across all operating ranges. Price depends on your ECU platform — not a vague package tier.",
+  },
+  prompt: {
+    question: "Not sure what you need?",
+    linkLabel: "Tell us what you're building",
+    linkHref: "#pricing-cheat-sheet",
+  },
+  cheatSheet: {
+    eyebrow: "Quick Reference",
+    title: "Common builds and what they cost.",
+    items: [
+      {
+        build: "Bolt-on Honda on Hondata",
+        path: "Factory ECU Reflash",
+        price: "from $650",
+        timeline: "Half day",
+        targetTab: "factory",
+      },
+      {
+        build: "K-swap or turbo build on Haltech",
+        path: "Standalone ECU Tuning",
+        price: "from $750 + Race Package +$500",
+        timeline: "3–6 hours dyno",
+        targetTab: "standalone",
+      },
+      {
+        build: "Out-of-state E85 conversion",
+        path: "Remote Tuning",
+        price: "$500 + Flex Fuel +$100",
+        timeline: "10–20 revisions",
+        targetTab: "remote",
+      },
+      {
+        build: "MoTeC M1 race car",
+        path: "Standalone (MoTeC tier)",
+        price: "$1,000–$1,500 + Race Package +$800",
+        timeline: "Varies",
+        targetTab: "standalone",
+      },
+    ],
   },
   factory: {
-    eyebrow: "Category A: Factory ECU Tuning",
+    eyebrow: "Factory ECU",
     title: "Factory ECU Tuning",
-    summary: "HP Tuners and Hondata platforms. Best for street cars and bolt-on builds.",
+    summary:
+      "Reflash calibration for OEM ECUs on HP Tuners and Hondata platforms. Best for street cars and bolt-on builds. Licensing credits included.",
     flag: "Street / Bolt-Ons",
     cards: [
       {
         title: "GM",
-        subtitle: "1999 - 2020+",
+        subtitle: "1999 – 2020+",
         rows: [
-          { label: "1999 - 2016", value: "$750" },
-          { label: "2017 - 2020+", value: "$850" },
+          { label: "1999 – 2016", value: "$750" },
+          { label: "2017 – 2020+", value: "$850" },
         ],
-        footer: "Licensing credits included",
+        footer: "Licensing credits included. +$350 if TCM requires unlocking (2017+).",
       },
       {
         title: "Ford",
-        subtitle: "1987 - 2024",
+        subtitle: "1987 – 2024",
         rows: [
-          { label: "1987 - 2017", value: "$750" },
-          { label: "2018 - 2024", value: "$850" },
+          { label: "1987 – 2017", value: "$750" },
+          { label: "2018 – 2024", value: "$850" },
         ],
-        footer: "Licensing credits included",
+        footer: "Licensing credits included.",
       },
       {
         title: "Dodge / Mopar",
-        subtitle: "2003 - 2024",
+        subtitle: "2003 – 2024",
         rows: [
-          { label: "2003 - 2014", value: "$750" },
-          { label: "2015 - 2024", value: "$850 - $1,050" },
+          { label: "2003 – 2014", value: "$750" },
+          { label: "2015 – 2024", value: "$850 – $1,050" },
         ],
-        footer: "Licensing credits included. 2018+ requires PCM Unlock ($350) + Bypass ($80).",
+        footer:
+          "Licensing credits included. 2018+ requires PCM Unlock (+$350) and Bypass (+$80).",
       },
       {
         title: "Honda (Hondata)",
@@ -516,21 +577,15 @@ export const servicesPricingContent: ServicesPricingContent = {
           { label: "S300", value: "$550" },
           { label: "KPro / FlashPro", value: "$650" },
         ],
-        footer: "Licensing credits included",
+        footer: "Licensing credits included.",
       },
     ],
-    addons: {
-      title: "Available Add-ons",
-      items: [
-        { label: "Flex Fuel", value: "+$100" },
-        { label: "TCM Unlock (GM)", value: "+$350" },
-      ],
-    },
   },
   standalone: {
-    eyebrow: "Category B: Standalone ECU Tuning",
+    eyebrow: "Standalone ECU",
     title: "Standalone ECU Tuning",
-    summary: "Full ECU control for race builds and high-power street cars.",
+    summary:
+      "Full ECU control for race builds and high-power street cars. Multiple revisions included until the tune is dialed in.",
     flag: "Race / Serious Street",
     cards: [
       {
@@ -540,54 +595,45 @@ export const servicesPricingContent: ServicesPricingContent = {
           {
             label: "Base Tune",
             value: "$750",
-            detail: "Includes initial setup and full map calibration",
+            detail: "Initial setup and full map calibration.",
           },
           {
             label: "Race Package",
             value: "+$500",
-            detail: "SFWD/Drag/Road Race strategies + 1 local track visit",
+            detail: "2WD / 4WD / drag / road race strategies + 1 local track visit.",
           },
         ],
       },
       {
         title: "MoTeC",
-        subtitle: "M1 Series / Advanced packages",
+        subtitle: "M1 Series",
         badge: "Premium",
         rows: [
           {
             label: "Base Tune",
-            value: "$1,000 - $1,500",
-            detail: "Varies by package complexity",
+            value: "$1,000 – $1,500",
+            detail: "Varies by package complexity.",
           },
           {
             label: "Race Package",
             value: "+$800",
-            detail: "Launch, anti-lag, traction control + 1 local track visit",
+            detail: "Launch, anti-lag, traction control + 1 local track visit.",
           },
         ],
       },
     ],
-    addons: {
-      title: "Standalone Add-ons",
-      items: [
-        { label: "Traction Control Setup", value: "+$250" },
-        { label: "Flex Fuel", value: "+$100" },
-        { label: "Dash Setup (Standard)", value: "+$200" },
-        { label: "Dash Setup (MoTeC)", value: "+$1,000" },
-      ],
-    },
   },
   remote: {
-    eyebrow: "Category C: Remote & Support",
+    eyebrow: "Remote & Track",
     title: "Remote Tuning & Track Support",
-    summary: "For out-of-state customers and on-site race support",
+    summary: "For out-of-state customers and on-site race support.",
     flag: "Remote / Support",
     cards: [
       {
         title: "Remote Tuning",
         price: "$500",
         subtitle: "Most factory ECU and standalone platforms",
-        body: "E-tune via datalogs. Multiple revisions included until dialed in.",
+        body: "E-tune via datalogs. Multiple revisions until the tune is dialed in.",
       },
       {
         title: "Remote Tuning (MoTeC)",
@@ -597,30 +643,46 @@ export const servicesPricingContent: ServicesPricingContent = {
       },
       {
         title: "Track Support",
-        price: "$250/hr",
+        price: "$250 / hr",
         subtitle: "4-hour minimum (local)",
-        body: "Travel rate: $1,650/day + travel & lodging costs.",
+        body: "Travel rate $1,650 / day plus travel and lodging.",
       },
     ],
   },
+  addons: {
+    eyebrow: "Available Add-ons",
+    items: [
+      { label: "Flex Fuel setup", value: "+$100" },
+      { label: "TCM Unlock (GM 2017+)", value: "+$350" },
+      { label: "Traction Control Setup (Standalone)", value: "+$250" },
+      { label: "Flex Fuel (Standalone)", value: "+$100" },
+      { label: "Dash Setup (Standard)", value: "+$200" },
+      { label: "Dash Setup (MoTeC)", value: "+$1,000" },
+    ],
+  },
   policy: {
-    eyebrow: "Booking Policy",
-    title: "Booking & Policy",
-    summary: "What to know before scheduling your appointment.",
+    eyebrow: "Booking & Policy",
+    title: "What to know before scheduling your appointment.",
+    summary:
+      "A few notes on deposits, what's included, and how to start if you're not sure which path fits your build.",
     items: [
       {
         title: "Deposit Required",
-        body: "A $200 non-refundable deposit is required to secure all appointments. This applies to dyno sessions, e-tunes, and track support.",
+        body: "$200 non-refundable deposit secures all appointments. Applies to dyno sessions, e-tunes, and track support.",
       },
       {
         title: "What's Included",
         body: "All Factory ECU pricing includes licensing credits. Standalone and remote tunes include multiple revisions until the tune is dialed in for your setup.",
       },
       {
-        title: "Not Sure What You Need?",
+        title: "Not Sure What You Need",
         body: "Reach out first. We'll help you pick the right service for the build.",
       },
     ],
+  },
+  finalCta: {
+    label: "Start project intake",
+    href: "/book",
   },
 };
 
