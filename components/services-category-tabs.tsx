@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 
+import { PricingAddonPanel } from "@/components/pricing-addon-panel";
 import { PricingCard } from "@/components/pricing-card";
 import { PricingHighlightCard } from "@/components/pricing-highlight-card";
 import { PricingSectionHeader } from "@/components/pricing-section-header";
@@ -110,6 +111,7 @@ export function ServicesCategoryTabs({
             <PricingCard key={card.title} card={card} />
           ))}
         </div>
+        <PricingAddonPanel title={factory.addons.title} items={factory.addons.items} />
       </div>
 
       <div
@@ -124,6 +126,7 @@ export function ServicesCategoryTabs({
             <PricingCard key={card.title} card={card} />
           ))}
         </div>
+        <PricingAddonPanel title={standalone.addons.title} items={standalone.addons.items} />
       </div>
 
       <div
