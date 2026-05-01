@@ -20,9 +20,7 @@ export default function HomePage() {
 
       <section className="hero machine-memory-hero" data-motion-root="hero">
         <SmoothScrollVideoHero
-          scrollHeight={1500}
-          desktopVideo={hero.video}
-          mobileVideo={hero.video}
+          video={hero.video}
           initialScale={0.66}
           title={hero.title}
           summary={hero.summary}
