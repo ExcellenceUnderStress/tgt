@@ -2,6 +2,15 @@
 
 import * as React from "react";
 
+const HERO_SCROLL_HEIGHT = 2400;
+const HERO_MEDIA_BORDER_RADIUS = 32;
+const HERO_COPY_ENTRY_Y_PERCENT = 14;
+const HERO_COPY_EXIT_Y_PERCENT = -12;
+const HERO_ZOOM_DURATION = 0.45;
+const HERO_COPY_REVEAL_DURATION = 0.22;
+const HERO_COPY_HOLD_DURATION = 0.16;
+const HERO_COPY_DISMISS_DURATION = 0.2;
+
 interface ISmoothScrollVideoHeroProps {
   scrollHeight?: number;
   video: string;
@@ -15,7 +24,7 @@ interface ISmoothScrollVideoHeroProps {
 }
 
 const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
-  scrollHeight = 2400,
+  scrollHeight = HERO_SCROLL_HEIGHT,
   video,
   videoWebm,
   poster,
@@ -43,7 +52,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
       gsap.registerPlugin(ScrollTrigger);
 
       const ctx = gsap.context(() => {
-        gsap.set(copyRef.current, { autoAlpha: 0, yPercent: 14 });
+        gsap.set(copyRef.current, { autoAlpha: 0, yPercent: HERO_COPY_ENTRY_Y_PERCENT });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -59,12 +68,12 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
         timeline
           .fromTo(
             mediaRef.current,
-            { scale: initialScale, borderRadius: 32 },
-            { scale: 1, borderRadius: 0, ease: "power2.out", duration: 0.45 },
+            { scale: initialScale, borderRadius: HERO_MEDIA_BORDER_RADIUS },
+            { scale: 1, borderRadius: 0, ease: "power2.out", duration: HERO_ZOOM_DURATION },
           )
-          .to(copyRef.current, { autoAlpha: 1, yPercent: 0, ease: "power2.out", duration: 0.22 })
-          .to({}, { duration: 0.16 })
-          .to(copyRef.current, { autoAlpha: 0, yPercent: -12, ease: "power2.in", duration: 0.2 });
+          .to(copyRef.current, { autoAlpha: 1, yPercent: 0, ease: "power2.out", duration: HERO_COPY_REVEAL_DURATION })
+          .to({}, { duration: HERO_COPY_HOLD_DURATION })
+          .to(copyRef.current, { autoAlpha: 0, yPercent: HERO_COPY_EXIT_Y_PERCENT, ease: "power2.in", duration: HERO_COPY_DISMISS_DURATION });
       }, heroRef);
 
       cleanup = () => ctx.revert();
