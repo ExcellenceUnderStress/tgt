@@ -34,8 +34,8 @@ export default function HomePage() {
       <TelemetrySection
         kicker="SERVICE PATHS"
         summary="Dyno, remote, or project review — find the one that fits your build."
-        linkHref="/services"
-        linkLabel="View Services →"
+        linkHref="/pricing"
+        linkLabel="View Pricing →"
       >
         {servicePaths.map((path, index) => (
           <TelemetryCard key={path.title} path={path} index={index} />

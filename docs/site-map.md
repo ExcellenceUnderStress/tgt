@@ -37,9 +37,9 @@ TurboGixxer V2 is a cinematic, brand-first website that communicates legacy, rec
 
 - `/`
 - `/about`
-- `/services`
-- `/services/dyno`
-- `/services/remote`
+- `/pricing`
+- `/pricing/dyno`
+- `/pricing/remote`
 - `/builds`
 - `/shop`
 - `/shop/merch`
@@ -68,17 +68,17 @@ Primary CTAs:
 - Contact
 - Book
 
-### `/services`
+### `/pricing`
 
 Purpose:
-Give an overview of dyno and remote tuning, explain the differences, and route people into the correct next step.
+Present pricing for dyno, standalone, and remote tuning paths, with a build-type cheat sheet so visitors can self-select the right lane.
 
 Primary CTAs:
 - View Dyno
 - View Remote
 - Start Booking
 
-### `/services/dyno`
+### `/pricing/dyno`
 
 Purpose:
 Explain what dyno tuning includes, who it is for, prep requirements, and booking expectations.
@@ -87,7 +87,7 @@ Primary CTAs:
 - Book Dyno
 - Contact
 
-### `/services/remote`
+### `/pricing/remote`
 
 Purpose:
 Explain remote tuning fit, platform requirements, process, and intake expectations.
@@ -154,7 +154,7 @@ Primary CTAs:
 Recommended primary navigation:
 
 - About
-- Services
+- Pricing
 - Builds
 - Shop
 - Contact
@@ -162,7 +162,7 @@ Recommended primary navigation:
 
 Recommended mobile priority:
 
-- Services
+- Pricing
 - Builds
 - Shop
 - Contact
@@ -173,7 +173,7 @@ Recommended mobile priority:
 Footer should remain concise:
 
 - About
-- Services
+- Pricing
 - Builds
 - Shop
 - Contact

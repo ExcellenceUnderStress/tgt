@@ -262,7 +262,7 @@ export type ServicesPricingContent = {
 
 export const primaryNavigation: NavItem[] = [
   { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/builds", label: "Builds" },
   { href: "/shop", label: "Shop" },
   { href: "/contact", label: "Contact" },
@@ -442,7 +442,7 @@ export const servicesOverview = {
         "Requires mechanical readiness before dyno time is committed",
         "Routes into a booking request after review",
       ],
-      cta: { href: "/services/dyno", label: "View Dyno" },
+      cta: { href: "/pricing/dyno", label: "View Dyno" },
     },
     {
       title: "Remote Tuning",
@@ -454,7 +454,7 @@ export const servicesOverview = {
         "Usually requires 5 to 17 revisions depending on setup",
         "Starts with intake review before tuning moves forward",
       ],
-      cta: { href: "/services/remote", label: "View Remote" },
+      cta: { href: "/pricing/remote", label: "View Remote" },
     },
   ] satisfies ServiceOverviewLane[],
   fitChecks: [
@@ -700,7 +700,7 @@ export const routeHeroes: Record<string, RouteHero> = {
     summary:
       "This page should help customers self-select the right path without burying them in filler copy or unqualified scheduling.",
     primaryCta: { href: "/contact", label: "Start Booking" },
-    secondaryCta: { href: "/services/remote", label: "Remote Details" },
+    secondaryCta: { href: "/pricing/remote", label: "Remote Details" },
   },
   dyno: {
     eyebrow: "Dyno Tuning",

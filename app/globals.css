@@ -743,7 +743,7 @@ li {
 }
 
 .route-section {
-  padding: var(--tg-space-16) 0 0;
+  padding: clamp(var(--tg-space-10), 5vw, var(--tg-space-16)) 0 0;
 }
 
 .pricing-hero {
@@ -2247,8 +2247,6 @@ select.intake-input {
   .service-path-grid,
   .service-path-preview-grid,
   .service-compare-grid,
-  .pricing-card-grid,
-  .pricing-support-grid,
   .service-detail-lead,
   .service-detail-columns,
   .service-checklist-grid,
@@ -2274,6 +2272,32 @@ select.intake-input {
   .telemetry-shell,
   .legacy-layout {
     grid-template-columns: 1fr;
+  }
+
+  /* Pricing grids: keep 2-col on tablet, collapse independently below. */
+  .pricing-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing-support-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Tab list: scroll horizontally instead of wrapping at all sub-desktop sizes. */
+  .services-tab-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .services-tab-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-tab-button {
+    flex: 0 0 auto;
   }
 
   .home-section-bar {
@@ -2546,18 +2570,57 @@ select.intake-input {
 }
 
 @media (max-width: 640px) {
+  /* Section rhythm: tighten vertical breathing on small screens. */
+  .route-section {
+    padding-top: var(--tg-space-10);
+  }
+
+  /* Cheat sheet: single column. */
   .pricing-cheat-sheet-grid {
     grid-template-columns: 1fr;
   }
 
-  .services-tab-list {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+  /* Cheat cards: ensure ≥44px touch target. */
+  .pricing-cheat-card {
+    min-height: 2.75rem;
   }
 
+  /* Pricing grids: full-width single column on mobile. */
+  .pricing-card-grid,
+  .pricing-support-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Section header: let flag drop below heading naturally. */
+  .pricing-section-header {
+    grid-template-columns: 1fr;
+  }
+
+  /* Pricing row: stack label/detail over the price value on narrow screens
+     so the display-font price doesn't crowd the label. */
+  .pricing-row {
+    flex-direction: column;
+    gap: var(--tg-space-2);
+  }
+
+  .pricing-row > span {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    align-self: flex-start;
+  }
+
+  /* Add-on rows keep side-by-side — content is short enough to fit. */
+  .pricing-addon-row {
+    gap: var(--tg-space-3);
+  }
+
+  /* Tab list: same no-wrap scroll as ≤1024 (already inherited via cascade). */
   .services-tab-button {
-    flex: 0 0 auto;
     min-height: 2.75rem;
+  }
+
+  /* Final CTA: stretch button to full width for easy tap. */
+  .pricing-final-cta .button-primary {
+    flex: 1;
   }
 }
 
