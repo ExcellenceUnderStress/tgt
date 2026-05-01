@@ -2,8 +2,6 @@
 
 import * as React from "react";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-
 interface ISmoothScrollVideoHeroProps {
   scrollHeight?: number;
   desktopVideo: string;
@@ -19,7 +17,7 @@ interface ISmoothScrollVideoHeroProps {
 }
 
 const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
-  scrollHeight = 1400,
+  scrollHeight = 1800,
   desktopVideo,
   mobileVideo,
   desktopVideoWebm,
@@ -31,39 +29,50 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   location,
   learnMoreHref,
 }) => {
-  const reduceMotion = useReducedMotion();
   const heroRef = React.useRef<HTMLDivElement | null>(null);
+  const mediaRef = React.useRef<HTMLDivElement | null>(null);
+  const copyRef = React.useRef<HTMLDivElement | null>(null);
   const mobileVideoRef = React.useRef<HTMLVideoElement | null>(null);
   const desktopVideoRef = React.useRef<HTMLVideoElement | null>(null);
 
-  const [isMobileViewport, setIsMobileViewport] = React.useState(false);
-
   React.useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 640px)");
-    const updateViewport = () => setIsMobileViewport(mediaQuery.matches);
-    updateViewport();
-    mediaQuery.addEventListener("change", updateViewport);
-    return () => mediaQuery.removeEventListener("change", updateViewport);
-  }, []);
+    let cleanup = () => {};
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
+    void (async () => {
+      const shouldReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (shouldReduce) return;
 
-  const resolvedInitialScale = isMobileViewport ? Math.max(initialScale, 0.76) : initialScale;
-  const mediaScale = useTransform(scrollYProgress, [0, 0.75], [resolvedInitialScale, 1]);
-  const mediaRadius = useTransform(scrollYProgress, [0, 0.75], [32, 0]);
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 
-  const headlineY = useTransform(scrollYProgress, [0, 0.3], [0, -64]);
-  const copyY = useTransform(scrollYProgress, [0.05, 0.36], [0, -80]);
-  const buttonY = useTransform(scrollYProgress, [0.1, 0.42], [0, -96]);
+      gsap.registerPlugin(ScrollTrigger);
 
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.22], [1, 0]);
-  const copyOpacity = useTransform(scrollYProgress, [0.08, 0.3], [1, 0]);
-  const buttonOpacity = useTransform(scrollYProgress, [0.14, 0.38], [1, 0]);
+      const ctx = gsap.context(() => {
+        gsap.set(copyRef.current, { autoAlpha: 0, y: 36 });
 
-  React.useEffect(() => {
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top top",
+            end: `+=${scrollHeight}`,
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
+
+        timeline
+          .fromTo(
+            mediaRef.current,
+            { scale: initialScale, borderRadius: 32 },
+            { scale: 1, borderRadius: 0, ease: "power2.out", duration: 0.7 },
+          )
+          .to(copyRef.current, { autoAlpha: 1, y: 0, ease: "power2.out", duration: 0.3 }, ">-0.02");
+      }, heroRef);
+
+      cleanup = () => ctx.revert();
+    })();
+
     const controlledVideos = [mobileVideoRef.current, desktopVideoRef.current].filter(
       (video): video is HTMLVideoElement => Boolean(video),
     );
@@ -71,42 +80,14 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
     controlledVideos.forEach((video) => {
       void video.play().catch(() => {});
     });
-  }, []);
+
+    return () => cleanup();
+  }, [initialScale, scrollHeight]);
 
   return (
-    <div
-      ref={heroRef}
-      className="smooth-scroll-video-hero"
-      style={{ height: `calc(clamp(760px, 125vw, ${scrollHeight}px) + 100vh)` }}
-    >
-      <div className="hero-inner sticky top-0 z-20 flex min-h-screen items-start justify-center pt-20 md:pt-24">
-        <div className="hero-copy-block pointer-events-auto">
-          <motion.h1 style={{ y: reduceMotion ? 0 : headlineY, opacity: reduceMotion ? 1 : headlineOpacity }}>{title}</motion.h1>
-          <div className="hero-copy">
-            <motion.p style={{ y: reduceMotion ? 0 : copyY, opacity: reduceMotion ? 1 : copyOpacity }}>{summary}</motion.p>
-            <motion.p className="hero-location" style={{ y: reduceMotion ? 0 : copyY, opacity: reduceMotion ? 1 : copyOpacity }}>
-              {location}
-            </motion.p>
-            <motion.a
-              className="button button-primary"
-              href={learnMoreHref}
-              style={{ y: reduceMotion ? 0 : buttonY, opacity: reduceMotion ? 1 : buttonOpacity }}
-            >
-              Learn More
-            </motion.a>
-          </div>
-        </div>
-      </div>
-
+    <div ref={heroRef} className="smooth-scroll-video-hero hero-pin-stage">
       <div className="hero-media-shell">
-        <motion.div
-          className="hero-media"
-          style={{
-            scale: reduceMotion ? 1 : mediaScale,
-            borderRadius: reduceMotion ? 0 : mediaRadius,
-            willChange: "transform, border-radius",
-          }}
-        >
+        <div ref={mediaRef} className="hero-media hero-media-pinnable">
           <video
             ref={mobileVideoRef}
             className="absolute inset-0 h-full w-full object-cover md:hidden hero-video"
@@ -134,7 +115,20 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             {desktopVideoWebm ? <source src={desktopVideoWebm} type="video/webm" /> : null}
             <source src={desktopVideo} type="video/mp4" />
           </video>
-        </motion.div>
+        </div>
+      </div>
+
+      <div className="hero-inner z-30 flex min-h-screen items-end justify-center pb-16 pt-20 md:pb-24 md:pt-24">
+        <div ref={copyRef} className="hero-copy-block pointer-events-auto">
+          <h1>{title}</h1>
+          <div className="hero-copy">
+            <p>{summary}</p>
+            <p className="hero-location">{location}</p>
+            <a className="button button-primary" href={learnMoreHref}>
+              Learn More
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
