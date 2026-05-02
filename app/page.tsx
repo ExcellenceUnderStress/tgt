@@ -1,6 +1,7 @@
 import { BrandStrip } from "@/components/brand-strip";
 import { BuildPreviewCard } from "@/components/build-preview-card";
 import { FinalCta } from "@/components/final-cta";
+import { HeroOverlayState } from "@/components/hero-overlay-state";
 import { HomePageMotion } from "@/components/home-page-motion";
 import { SectionBar } from "@/components/section-bar";
 import { SectionHeading } from "@/components/section-heading";
@@ -11,14 +12,19 @@ import { TelemetrySection } from "@/components/telemetry-section";
 import { homepageSections } from "@/lib/site-content";
 
 export default function HomePage() {
-  const { hero, brands, servicePaths, legacyPreview, featuredBuilds, shopLanes, finalCta } =
+  const { hero, brands, servicePaths, featuredBuilds, shopLanes, finalCta } =
     homepageSections;
 
   return (
     <>
       <HomePageMotion />
+      <HeroOverlayState />
 
-      <section className="hero machine-memory-hero" data-motion-root="hero">
+      <section
+        className="hero machine-memory-hero"
+        data-motion-root="hero"
+        data-hero-anchor
+      >
         <SmoothScrollVideoHero
           video={hero.video}
           eyebrow={hero.eyebrow}
@@ -41,14 +47,6 @@ export default function HomePage() {
           <TelemetryCard key={path.title} path={path} index={index} />
         ))}
       </TelemetrySection>
-
-      <TelemetrySection
-        kicker={legacyPreview.eyebrow}
-        title={legacyPreview.title}
-        summary={legacyPreview.summary}
-        linkHref={legacyPreview.cta.href}
-        linkLabel={legacyPreview.cta.label}
-      />
 
       <section className="home-section" data-reveal-group>
         <SectionBar linkHref="/builds" linkLabel="View All Builds">

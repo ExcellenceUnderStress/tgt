@@ -49,26 +49,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-color-mode="dark" data-scroll-behavior="smooth" lang="en" suppressHydrationWarning>
+    <html data-color-mode="dark" data-scroll-behavior="smooth" lang="en">
       <body className={`${display.variable} ${body.variable}`}>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-                var applyMode = function(event) {
-                  document.documentElement.dataset.colorMode = event.matches ? "dark" : "light";
-                };
-                applyMode(mediaQuery);
-                if (typeof mediaQuery.addEventListener === "function") {
-                  mediaQuery.addEventListener("change", applyMode);
-                } else if (typeof mediaQuery.addListener === "function") {
-                  mediaQuery.addListener(applyMode);
-                }
-              } catch (error) {}
-            `,
-          }}
-        />
         <div className="page-shell">
           <SiteHeader />
           <main>{children}</main>
