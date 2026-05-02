@@ -388,31 +388,43 @@ export const homepageSections = {
   brands: [
     {
       name: "EcuMaster",
-      logo: "/images/brands/logos/ecumaster.svg",
+      logo: "/Brands/ecumasterlogo.png",
     },
     {
       name: "Haltech",
-      logo: "/images/brands/logos/haltech.svg",
+      logo: "/Brands/haltechlogo.png",
     },
     {
       name: "Holley EFI",
-      logo: "/images/brands/logos/holley-efi.svg",
+      logo: "/Brands/hollylogo.png",
     },
     {
       name: "Hondata",
-      logo: "/images/brands/logos/hondata.svg",
+      logo: "/Brands/honatalogo.png",
     },
     {
       name: "HP Tuners",
-      logo: "/images/brands/logos/hp-tuners.svg",
+      logo: "/Brands/hptunerslogo.png",
+    },
+    {
+      name: "Link",
+      logo: "/Brands/link-color.png",
+    },
+    {
+      name: "MaxxECU",
+      logo: "/Brands/maxxecu-color.png",
     },
     {
       name: "MegaSquirt",
-      logo: "/images/brands/logos/megasquirt.svg",
+      logo: "/Brands/mslogo.png",
     },
     {
       name: "MoTeC",
-      logo: "/images/brands/logos/motec.svg",
+      logo: "/Brands/moteclogo.png",
+    },
+    {
+      name: "TunerPro",
+      logo: "/Brands/tunerprologo.png",
     },
   ] satisfies HomepageBrand[],
   finalCta: {
