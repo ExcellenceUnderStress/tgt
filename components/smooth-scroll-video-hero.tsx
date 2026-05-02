@@ -3,13 +3,13 @@
 import * as React from "react";
 
 const HERO_SCROLL_HEIGHT = 2400;
-const HERO_MEDIA_BORDER_RADIUS = 32;
-const HERO_COPY_ENTRY_Y = -72;
-const HERO_COPY_EXIT_Y = 72;
-const HERO_ZOOM_DURATION = 0.45;
-const HERO_COPY_REVEAL_DURATION = 0.22;
-const HERO_COPY_HOLD_DURATION = 0.16;
-const HERO_COPY_DISMISS_DURATION = 0.2;
+const HERO_MEDIA_BORDER_RADIUS = 40;
+const HERO_ZOOM_DURATION = 0.6;
+const HERO_LINE_REVEAL = 0.18;
+const HERO_LINE_STAGGER = 0.06;
+const HERO_HOLD = 0.18;
+const HERO_DISMISS = 0.22;
+const HERO_FADE_OUT = 0.35;
 
 interface ISmoothScrollVideoHeroProps {
   scrollHeight?: number;
@@ -17,6 +17,7 @@ interface ISmoothScrollVideoHeroProps {
   videoWebm?: string;
   poster?: string;
   initialScale?: number;
+  eyebrow?: string;
   title: string;
   summary: string;
   location: string;
@@ -28,7 +29,8 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
   video,
   videoWebm,
   poster,
-  initialScale = 0.66,
+  initialScale = 0.82,
+  eyebrow,
   title,
   summary,
   location,
@@ -36,7 +38,10 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
 }) => {
   const heroRef = React.useRef<HTMLDivElement | null>(null);
   const mediaRef = React.useRef<HTMLDivElement | null>(null);
-  const copyRef = React.useRef<HTMLDivElement | null>(null);
+  const eyebrowRef = React.useRef<HTMLParagraphElement | null>(null);
+  const titleRef = React.useRef<HTMLHeadingElement | null>(null);
+  const detailRef = React.useRef<HTMLDivElement | null>(null);
+  const fadeRef = React.useRef<HTMLDivElement | null>(null);
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
 
   React.useEffect(() => {
@@ -52,7 +57,12 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
       gsap.registerPlugin(ScrollTrigger);
 
       const ctx = gsap.context(() => {
-        gsap.set(copyRef.current, { autoAlpha: 0, y: HERO_COPY_ENTRY_Y });
+        const lines = [eyebrowRef.current, titleRef.current, detailRef.current].filter(
+          Boolean,
+        ) as HTMLElement[];
+
+        gsap.set(lines, { autoAlpha: 0, y: 36 });
+        gsap.set(fadeRef.current, { autoAlpha: 0 });
 
         const timeline = gsap.timeline({
           scrollTrigger: {
@@ -68,17 +78,47 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
         timeline
           .fromTo(
             mediaRef.current,
-            { scale: initialScale, borderRadius: HERO_MEDIA_BORDER_RADIUS },
-            { scale: 1, borderRadius: 0, ease: "power2.out", duration: HERO_ZOOM_DURATION },
+            {
+              top: "46%",
+              left: "5vw",
+              right: "5vw",
+              bottom: "6vh",
+              borderRadius: HERO_MEDIA_BORDER_RADIUS,
+            },
+            {
+              top: "0%",
+              left: "0vw",
+              right: "0vw",
+              bottom: "0vh",
+              borderRadius: 0,
+              ease: "power3.inOut",
+              duration: HERO_ZOOM_DURATION,
+            },
           )
-          .fromTo(
-            copyRef.current,
-            { autoAlpha: 0, y: HERO_COPY_ENTRY_Y },
-            { autoAlpha: 1, y: 0, ease: "power2.out", duration: HERO_COPY_REVEAL_DURATION },
+          .to(
+            lines,
+            {
+              autoAlpha: 1,
+              y: 0,
+              ease: "power3.out",
+              duration: HERO_LINE_REVEAL,
+              stagger: HERO_LINE_STAGGER,
+            },
             ">-0.05",
           )
-          .to({}, { duration: HERO_COPY_HOLD_DURATION })
-          .to(copyRef.current, { autoAlpha: 0, y: HERO_COPY_EXIT_Y, ease: "power2.in", duration: HERO_COPY_DISMISS_DURATION });
+          .to({}, { duration: HERO_HOLD })
+          .to(lines, {
+            autoAlpha: 0,
+            y: -48,
+            ease: "power2.in",
+            duration: HERO_DISMISS,
+            stagger: HERO_LINE_STAGGER * 0.6,
+          })
+          .to(
+            fadeRef.current,
+            { autoAlpha: 1, ease: "power2.in", duration: HERO_FADE_OUT },
+            "<+0.05",
+          );
       }, heroRef);
 
       cleanup = () => ctx.revert();
@@ -97,7 +137,7 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
         <div ref={mediaRef} className="hero-media hero-media-pinnable">
           <video
             ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover hero-video"
+            className="hero-video"
             muted
             loop
             playsInline
@@ -108,17 +148,28 @@ const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
             {videoWebm ? <source src={videoWebm} type="video/webm" /> : null}
             <source src={video} type="video/mp4" />
           </video>
+          <div className="hero-video-tint" aria-hidden="true" />
+          <div className="hero-video-vignette" aria-hidden="true" />
+          <div ref={fadeRef} className="hero-fade-out" aria-hidden="true" />
         </div>
       </div>
 
-      <div className="hero-inner hero-overlay-copy z-30 flex min-h-screen items-end justify-center pb-16 pt-20 md:pb-24 md:pt-24">
-        <div ref={copyRef} className="hero-copy-block pointer-events-auto">
-          <h1>{title}</h1>
-          <div className="hero-copy">
-            <p>{summary}</p>
+      <div className="hero-overlay-copy">
+        <div className="hero-copy-stack">
+          {eyebrow ? (
+            <p ref={eyebrowRef} className="hero-eyebrow">
+              <span className="hero-eyebrow-mark" aria-hidden="true" />
+              {eyebrow}
+            </p>
+          ) : null}
+          <h1 ref={titleRef} className="hero-display-title">
+            {title}
+          </h1>
+          <div ref={detailRef} className="hero-detail">
+            <p className="hero-summary">{summary}</p>
             <p className="hero-location">{location}</p>
-            <a className="button button-primary" href={learnMoreHref}>
-              Learn More
+            <a className="button button-primary hero-cta" href={learnMoreHref}>
+              Start Booking
             </a>
           </div>
         </div>
