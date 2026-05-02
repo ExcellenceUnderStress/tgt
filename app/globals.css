@@ -2987,3 +2987,306 @@ select.intake-input {
     grid-row: span 1;
   }
 }
+
+/* ──────────── Haltech Catalog ──────────── */
+.haltech-cat-nav {
+  position: sticky;
+  top: 4rem;
+  z-index: 5;
+  margin-top: var(--tg-space-6);
+  padding: var(--tg-space-3) 0;
+  border-top: 1px solid var(--site-border-soft);
+  border-bottom: 1px solid var(--site-border-soft);
+  background: color-mix(in srgb, var(--site-surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.haltech-cat-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--tg-space-2);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--tg-space-2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.haltech-cat-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--site-border-soft);
+  background: color-mix(in srgb, var(--tg-color-base-white) 2%, transparent);
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.haltech-cat-nav a:hover,
+.haltech-cat-nav a:focus-visible {
+  border-color: var(--tg-color-brand-500);
+  transform: translateY(-1px);
+}
+
+.haltech-cat-nav-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.4rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--tg-color-brand-500);
+  color: var(--tg-color-base-black);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+
+.haltech-catalog {
+  display: grid;
+  gap: var(--tg-space-12);
+  padding-top: var(--tg-space-10);
+}
+
+.haltech-category {
+  scroll-margin-top: 7rem;
+  display: grid;
+  gap: var(--tg-space-6);
+}
+
+.haltech-category-header {
+  display: grid;
+  gap: var(--tg-space-2);
+  max-width: 48rem;
+}
+
+.haltech-category-count {
+  color: var(--site-text-muted, color-mix(in srgb, currentColor 65%, transparent));
+  font-size: 0.95rem;
+}
+
+.haltech-subcategory {
+  display: grid;
+  gap: var(--tg-space-4);
+}
+
+.haltech-subcategory-title {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 75%, transparent);
+  border-bottom: 1px solid var(--site-border-soft);
+  padding-bottom: var(--tg-space-2);
+}
+
+.haltech-grid {
+  display: grid;
+  gap: var(--tg-space-4);
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.haltech-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--site-border-soft);
+  border-radius: 1rem;
+  background: var(--site-surface-gradient, color-mix(in srgb, var(--tg-color-base-white) 3%, transparent));
+  overflow: hidden;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.haltech-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 60%, transparent);
+  box-shadow: 0 1.25rem 2rem -1rem color-mix(in srgb, var(--tg-color-brand-500) 35%, transparent);
+}
+
+.haltech-card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: color-mix(in srgb, var(--tg-color-base-white) 4%, var(--tg-color-base-black));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.haltech-card-media :global(img),
+.haltech-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--tg-space-3);
+}
+
+.haltech-card-media-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-display, inherit);
+  letter-spacing: 0.16em;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+}
+
+.haltech-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tg-space-2);
+  padding: var(--tg-space-4);
+  flex: 1;
+}
+
+.haltech-card-sku {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tg-color-brand-500);
+  font-weight: 600;
+}
+
+.haltech-card-name {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.haltech-card-foot {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tg-space-3);
+  padding-top: var(--tg-space-2);
+}
+
+.haltech-card-price {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.haltech-card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--tg-color-brand-500);
+  color: var(--tg-color-brand-500);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.haltech-card-cta:hover,
+.haltech-card-cta:focus-visible {
+  background: var(--tg-color-brand-500);
+  color: var(--tg-color-base-black);
+}
+
+@media (max-width: 600px) {
+  .haltech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--tg-space-3);
+  }
+
+  .haltech-card-body {
+    padding: var(--tg-space-3);
+  }
+
+  .haltech-card-name {
+    font-size: 0.85rem;
+  }
+}
+
+.haltech-category-tiles {
+  display: grid;
+  gap: var(--tg-space-4);
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  margin-top: var(--tg-space-6);
+}
+
+.haltech-category-tile {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--site-border-soft);
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: var(--site-surface-gradient, color-mix(in srgb, var(--tg-color-base-white) 3%, transparent));
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.haltech-category-tile:hover,
+.haltech-category-tile:focus-visible {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 60%, transparent);
+  box-shadow: 0 1.25rem 2rem -1rem color-mix(in srgb, var(--tg-color-brand-500) 35%, transparent);
+}
+
+.haltech-category-tile-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: color-mix(in srgb, var(--tg-color-base-white) 4%, var(--tg-color-base-black));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.haltech-category-tile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--tg-space-4);
+}
+
+.haltech-category-tile-body {
+  display: grid;
+  gap: var(--tg-space-2);
+  padding: var(--tg-space-4);
+}
+
+.haltech-category-tile-body h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.haltech-category-tile-body p:last-child {
+  margin: 0;
+  font-size: 0.85rem;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
