@@ -729,9 +729,8 @@ export const routeHeroes: Record<string, RouteHero> = {
   },
   builds: {
     eyebrow: "Featured Builds",
-    title: "Proof through selected projects, platforms, and outcomes.",
-    summary:
-      "The builds page will stay curated, image-led, and brand-aligned instead of turning into an endless catalog.",
+    title: "Featured Builds",
+    summary: "A handful of projects we're proud of.",
     primaryCta: { href: "/contact", label: "Discuss Your Build" },
   },
   shop: {

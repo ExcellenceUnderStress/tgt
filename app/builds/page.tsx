@@ -1,8 +1,6 @@
 import { BuildPreviewCard } from "@/components/build-preview-card";
 import { FinalCta } from "@/components/final-cta";
 import { RouteIntro } from "@/components/route-intro";
-import { SectionHeading } from "@/components/section-heading";
-import { SplitPanels } from "@/components/split-panels";
 import { buildsPageContent, homepageSections, routeHeroes } from "@/lib/site-content";
 
 export default function BuildsPage() {
@@ -12,13 +10,6 @@ export default function BuildsPage() {
     <>
       <RouteIntro hero={routeHeroes.builds} />
 
-      {/* ── Intro ── */}
-      <section className="route-section service-detail-shell">
-        <SectionHeading kicker={page.introLabel} title={page.introTitle}>
-          <p>{page.introBody}</p>
-        </SectionHeading>
-      </section>
-
       {/* ── Build Grid ── */}
       <section className="route-section">
         <div className="build-preview-grid">
@@ -27,9 +18,6 @@ export default function BuildsPage() {
           ))}
         </div>
       </section>
-
-      {/* ── Credibility ── */}
-      <SplitPanels kicker="Builds" items={page.credibility} />
 
       {/* ── Final CTA ── */}
       <FinalCta
