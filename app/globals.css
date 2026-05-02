@@ -3,6 +3,7 @@
 }
 
 html {
+  --site-header-height: 5.5rem;
   --site-bg-start: var(--tg-color-gray-50);
   --site-bg-mid: var(--tg-color-gray-100);
   --site-bg-end: var(--tg-color-gray-25);
@@ -194,7 +195,7 @@ main {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 60;
   grid-template-columns: minmax(0, auto) minmax(0, 1fr);
   align-items: center;
   gap: clamp(var(--tg-space-4), 2vw, var(--tg-space-8));
@@ -203,6 +204,38 @@ main {
   border-bottom: 1px solid var(--site-header-line);
   box-shadow: var(--site-header-shadow);
   backdrop-filter: blur(16px);
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    backdrop-filter 240ms ease;
+}
+
+/* Header floats transparently while the hero is in view; materializes on scroll past it. */
+html[data-hero-active="true"] .site-header {
+  background-color: transparent;
+  background-image: none;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+html[data-hero-active="true"] .site-nav-link {
+  color: #fff;
+}
+
+html[data-hero-active="true"] .site-nav-link:hover,
+html[data-hero-active="true"] .site-nav-link:focus-visible {
+  background: color-mix(in srgb, #fff 12%, transparent);
+  color: #fff;
+}
+
+html[data-hero-active="true"] img.theme-image-light {
+  display: none !important;
+}
+
+html[data-hero-active="true"] img.theme-image-dark {
+  display: block !important;
 }
 
 .brand-mark,
@@ -230,21 +263,21 @@ h3 {
   height: auto;
 }
 
-.theme-image-dark {
-  display: none;
+img.theme-image-dark {
+  display: none !important;
 }
 
-html[data-color-mode="dark"] .theme-image-light {
-  display: none;
+html[data-color-mode="dark"] img.theme-image-light {
+  display: none !important;
 }
 
-html[data-color-mode="dark"] .theme-image-dark {
-  display: block;
+html[data-color-mode="dark"] img.theme-image-dark {
+  display: block !important;
 }
 
 .brand-logo-desktop {
   display: block;
-  width: clamp(12rem, 18vw, 16rem);
+  width: clamp(9rem, 14vw, 13rem);
 }
 
 .brand-logo-compact {
@@ -254,11 +287,18 @@ html[data-color-mode="dark"] .theme-image-dark {
 
 .site-nav {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: center;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   gap: clamp(0.4rem, 1vw, 1rem);
   min-width: 0;
+}
+
+.site-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .site-nav-link {
@@ -272,6 +312,7 @@ html[data-color-mode="dark"] .theme-image-dark {
   text-transform: uppercase;
   letter-spacing: clamp(0.1em, 0.22vw, 0.14em);
   white-space: nowrap;
+  flex: 0 0 auto;
   transition:
     color 180ms ease,
     background-color 180ms ease,
@@ -301,6 +342,9 @@ html[data-color-mode="dark"] .theme-image-dark {
 
 .machine-memory-hero {
   position: relative;
+  /* Extend the dark canvas up under the floating header so the seam disappears. */
+  margin-top: calc(var(--site-header-height, 5.5rem) * -1);
+  padding-top: var(--site-header-height, 5.5rem);
   overflow: hidden;
   background: #05070b;
   color: #fff;
@@ -331,7 +375,7 @@ html[data-color-mode="dark"] .theme-image-dark {
 .hero-media {
   position: absolute;
   /* Initial "card" footprint: lives in the lower portion of the hero so the text has room above it. */
-  top: 46%;
+  top: 58%;
   left: 5vw;
   right: 5vw;
   bottom: 6vh;
@@ -344,7 +388,7 @@ html[data-color-mode="dark"] .theme-image-dark {
 
 @media (max-width: 768px) {
   .hero-media {
-    top: 52%;
+    top: 64%;
     left: 4vw;
     right: 4vw;
     bottom: 4vh;
@@ -369,19 +413,7 @@ html[data-color-mode="dark"] .theme-image-dark {
   z-index: 0;
 }
 
-.machine-memory-hero::after {
-  content: "";
-  position: absolute;
-  inset: 8% auto auto 8%;
-  width: min(14rem, 18vw);
-  height: min(14rem, 18vw);
-  background:
-    radial-gradient(circle, color-mix(in srgb, var(--tg-color-base-white) 2%, transparent), transparent 70%);
-  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 8%, transparent);
-  border-radius: 1.25rem;
-  transform: none;
-  z-index: 0;
-}
+/* Decorative ::after square removed — was a leftover from an earlier hero iteration. */
 
 .hero-inner,
 .route-intro,
@@ -527,14 +559,20 @@ html[data-color-mode="dark"] .theme-image-dark {
 
 .hero-overlay-copy {
   position: absolute;
-  inset: 0;
+  inset: 0 0 42% 0;
   z-index: 30;
   display: grid;
-  align-items: start;
+  align-items: center;
   justify-items: center;
-  padding-block: clamp(5rem, 11vh, 8rem) clamp(2rem, 4vh, 4rem);
+  padding-block: clamp(4rem, 8vh, 6rem) clamp(1rem, 2vh, 2rem);
   padding-inline: clamp(1.25rem, 4vw, 3rem);
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-overlay-copy {
+    inset: 0 0 36% 0;
+  }
 }
 
 .hero-overlay-copy .hero-copy-block,
@@ -576,7 +614,7 @@ html[data-color-mode="dark"] .theme-image-dark {
   margin: 0;
   color: #fff;
   font-family: var(--font-display, "Bebas Neue", sans-serif);
-  font-size: clamp(2.75rem, 8.5vw, 8.5rem);
+  font-size: clamp(2rem, 8.5vw, 8.5rem);
   line-height: 0.9;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -611,10 +649,9 @@ html[data-color-mode="dark"] .theme-image-dark {
   margin-top: clamp(0.5rem, 1.2vw, 0.85rem);
 }
 
-/* Layered visual treatment baked inside .hero-media so it scales with the zoom. */
+/* Layered visual treatment baked inside .hero-media. */
 .hero-video-tint,
-.hero-video-vignette,
-.hero-fade-out {
+.hero-video-vignette {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -650,16 +687,7 @@ html[data-color-mode="dark"] .theme-image-dark {
   mix-blend-mode: screen;
 }
 
-.hero-fade-out {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 40%,
-    color-mix(in srgb, var(--tg-color-gray-950) 70%, transparent) 72%,
-    var(--tg-color-gray-950) 100%
-  );
-  opacity: 0;
-}
+/* hero-fade-out removed — no longer needed without scroll choreography. */
 
 .smooth-scroll-video-hero-background {
   position: sticky;
@@ -1206,7 +1234,12 @@ li {
 }
 
 .home-section {
-  padding: var(--tg-space-16) 0 0;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(1rem, 2vw, 2rem);
+}
+
+/* Section opener spacing — kicker and heading get a consistent rhythm everywhere. */
+.home-section .section-kicker {
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 [data-reveal] {
@@ -1283,6 +1316,14 @@ li {
   padding: var(--tg-space-6);
   background: var(--site-surface-gradient-angled);
   border-top: 1px solid var(--site-border-soft);
+  border-radius: 12px;
+  transition: transform 240ms ease, border-color 240ms ease;
+}
+
+.telemetry-card:hover,
+.telemetry-card:focus-within {
+  transform: translateY(-4px);
+  border-top-color: color-mix(in srgb, var(--tg-color-brand-500) 36%, transparent);
 }
 
 .telemetry-card::before,
@@ -1358,6 +1399,7 @@ li {
 .final-cta-detail {
   position: relative;
   overflow: hidden;
+  border-radius: 12px;
 }
 
 .service-preview {
@@ -1560,7 +1602,7 @@ li {
   width: 100%;
   max-width: 10rem;
   max-height: 2rem;
-  opacity: 0.66;
+  opacity: 0.85;
   filter: var(--site-brand-logo-filter);
   transition:
     filter 180ms ease,
@@ -2523,6 +2565,16 @@ select.intake-input {
   }
 }
 
+@media (max-width: 1200px) {
+  .brand-logo-desktop {
+    display: none;
+  }
+
+  .brand-logo-compact {
+    display: block;
+  }
+}
+
 @media (max-width: 640px) {
   .site-header {
     padding-top: var(--tg-space-3);
@@ -2564,7 +2616,7 @@ select.intake-input {
   }
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1201px) {
   /* Desktop keeps the wide logo and default nav density. */
   .brand-logo-desktop {
     display: block;
