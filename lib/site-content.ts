@@ -400,7 +400,7 @@ export const homepageSections = {
     },
     {
       name: "Hondata",
-      logo: "/Brands/honatalogo.png",
+      logo: "/Brands/hondatalogo.png",
     },
     {
       name: "HP Tuners",
