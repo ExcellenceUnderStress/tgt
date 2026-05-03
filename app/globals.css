@@ -931,18 +931,27 @@ li {
 
 .pricing-hero-shell {
   display: grid;
-  gap: var(--tg-space-5);
-  max-width: 48rem;
+  gap: clamp(var(--tg-space-4), 2.4vw, var(--tg-space-5));
+  max-width: min(100%, 52rem);
+}
+
+.pricing-hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3.4rem, 8vw, 7.25rem);
+  line-height: 0.9;
+  text-wrap: balance;
 }
 
 .pricing-hero-summary {
-  max-width: 40rem;
-  font-size: 1.15rem;
+  max-width: 42rem;
+  font-size: clamp(1rem, 0.45vw + 0.9rem, 1.15rem);
+  line-height: 1.65;
+  text-wrap: pretty;
 }
 
 .pricing-section {
   display: grid;
-  gap: var(--tg-space-8);
+  gap: clamp(var(--tg-space-6), 4vw, var(--tg-space-8));
 }
 
 .pricing-section-header,
@@ -963,10 +972,14 @@ li {
   border: 1px solid var(--site-border-medium);
   background: var(--site-surface-panel);
   color: var(--site-heading);
-  font-size: 0.88rem;
+  max-width: 100%;
+  font-size: clamp(0.72rem, 0.3vw + 0.68rem, 0.88rem);
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: clamp(0.08em, 0.2vw, 0.12em);
+  line-height: 1.2;
+  text-align: center;
   text-transform: uppercase;
+  white-space: normal;
 }
 
 .pricing-card-grid,
@@ -983,7 +996,7 @@ li {
 .pricing-addon-panel,
 .pricing-support-card,
 .pricing-policy-panel {
-  padding: var(--tg-space-6);
+  padding: clamp(var(--tg-space-4), 2vw, var(--tg-space-6));
   background: var(--site-surface-panel);
   border-top: 1px solid var(--site-border-soft);
 }
@@ -999,12 +1012,28 @@ li {
   align-items: start;
   justify-content: space-between;
   gap: var(--tg-space-4);
+  min-width: 0;
+}
+
+.pricing-card-header > div {
+  min-width: 0;
 }
 
 .pricing-card-header h3,
 .pricing-support-card h3,
 .pricing-policy-item h3 {
   margin-bottom: var(--tg-space-3);
+  font-size: clamp(1.35rem, 1.3vw + 1rem, 2rem);
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.pricing-card-header p,
+.pricing-support-card p,
+.pricing-policy-item p,
+.pricing-card-footer,
+.pricing-section .section-heading p {
+  text-wrap: pretty;
 }
 
 .pricing-row-list,
@@ -1019,6 +1048,7 @@ li {
   align-items: start;
   justify-content: space-between;
   gap: var(--tg-space-5);
+  min-width: 0;
   padding-top: var(--tg-space-4);
   border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
 }
@@ -1033,8 +1063,14 @@ li {
 .pricing-row strong,
 .pricing-addon-row strong {
   color: var(--site-heading);
-  font-size: 1.1rem;
-  line-height: 1.4;
+  font-size: clamp(0.98rem, 0.32vw + 0.92rem, 1.1rem);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.pricing-row > div {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .pricing-row > div strong {
@@ -1042,20 +1078,32 @@ li {
   margin-bottom: var(--tg-space-1);
 }
 
+.pricing-row p {
+  margin: 0;
+  font-size: clamp(0.92rem, 0.26vw + 0.86rem, 1rem);
+  line-height: 1.55;
+}
+
 .pricing-row > span {
+  flex: 0 1 auto;
   color: var(--site-heading);
   font-family: var(--font-display, "Bebas Neue", sans-serif);
-  font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+  max-width: min(100%, 13rem);
+  font-size: clamp(1.45rem, 1.7vw + 1rem, 2.25rem);
   letter-spacing: 0.04em;
-  line-height: 1;
+  line-height: 0.95;
+  text-align: right;
+  text-wrap: balance;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .pricing-card-footer {
   padding-top: var(--tg-space-4);
   border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
   color: var(--site-muted-copy);
+  font-size: clamp(0.92rem, 0.24vw + 0.86rem, 1rem);
+  line-height: 1.6;
 }
 
 .pricing-support-grid {
@@ -1065,16 +1113,18 @@ li {
 .pricing-support-card {
   display: grid;
   gap: var(--tg-space-3);
+  align-content: start;
   text-align: center;
 }
 
 .pricing-support-card strong {
   color: var(--site-heading);
   font-family: var(--font-display, "Bebas Neue", sans-serif);
-  font-size: clamp(2.8rem, 5vw, 4.25rem);
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
   line-height: 0.9;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .pricing-support-subtitle {
@@ -2978,9 +3028,11 @@ select.intake-input {
   display: flex;
   flex-wrap: wrap;
   gap: var(--tg-space-3);
+  min-width: 0;
 }
 
 .services-tab-button {
+  flex: 0 0 auto;
   border: 1px solid var(--site-border-medium);
   background: var(--site-surface-panel);
   color: var(--site-heading);
@@ -2988,6 +3040,8 @@ select.intake-input {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: clamp(0.72rem, 0.5vw + 0.62rem, 0.92rem);
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .services-tab-button[aria-selected="true"] {
@@ -3000,6 +3054,12 @@ select.intake-input {
 .pricing-row strong,
 .pricing-row > span {
   overflow-wrap: anywhere;
+}
+
+.pricing-section .section-heading h2 {
+  font-size: clamp(2rem, 4.2vw, 3.7rem);
+  line-height: 0.96;
+  text-wrap: balance;
 }
 
 /* Sticky-header offset for scroll-into-view targets. */
@@ -3017,6 +3077,7 @@ select.intake-input {
 .pricing-cheat-card {
   display: grid;
   gap: var(--tg-space-2);
+  min-width: 0;
   padding: var(--tg-space-5);
   text-align: left;
   background: var(--site-surface-panel);
@@ -3041,30 +3102,36 @@ select.intake-input {
 
 .pricing-cheat-build {
   color: var(--site-heading);
-  font-size: 1.05rem;
+  font-size: clamp(0.98rem, 0.32vw + 0.94rem, 1.08rem);
   font-weight: 600;
   line-height: 1.3;
+  text-wrap: balance;
 }
 
 .pricing-cheat-path {
   color: var(--tg-color-brand-500);
-  font-size: 0.78rem;
+  font-size: clamp(0.7rem, 0.22vw + 0.68rem, 0.78rem);
   font-weight: 600;
   letter-spacing: 0.12em;
+  line-height: 1.35;
   text-transform: uppercase;
 }
 
 .pricing-cheat-price {
   color: var(--site-heading);
   font-family: var(--font-display, "Bebas Neue", sans-serif);
-  font-size: 1.4rem;
+  font-size: clamp(1.16rem, 0.9vw + 0.95rem, 1.5rem);
   letter-spacing: 0.04em;
   line-height: 1.1;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  white-space: normal;
 }
 
 .pricing-cheat-timeline {
   color: var(--site-muted-copy);
-  font-size: 0.85rem;
+  font-size: clamp(0.78rem, 0.2vw + 0.76rem, 0.85rem);
+  line-height: 1.45;
 }
 
 .pricing-final-cta {
@@ -3073,8 +3140,49 @@ select.intake-input {
 }
 
 @media (max-width: 1024px) {
+  .pricing-hero h1 {
+    max-width: 10ch;
+    font-size: clamp(3rem, 9vw, 5.5rem);
+  }
+
+  .pricing-section .section-heading h2 {
+    font-size: clamp(1.95rem, 5.8vw, 3.2rem);
+  }
+
+  .services-tab-list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .services-tab-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-tab-button {
+    min-height: 2.75rem;
+  }
+
   .pricing-cheat-sheet-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing-row > span {
+    max-width: 11rem;
+    font-size: clamp(1.35rem, 3vw, 1.95rem);
+  }
+
+  .pricing-support-card strong {
+    font-size: clamp(2rem, 5.6vw, 3.2rem);
+  }
+}
+
+@media (max-width: 760px) {
+  .pricing-card-grid,
+  .pricing-support-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -3082,6 +3190,20 @@ select.intake-input {
   /* Section rhythm: tighten vertical breathing on small screens. */
   .route-section {
     padding-top: var(--tg-space-10);
+  }
+
+  .pricing-hero {
+    padding-top: var(--tg-space-12);
+  }
+
+  .pricing-hero h1 {
+    max-width: 9ch;
+    font-size: clamp(2.85rem, 13vw, 4.1rem);
+  }
+
+  .pricing-hero-summary {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   /* Cheat sheet: single column. */
@@ -3092,6 +3214,7 @@ select.intake-input {
   /* Cheat cards: ensure ≥44px touch target. */
   .pricing-cheat-card {
     min-height: 2.75rem;
+    padding: var(--tg-space-4);
   }
 
   /* Pricing grids: full-width single column on mobile. */
@@ -3100,9 +3223,28 @@ select.intake-input {
     grid-template-columns: 1fr;
   }
 
+  .pricing-card,
+  .pricing-addon-panel,
+  .pricing-support-card,
+  .pricing-policy-panel {
+    padding: var(--tg-space-4);
+  }
+
+  .pricing-card-header {
+    flex-direction: column;
+    gap: var(--tg-space-3);
+  }
+
   /* Section header: let flag drop below heading naturally. */
   .pricing-section-header {
     grid-template-columns: 1fr;
+  }
+
+  .pricing-flag,
+  .pricing-badge {
+    justify-self: start;
+    min-height: 2.5rem;
+    padding-inline: var(--tg-space-3);
   }
 
   /* Pricing row: stack label/detail over the price value on narrow screens
@@ -3113,8 +3255,10 @@ select.intake-input {
   }
 
   .pricing-row > span {
-    font-size: clamp(1.5rem, 6vw, 2rem);
+    max-width: 100%;
+    font-size: clamp(1.35rem, 6vw, 1.8rem);
     align-self: flex-start;
+    text-align: left;
   }
 
   /* Add-on rows keep side-by-side — content is short enough to fit. */
@@ -3130,6 +3274,10 @@ select.intake-input {
   /* Final CTA: stretch button to full width for easy tap. */
   .pricing-final-cta .button-primary {
     flex: 1;
+    min-width: 0;
+    padding-inline: var(--tg-space-4);
+    text-align: center;
+    white-space: normal;
   }
 }
 
@@ -3334,243 +3482,6 @@ select.intake-input {
   }
 }
 
-/* ──────────── Haltech Catalog ──────────── */
-.haltech-cat-nav {
-  position: sticky;
-  top: 4rem;
-  z-index: 5;
-  margin-top: var(--tg-space-6);
-  padding: var(--tg-space-3) 0;
-  border-top: 1px solid var(--site-border-soft);
-  border-bottom: 1px solid var(--site-border-soft);
-  background: color-mix(in srgb, var(--site-surface) 92%, transparent);
-  backdrop-filter: blur(8px);
-}
-
-.haltech-cat-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0 var(--tg-space-2);
-  display: flex;
-  flex-wrap: nowrap;
-  gap: var(--tg-space-2);
-  overflow-x: auto;
-  scrollbar-width: thin;
-}
-
-.haltech-cat-nav a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid var(--site-border-soft);
-  background: color-mix(in srgb, var(--tg-color-base-white) 2%, transparent);
-  text-decoration: none;
-  color: inherit;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition:
-    background-color 160ms ease,
-    border-color 160ms ease,
-    transform 160ms ease;
-}
-
-.haltech-cat-nav a:hover,
-.haltech-cat-nav a:focus-visible {
-  border-color: var(--tg-color-brand-500);
-  transform: translateY(-1px);
-}
-
-.haltech-cat-nav-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.6rem;
-  height: 1.4rem;
-  padding: 0 0.4rem;
-  border-radius: 999px;
-  background: var(--tg-color-brand-500);
-  color: var(--tg-color-base-black);
-  font-weight: 700;
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-}
-
-.haltech-catalog {
-  display: grid;
-  gap: var(--tg-space-12);
-  padding-top: var(--tg-space-10);
-}
-
-.haltech-category {
-  scroll-margin-top: 7rem;
-  display: grid;
-  gap: var(--tg-space-6);
-}
-
-.haltech-category-header {
-  display: grid;
-  gap: var(--tg-space-2);
-  max-width: 48rem;
-}
-
-.haltech-category-count {
-  color: var(--site-text-muted, color-mix(in srgb, currentColor 65%, transparent));
-  font-size: 0.95rem;
-}
-
-.haltech-subcategory {
-  display: grid;
-  gap: var(--tg-space-4);
-}
-
-.haltech-subcategory-title {
-  margin: 0;
-  font-size: 1rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, currentColor 75%, transparent);
-  border-bottom: 1px solid var(--site-border-soft);
-  padding-bottom: var(--tg-space-2);
-}
-
-.haltech-grid {
-  display: grid;
-  gap: var(--tg-space-4);
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-}
-
-.haltech-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--site-border-soft);
-  border-radius: 1rem;
-  background: var(--site-surface-gradient, color-mix(in srgb, var(--tg-color-base-white) 3%, transparent));
-  overflow: hidden;
-  transition:
-    transform 200ms ease,
-    border-color 200ms ease,
-    box-shadow 200ms ease;
-}
-
-.haltech-card:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--tg-color-brand-500) 60%, transparent);
-  box-shadow: 0 1.25rem 2rem -1rem color-mix(in srgb, var(--tg-color-brand-500) 35%, transparent);
-}
-
-.haltech-card-media {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  background: color-mix(in srgb, var(--tg-color-base-white) 4%, var(--tg-color-base-black));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.haltech-card-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: var(--tg-space-3);
-}
-
-.haltech-card-media-fallback {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-family: var(--font-display, inherit);
-  letter-spacing: 0.16em;
-  font-size: 0.95rem;
-  color: color-mix(in srgb, currentColor 50%, transparent);
-}
-
-.haltech-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--tg-space-2);
-  padding: var(--tg-space-4);
-  flex: 1;
-}
-
-.haltech-card-sku {
-  margin: 0;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--tg-color-brand-500);
-  font-weight: 600;
-}
-
-.haltech-card-name {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.35;
-  font-weight: 600;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.haltech-card-foot {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--tg-space-3);
-  padding-top: var(--tg-space-2);
-}
-
-.haltech-card-price {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-.haltech-card-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.45rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid var(--tg-color-brand-500);
-  color: var(--tg-color-brand-500);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease;
-}
-
-.haltech-card-cta:hover,
-.haltech-card-cta:focus-visible {
-  background: var(--tg-color-brand-500);
-  color: var(--tg-color-base-black);
-}
-
-@media (max-width: 600px) {
-  .haltech-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--tg-space-3);
-  }
-
-  .haltech-card-body {
-    padding: var(--tg-space-3);
-  }
-
-  .haltech-card-name {
-    font-size: 0.85rem;
-  }
-}
-
 .haltech-category-tiles {
   display: grid;
   gap: var(--tg-space-4);
@@ -3640,5 +3551,249 @@ select.intake-input {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.guide-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--tg-space-5);
+  margin-top: var(--tg-space-8);
+}
+
+.platform-family-stack {
+  display: grid;
+  gap: var(--tg-space-10);
+  margin-top: var(--tg-space-8);
+}
+
+.platform-family-section {
+  display: grid;
+  gap: var(--tg-space-5);
+  padding-top: var(--tg-space-6);
+  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+}
+
+.platform-family-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.36fr) minmax(0, 0.64fr);
+  gap: var(--tg-space-4) var(--tg-space-6);
+  align-items: end;
+}
+
+.platform-family-heading .section-kicker {
+  grid-column: 1 / -1;
+}
+
+.platform-family-heading h3 {
+  margin: 0;
+  color: var(--site-heading);
+  font-size: clamp(2.2rem, 4.2vw, 4.4rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.platform-family-heading p:last-child {
+  margin: 0;
+}
+
+.platform-family-section .guide-card-grid {
+  margin-top: 0;
+}
+
+.guide-card {
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  color: inherit;
+  background: var(--site-surface-panel);
+  border: 1px solid var(--site-border-soft);
+  border-top-color: color-mix(in srgb, var(--tg-color-brand-500) 36%, var(--site-border-soft));
+  border-radius: 0.5rem;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.guide-card:hover,
+.guide-card:focus-visible {
+  background: var(--site-surface-strong);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 48%, var(--site-border-soft));
+  transform: translateY(-2px);
+}
+
+.guide-card-media {
+  position: relative;
+  min-height: 13rem;
+  background:
+    radial-gradient(circle at 75% 10%, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent 42%),
+    linear-gradient(145deg, color-mix(in srgb, var(--site-ink) 8%, transparent), color-mix(in srgb, var(--site-ink) 2%, transparent));
+}
+
+.guide-card-media img,
+.guide-product-visual img,
+.ecu-guide-media img {
+  object-fit: contain;
+  padding: var(--tg-space-5);
+  filter: drop-shadow(0 1rem 1.8rem rgba(0, 0, 0, 0.24));
+}
+
+.guide-card-copy {
+  display: grid;
+  gap: var(--tg-space-3);
+  padding: var(--tg-space-5);
+}
+
+.guide-card-copy span,
+.guide-card-copy small,
+.guide-price-strip span,
+.platform-link-rail a {
+  color: var(--site-muted-copy);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.guide-card-copy h3 {
+  margin: 0;
+  color: var(--site-heading);
+  font-size: clamp(1.55rem, 2.2vw, 2rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.guide-card-copy p {
+  margin: 0;
+}
+
+.guide-product-visual {
+  position: relative;
+  min-height: clamp(18rem, 32vw, 26rem);
+  overflow: hidden;
+  background: var(--site-surface-gradient);
+  border-top: 1px solid var(--site-border-soft);
+  border-radius: 0.5rem;
+}
+
+.guide-price-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tg-space-5);
+  padding: var(--tg-space-5) var(--tg-space-6);
+  background: var(--site-surface-panel);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.guide-price-strip strong {
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.platform-link-rail {
+  display: grid;
+  gap: var(--tg-space-3);
+  align-content: start;
+  padding: var(--tg-space-6);
+  background: var(--site-surface-gradient);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.platform-link-rail a {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--tg-space-3);
+  border: 1px solid var(--site-border-soft);
+  background: var(--site-surface-soft);
+  color: var(--site-heading);
+}
+
+.platform-link-rail a:hover,
+.platform-link-rail a:focus-visible {
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 42%, var(--site-border-soft));
+  background: var(--site-surface-strong);
+}
+
+.ecu-guide-list {
+  display: grid;
+  gap: var(--tg-space-6);
+  margin-top: var(--tg-space-8);
+}
+
+.ecu-guide-card {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.42fr) minmax(0, 0.58fr);
+  gap: var(--tg-space-6);
+  padding: var(--tg-space-6);
+  background: var(--site-surface-panel);
+  border-top: 1px solid var(--site-border-soft);
+  scroll-margin-top: 6rem;
+}
+
+.ecu-guide-media {
+  position: relative;
+  min-height: 18rem;
+  background:
+    radial-gradient(circle at 75% 10%, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent 42%),
+    linear-gradient(145deg, color-mix(in srgb, var(--site-ink) 8%, transparent), color-mix(in srgb, var(--site-ink) 2%, transparent));
+}
+
+.ecu-guide-copy {
+  display: grid;
+  gap: var(--tg-space-4);
+  align-content: start;
+}
+
+.ecu-guide-copy h3 {
+  margin: 0;
+  color: var(--site-heading);
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.ecu-guide-copy p {
+  margin: 0;
+}
+
+.guide-not-for {
+  padding: var(--tg-space-4);
+  border-left: 2px solid var(--tg-color-brand-500);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 8%, transparent);
+  color: var(--site-heading);
+}
+
+@media (max-width: 1024px) {
+  .ecu-guide-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .guide-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-family-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-price-strip {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .guide-card-media,
+  .guide-product-visual,
+  .ecu-guide-media {
+    min-height: 14rem;
+  }
 }
 

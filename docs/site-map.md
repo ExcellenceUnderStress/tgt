@@ -37,6 +37,22 @@ TurboGixxer V2 is a cinematic, brand-first website that communicates legacy, rec
 
 - `/`
 - `/about`
+- `/services`
+- `/services/ecu-installation`
+- `/services/dyno-tuning`
+- `/services/remote-tuning`
+- `/services/why-buy-from-us`
+- `/shop/platforms`
+- `/shop/platforms/toyota-2jz`
+- `/shop/platforms/nissan-rb`
+- `/shop/platforms/honda-k-series`
+- `/shop/platforms/honda-b-series`
+- `/shop/platforms/honda-f-series`
+- `/shop/platforms/subaru-ej`
+- `/shop/platforms/mitsubishi-4g63`
+- `/shop/platforms/mazda-13b`
+- `/shop/platforms/gm-ls-v8`
+- `/shop/platforms/ford-coyote`
 - `/pricing`
 - `/pricing/dyno`
 - `/pricing/remote`
@@ -44,6 +60,11 @@ TurboGixxer V2 is a cinematic, brand-first website that communicates legacy, rec
 - `/shop`
 - `/shop/merch`
 - `/shop/haltech`
+- `/shop/haltech/ecus`
+- `/shop/haltech/outputs-ignition`
+- `/shop/haltech/outputs-ignition/[slug]`
+- `/shop/haltech/sensors`
+- `/shop/haltech/sensors/[slug]`
 - `/contact`
 - `/book`
 
@@ -154,6 +175,7 @@ Primary CTAs:
 Recommended primary navigation:
 
 - About
+- Services
 - Pricing
 - Builds
 - Shop
@@ -173,6 +195,7 @@ Recommended mobile priority:
 Footer should remain concise:
 
 - About
+- Services
 - Pricing
 - Builds
 - Shop
@@ -186,7 +209,6 @@ Footer should remain concise:
 These should not be part of V2 unless content is ready:
 
 - `/builds/[slug]`
-- `/shop/haltech/[collection]`
 - `/faq`
 - `/media`
 
@@ -196,3 +218,4 @@ These should not be part of V2 unless content is ready:
 - Full ecommerce catalog depth
 - WordPress-style page sprawl
 - Overly broad service taxonomy
+

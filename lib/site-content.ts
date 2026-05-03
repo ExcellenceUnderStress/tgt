@@ -261,6 +261,7 @@ export type ServicesPricingContent = {
 
 export const primaryNavigation: NavItem[] = [
   { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
   { href: "/builds", label: "Builds" },
   { href: "/shop", label: "Shop" },
@@ -383,6 +384,13 @@ export const homepageSections = {
       cta: { href: "/shop/haltech", label: "View Haltech" },
       image: "/Brands/haltechlogo.png",
       imageMode: "brandmark",
+    },
+    {
+      title: "Platform Guides",
+      description:
+        "Engine-specific Haltech paths for JZ, RB, Honda, Subaru, 4G63, rotary, LS, and Coyote builds.",
+      cta: { href: "/shop/platforms", label: "View Platforms" },
+      image: "/images/shop/Haltech Product Images for Webstore/Rebel Kits/Rebel ECU and terminated harness kits/HT-220205_00.JPG",
     },
   ] satisfies HomepageShopLane[],
   brands: [
@@ -750,7 +758,7 @@ export const routeHeroes: Record<string, RouteHero> = {
   },
   haltech: {
     eyebrow: "Haltech",
-    title: "Curated Haltech ECUs, harnesses, and premium hardware.",
+    title: "Current Haltech ECUs, harnesses, and premium hardware.",
     summary:
       "A focused product lane for higher-value Haltech packages with real product imagery and inquiry-first ordering support.",
     primaryCta: { href: "/contact", label: "Inquire" },
@@ -1018,9 +1026,9 @@ export const buildsPageContent: BuildsPageContent = {
 
 export const shopPageContent: ShopPageContent = {
   introLabel: "Curated Storefront",
-  introTitle: "Two lanes, no clutter.",
+  introTitle: "Three lanes, no clutter.",
   introBody:
-    "The shop is intentionally narrow: branded goods in one path, premium Haltech hardware in the other. No giant catalog, no cheap filler parts, and no guessing when a build needs guidance first.",
+    "The shop is intentionally narrow: branded goods, premium Haltech hardware, and platform-specific buying guides. No giant catalog, no cheap filler parts, and no guessing when a build needs guidance first.",
   guidance: [
     {
       title: "Merch",
@@ -1029,6 +1037,10 @@ export const shopPageContent: ShopPageContent = {
     {
       title: "Haltech",
       body: "A tighter lane for ECUs, harness packages, power distribution, and dash hardware.",
+    },
+    {
+      title: "Platform Guides",
+      body: "Engine-specific pages that map realistic ECU and harness paths before you order parts.",
     },
   ],
   finalCta: {
@@ -1063,7 +1075,7 @@ export const merchPageContent: ShopCollectionPageContent = {
 
 export const haltechPageContent: ShopCollectionPageContent = {
   introLabel: "Haltech",
-  introTitle: "A focused Haltech list for high-value builds.",
+  introTitle: "The current Haltech shop stays curated around high-value builds.",
   introBody:
     "This page keeps the catalog simple: Rebel kits, ECU + universal wiring kits, ECU + plug'n'play kits, wiring harnesses, digital displays, and inputs/CAN expansion.",
   bullets: [
@@ -1082,3 +1094,4 @@ export const haltechPageContent: ShopCollectionPageContent = {
     secondaryCta: { href: "/shop", label: "Back To Shop" },
   },
 };
+

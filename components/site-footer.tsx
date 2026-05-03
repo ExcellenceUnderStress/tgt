@@ -2,6 +2,7 @@ import Link from "next/link";
 
 const footerLinks = [
   { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
   { href: "/pricing", label: "Pricing" },
   { href: "/builds", label: "Builds" },
   { href: "/shop", label: "Shop" },
@@ -26,3 +27,4 @@ export function SiteFooter() {
     </footer>
   );
 }
+

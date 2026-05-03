@@ -31,8 +31,8 @@ export function HaltechProductShowcase() {
     <section className="route-section haltech-showcase" aria-labelledby="haltech-products-title">
       <div className="haltech-showcase-header">
         <div className="section-heading">
-          <p className="section-kicker">Curated Hardware</p>
-          <h2 id="haltech-products-title">Serious Haltech parts only.</h2>
+          <p className="section-kicker">Current Haltech Shop</p>
+          <h2 id="haltech-products-title">Curated hardware that belongs in a build plan.</h2>
           <p>
             Budget sensors, loose cables, and small accessories are intentionally left out.
             Anything under $300 is filtered out at the catalog source, while this page
