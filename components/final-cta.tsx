@@ -1,5 +1,6 @@
 import type { NavItem } from "@/lib/site-content";
 
+import cardStyles from "./card-surface.module.css";
 import { CtaRow } from "./cta-row";
 
 type FinalCtaProps = {
@@ -34,7 +35,7 @@ export function FinalCta({
       {details && details.length > 0 && (
         <div className="final-cta-details">
           {details.map((detail) => (
-            <article className="final-cta-detail" key={detail.label}>
+            <article className={`final-cta-detail ${cardStyles.premiumCard}`} key={detail.label}>
               <span>{detail.label}</span>
               <strong>{detail.value}</strong>
             </article>

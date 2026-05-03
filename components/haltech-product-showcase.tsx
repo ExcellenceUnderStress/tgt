@@ -5,6 +5,7 @@ import {
   curatedHaltechGroups,
   curatedHaltechStats,
 } from "@/lib/curated-haltech-products";
+import cardStyles from "./card-surface.module.css";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
@@ -53,7 +54,7 @@ export function HaltechProductShowcase() {
 
       <div className="haltech-category-tiles">
         {curatedHaltechGroups.map((group) => (
-          <a className="haltech-category-tile" href={`#${group.id}`} key={group.id}>
+          <a className={`haltech-category-tile ${cardStyles.premiumCard}`} href={`#${group.id}`} key={group.id}>
             <div className="haltech-category-tile-media">
               <Image
                 alt={group.title}
@@ -90,7 +91,7 @@ export function HaltechProductShowcase() {
 
             <div className="haltech-product-grid">
               {group.products.map((product) => (
-                <article className="haltech-product-card" key={product.sku}>
+                <article className={`haltech-product-card ${cardStyles.premiumCard}`} key={product.sku}>
                   <div className="haltech-product-media">
                     <Image
                       alt={product.displayName}

@@ -1,4 +1,5 @@
 import type { ServicePricingCard } from "@/lib/site-content";
+import cardStyles from "./card-surface.module.css";
 
 type PricingCardProps = {
   card: ServicePricingCard;
@@ -6,7 +7,7 @@ type PricingCardProps = {
 
 export function PricingCard({ card }: PricingCardProps) {
   return (
-    <article className="pricing-card">
+    <article className={`pricing-card ${cardStyles.premiumCard}`}>
       <div className="pricing-card-header">
         <div>
           <h3>{card.title}</h3>

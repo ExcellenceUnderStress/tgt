@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { HomepageShopLane } from "@/lib/site-content";
+import cardStyles from "./card-surface.module.css";
 import { ThemedImage } from "./themed-image";
 
 type ShopLaneCardProps = {
@@ -15,7 +16,7 @@ export function ShopLaneCard({ lane, animated }: ShopLaneCardProps) {
 
   return (
     <article
-      className="shop-lane"
+      className={`shop-lane ${cardStyles.premiumCard}`}
       {...(animated ? { "data-reveal": "slide-up" } : {})}
     >
       <div className="shop-lane-media">

@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 import { ChecklistGrid } from "@/components/checklist-grid";
+import cardStyles from "@/components/card-surface.module.css";
 import { FinalCta } from "@/components/final-cta";
 import { GuideCardGrid } from "@/components/guide-card-grid";
 import { RouteIntro } from "@/components/route-intro";
@@ -39,7 +40,7 @@ export default function HaltechEcuGuidePage() {
         <SectionHeading kicker="ECU Range" title="Top to bottom, with the real buying logic." />
         <div className="ecu-guide-list">
           {ecuGuideItems.map((item) => (
-            <article className="ecu-guide-card" id={item.id} key={item.id}>
+            <article className={`ecu-guide-card ${cardStyles.premiumCard}`} id={item.id} key={item.id}>
               <div className="ecu-guide-media">
                 <Image
                   alt=""

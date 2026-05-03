@@ -1,5 +1,5 @@
-import { BrandStrip } from "@/components/brand-strip";
-import { BuildPreviewCard } from "@/components/build-preview-card";
+import { BrandGrid } from "@/components/BrandGrid";
+import { FeaturedBuildsCarousel } from "@/components/featured-builds-carousel";
 import { FinalCta } from "@/components/final-cta";
 import { HeroOverlayState } from "@/components/hero-overlay-state";
 import { HomePageMotion } from "@/components/home-page-motion";
@@ -12,7 +12,7 @@ import { TelemetrySection } from "@/components/telemetry-section";
 import { homepageSections } from "@/lib/site-content";
 
 export default function HomePage() {
-  const { hero, brands, servicePaths, featuredBuilds, shopLanes, finalCta } =
+  const { hero, servicePaths, featuredBuilds, shopLanes, finalCta } =
     homepageSections;
 
   return (
@@ -35,7 +35,7 @@ export default function HomePage() {
         />
       </section>
 
-      <BrandStrip brands={brands} />
+      <BrandGrid />
 
       <TelemetrySection
         kicker="SERVICE PATHS"
@@ -53,11 +53,7 @@ export default function HomePage() {
           <SectionHeading kicker="Selected Work" title="Featured Builds" data-reveal="slide-up" />
         </SectionBar>
 
-        <div className="build-preview-grid">
-          {featuredBuilds.map((build, index) => (
-            <BuildPreviewCard key={build.title} build={build} index={index} animated />
-          ))}
-        </div>
+        <FeaturedBuildsCarousel builds={featuredBuilds} />
       </section>
 
       <section className="home-section" data-reveal-group>

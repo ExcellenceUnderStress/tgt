@@ -15,14 +15,20 @@ export type HomepageServicePath = {
   eyebrow: string;
   title: string;
   description: string;
+  startingAtPrice: string;
   bullets: string[];
   cta: NavItem;
 };
 
 export type HomepageBuild = {
   title: string;
-  meta: string;
   image: string;
+  tuningStats: {
+    platform: string;
+    fuelType: string;
+    powerOutput: string;
+    service: string;
+  };
 };
 
 export type HomepageShopLane = {
@@ -320,51 +326,69 @@ export const homepageSections = {
       title: "Dyno Tuning",
       description:
         "Tuned in-house on our dyno.",
+      startingAtPrice: "$200",
       bullets: [
         "Auburn, WA",
         "Half day — 9am or 1pm start",
         "$200 deposit to book",
       ],
-      cta: { href: "/contact", label: "Book Dyno Session →" },
+      cta: { href: "/contact", label: "Start Build Consult" },
     },
     {
       eyebrow: "REMOTE",
       title: "E-Tune",
       description:
         "Tuned from your datalogs. Revisions until it's clean.",
+      startingAtPrice: "$500",
       bullets: [
         "Nationwide",
         "Requires datalogging capability",
       ],
-      cta: { href: "/contact", label: "Start E-Tune →" },
+      cta: { href: "/contact", label: "Start Build Consult" },
     },
     {
       eyebrow: "",
       title: "Project Review",
       description:
         "Not sure what fits? Send us the build details and we'll point you to the next step.",
+      startingAtPrice: "$0",
       bullets: [
         "Response in 24–48 hours",
         "Good for complex builds",
       ],
-      cta: { href: "/contact", label: "Submit for Review →" },
+      cta: { href: "/contact", label: "Start Build Consult" },
     },
   ] satisfies HomepageServicePath[],
   featuredBuilds: [
     {
       title: "2018 Civic Si - Turbo E85",
-      meta: "KTuner · 380 WHP",
       image: "/images/builds/Artboard 1.png",
+      tuningStats: {
+        platform: "KTuner",
+        fuelType: "E85",
+        powerOutput: "380 WHP",
+        service: "Dyno Tuning",
+      },
     },
     {
       title: "2014 Mustang GT - Bolt-ons",
-      meta: "HP Tuners · 445 WHP",
       image: "/images/builds/Artboard 2.png",
+      tuningStats: {
+        platform: "HP Tuners",
+        fuelType: "Pump Gas",
+        powerOutput: "445 WHP",
+        service: "Dyno Tuning",
+      },
     },
     {
       title: "K-Swap EG Hatch - All Motor",
-      meta: "Hondata · 240 WHP",
       image: "/images/builds/Artboard 3.png",
+      tuningStats: {
+        platform: "Hondata",
+        fuelType: "Pump Gas",
+        powerOutput: "240 WHP",
+        service: "Dyno Tuning",
+      },
     },
   ] satisfies HomepageBuild[],
   shopLanes: [

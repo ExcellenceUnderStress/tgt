@@ -2,6 +2,7 @@
 
 import { SectionHeading } from "@/components/section-heading";
 import type { ServicePricingCheatSheetItem, ServicePricingTabKey } from "@/lib/site-content";
+import cardStyles from "./card-surface.module.css";
 
 type PricingCheatSheetProps = {
   eyebrow: string;
@@ -31,7 +32,7 @@ export function PricingCheatSheet({ eyebrow, title, items, id, tabsTargetId, onS
           <button
             key={item.build}
             type="button"
-            className="pricing-cheat-card"
+            className={`pricing-cheat-card ${cardStyles.premiumCard}`}
             aria-controls={`pricing-panel-${item.targetTab}`}
             onClick={() => handleClick(item.targetTab)}
           >

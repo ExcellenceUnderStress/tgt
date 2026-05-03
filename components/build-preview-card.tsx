@@ -1,6 +1,16 @@
 import Image from "next/image";
 
 import type { HomepageBuild } from "@/lib/site-content";
+import cardStyles from "./card-surface.module.css";
+
+const OVERLAY_STATS: Array<{
+  key: keyof HomepageBuild["tuningStats"];
+  label: string;
+}> = [
+  { key: "platform", label: "Platform" },
+  { key: "fuelType", label: "Fuel" },
+  { key: "powerOutput", label: "Power" },
+];
 
 type BuildPreviewCardProps = {
   build: HomepageBuild;
@@ -12,7 +22,7 @@ type BuildPreviewCardProps = {
 export function BuildPreviewCard({ build, index, animated }: BuildPreviewCardProps) {
   return (
     <article
-      className="build-preview"
+      className={`build-preview ${cardStyles.premiumCard}`}
       {...(animated ? { "data-parallax-card": true, "data-reveal": "slide-up" } : {})}
     >
       <div className="build-preview-media">
@@ -24,10 +34,17 @@ export function BuildPreviewCard({ build, index, animated }: BuildPreviewCardPro
           src={build.image}
         />
         <span>Build {String(index + 1).padStart(2, "0")}</span>
+        <dl className="build-preview-stats-overlay" aria-label="Tuning Stats">
+          {OVERLAY_STATS.map(({ key, label }) => (
+            <div className="build-preview-stat" key={key}>
+              <dt>{label}</dt>
+              <dd>{build.tuningStats[key]}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
       <div className="build-preview-copy">
         <h3>{build.title}</h3>
-        <p>{build.meta}</p>
       </div>
     </article>
   );

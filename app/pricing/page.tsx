@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import cardStyles from "@/components/card-surface.module.css";
 import { PricingCheatSheet } from "@/components/pricing-cheat-sheet";
+import {
+  PricingPlatformQuickFilter,
+  type PricingPlatformRequest,
+} from "@/components/pricing-platform-accordions";
 import { SectionHeading } from "@/components/section-heading";
 import { ServicesCategoryTabs } from "@/components/services-category-tabs";
 import { servicesPricingContent } from "@/lib/site-content";
@@ -15,10 +20,18 @@ const CHEAT_SHEET_ID = "pricing-cheat-sheet";
 export default function ServicesPage() {
   const { hero, cheatSheet, factory, standalone, remote, policy, finalCta } = servicesPricingContent;
   const [activeTab, setActiveTab] = useState<ServicePricingTabKey>("factory");
+  const [platformRequest, setPlatformRequest] = useState<PricingPlatformRequest | null>(null);
+
+  const handlePlatformSelect = (id: string) => {
+    setActiveTab("factory");
+    setPlatformRequest((current) => ({
+      id,
+      sequence: (current?.sequence ?? 0) + 1,
+    }));
+  };
 
   return (
     <>
-      {/* ── Pricing Hero ── */}
       <section className="route-intro pricing-hero">
         <div className="pricing-hero-shell">
           <p className="section-kicker">{hero.eyebrow}</p>
@@ -27,7 +40,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Build-type cheat sheet ── */}
+      <PricingPlatformQuickFilter cards={factory.cards} onSelect={handlePlatformSelect} />
+
       <PricingCheatSheet
         id={CHEAT_SHEET_ID}
         eyebrow={cheatSheet.eyebrow}
@@ -37,7 +51,6 @@ export default function ServicesPage() {
         onSelect={setActiveTab}
       />
 
-      {/* ── Tabs (per-tab add-ons restored inside) ── */}
       <ServicesCategoryTabs
         id={TABS_ID}
         factory={factory}
@@ -45,16 +58,16 @@ export default function ServicesPage() {
         remote={remote}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        platformRequest={platformRequest}
       />
 
-      {/* ── Booking & Policy ── */}
       <section className="route-section pricing-section">
         <div className="pricing-policy-grid">
           <SectionHeading kicker={policy.eyebrow} title={policy.title}>
             <p>{policy.summary}</p>
           </SectionHeading>
 
-          <div className="pricing-policy-panel">
+          <div className={`pricing-policy-panel ${cardStyles.premiumCard}`}>
             {policy.items.map((item) => (
               <article className="pricing-policy-item" key={item.title}>
                 <h3>{item.title}</h3>
@@ -65,10 +78,9 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
       <section className="route-section pricing-section pricing-final-cta">
         <Link className="button-primary" href={finalCta.href}>
-          {finalCta.label} <span aria-hidden="true">→</span>
+          {finalCta.label} <span aria-hidden="true">-&gt;</span>
         </Link>
       </section>
     </>

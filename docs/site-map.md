@@ -10,7 +10,7 @@ TurboGixxer V2 is a cinematic, brand-first website that communicates legacy, rec
 - Show proof through selected featured builds.
 - Explain services clearly enough that visitors can choose the right path.
 - Support qualified booking and project intake.
-- Support a curated shop focused on merch and Haltech.
+- Support a curated shop focused on merch, high-value Haltech, and platform buying guides.
 
 ## Primary User Journeys
 
@@ -129,11 +129,12 @@ Primary CTAs:
 ### `/shop`
 
 Purpose:
-Route visitors into merch or Haltech and frame the store as curated, not bloated.
+Route visitors into merch, curated Haltech, or engine-family platform guides and frame the store as curated, not bloated.
 
 Primary CTAs:
 - Shop Merch
 - Shop Haltech
+- View Platform Guides
 
 ### `/shop/merch`
 
@@ -152,6 +153,51 @@ Present a curated Haltech lane for customers who already know what they need or 
 Primary CTAs:
 - Inquire
 - Contact
+
+### `/shop/platforms`
+
+Purpose:
+Organize engine-family Haltech buying guidance without turning platforms into ecommerce categories.
+
+Primary CTAs:
+- Ask For Fitment Help
+- Shop Haltech
+
+### `/shop/platforms/[slug]`
+
+Purpose:
+Explain platform-specific tuning reality, common Haltech paths, recommendations, not-for warnings, and related guide links.
+
+Primary CTAs:
+- Start Build Consult
+- All Platform Guides
+
+### `/shop/haltech/ecus`
+
+Purpose:
+Educate customers on Haltech ECU tiers and buying logic before they inquire.
+
+Primary CTAs:
+- Ask For ECU Guidance
+- Back To Haltech
+
+### `/shop/haltech/outputs-ignition`
+
+Purpose:
+Educate customers on spark, ignition, and injector direction without exposing a giant catalog.
+
+Primary CTAs:
+- Ask For A Recommendation
+- Back To Haltech
+
+### `/shop/haltech/sensors`
+
+Purpose:
+Educate customers on sensor choices that support standalone ECU protection and logging.
+
+Primary CTAs:
+- Ask About Sensors
+- Back To Haltech
 
 ### `/contact`
 

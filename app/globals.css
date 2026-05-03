@@ -4,6 +4,15 @@
 
 html {
   --site-header-height: 5.5rem;
+  --site-container-sm: var(--tg-space-160);
+  --site-container-md: var(--tg-space-256);
+  --site-container-lg: var(--tg-space-320);
+  --site-container-xl: var(--tg-space-360);
+  --site-container-page: min(100%, var(--site-container-lg));
+  --site-container-narrow: min(100%, var(--tg-space-192));
+  --site-container-form: min(100%, var(--tg-space-256));
+  --site-card-max: var(--tg-space-120);
+  --site-grid-min: min(100%, var(--tg-space-64));
   --site-bg-start: var(--tg-color-gray-50);
   --site-bg-mid: var(--tg-color-gray-100);
   --site-bg-end: var(--tg-color-gray-25);
@@ -55,8 +64,8 @@ html {
   --site-brand-strip-border: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
   --site-brand-item-bg: color-mix(in srgb, var(--tg-color-gray-25) 3%, transparent);
   --site-brand-item-line: color-mix(in srgb, var(--tg-color-gray-25) 10%, transparent);
-  --site-brand-logo-filter: grayscale(1) brightness(0.2) contrast(1.15);
-  --site-shop-logo-filter: grayscale(1) invert(1) brightness(0.24) contrast(1.08);
+  --site-brand-logo-filter: none;
+  --site-shop-logo-filter: none;
   --site-media-panel-bg:
     radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-400) 18%, transparent), transparent 35%),
     linear-gradient(135deg, color-mix(in srgb, var(--tg-color-gray-300) 64%, white), var(--tg-color-gray-50));
@@ -124,7 +133,7 @@ html[data-color-mode="dark"] {
   --site-brand-strip-border: color-mix(in srgb, var(--site-ink) 12%, transparent);
   --site-brand-item-bg: color-mix(in srgb, var(--site-ink) 2%, transparent);
   --site-brand-item-line: color-mix(in srgb, var(--site-ink) 10%, transparent);
-  --site-brand-logo-filter: grayscale(1) brightness(0.95);
+  --site-brand-logo-filter: none;
   --site-shop-logo-filter: none;
   --site-media-panel-bg:
     radial-gradient(circle at top right, color-mix(in srgb, var(--tg-color-brand-500) 30%, transparent), transparent 35%),
@@ -176,7 +185,7 @@ main {
 }
 
 .page-shell {
-  width: min(100%, 1600px);
+  width: var(--site-container-page);
   margin: 0 auto;
   /* Fluid shell padding scales smoothly from mobile to desktop. */
   padding: 0 clamp(1rem, 2.2vw, var(--tg-space-5)) clamp(2.5rem, 6vw, var(--tg-space-12));
@@ -1411,6 +1420,24 @@ li {
   max-width: 34rem;
 }
 
+.telemetry-card .telemetry-card-price {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: var(--tg-space-4) 0 0;
+  padding: var(--tg-space-2) var(--tg-space-3);
+  border: 1px solid color-mix(in srgb, var(--tg-color-brand-500) 28%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tg-color-brand-500) 12%, transparent);
+  color: var(--site-heading);
+  font-family: var(--font-body, "Barlow", sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .telemetry-card-list {
   display: grid;
   gap: var(--tg-space-3);
@@ -1422,6 +1449,16 @@ li {
 .telemetry-card-list li {
   padding-top: var(--tg-space-3);
   border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+}
+
+.telemetry-card-action {
+  margin: var(--tg-space-5) 0 0;
+}
+
+.telemetry-card-button {
+  width: 100%;
+  font-family: var(--font-body, "Barlow", sans-serif);
+  font-weight: 600;
 }
 
 .legacy-layout {
@@ -1534,6 +1571,110 @@ li {
   margin-top: var(--tg-space-8);
 }
 
+.featured-builds-carousel {
+  display: grid;
+  gap: var(--tg-space-4);
+  margin-top: var(--tg-space-8);
+  overflow: hidden;
+}
+
+.featured-builds-carousel-viewport {
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.featured-builds-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.featured-builds-carousel-track {
+  display: flex;
+  gap: var(--tg-space-5);
+  width: max-content;
+  will-change: transform;
+}
+
+.featured-builds-carousel-slide {
+  flex: 0 0 clamp(19rem, 42vw, 34rem);
+  min-width: 0;
+}
+
+.featured-builds-carousel .build-preview {
+  height: 100%;
+  min-height: 0;
+}
+
+.featured-builds-carousel .build-preview .build-preview-media {
+  min-height: 0;
+  aspect-ratio: 4 / 5;
+}
+
+.featured-builds-carousel .build-preview-copy {
+  min-height: var(--tg-space-24);
+}
+
+.featured-builds-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tg-space-4);
+}
+
+.featured-builds-carousel-control {
+  border: 0;
+  background: transparent;
+  color: var(--site-subtle-copy);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  padding: var(--tg-space-2) 0;
+  text-transform: uppercase;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.featured-builds-carousel-control:hover,
+.featured-builds-carousel-control:focus-visible {
+  color: var(--site-heading);
+}
+
+.featured-builds-carousel-control:first-child:hover,
+.featured-builds-carousel-control:first-child:focus-visible {
+  transform: translateX(-2px);
+}
+
+.featured-builds-carousel-control:last-child:hover,
+.featured-builds-carousel-control:last-child:focus-visible {
+  transform: translateX(2px);
+}
+
+.featured-builds-carousel-control:disabled {
+  cursor: default;
+  opacity: 0.35;
+  transform: none;
+}
+
+.featured-builds-carousel-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--tg-space-2);
+}
+
+.featured-builds-carousel-progress span {
+  width: var(--tg-space-6);
+  height: 2px;
+  background: color-mix(in srgb, var(--site-heading) 18%, transparent);
+  transition: background-color 160ms ease, width 160ms ease;
+}
+
+.featured-builds-carousel-progress span[data-active="true"] {
+  width: var(--tg-space-10);
+  background: var(--tg-color-brand-500);
+}
+
 .build-preview:nth-child(1) {
   grid-row: 1 / 3;
 }
@@ -1598,7 +1739,8 @@ li {
 }
 
 .build-preview-media span {
-  position: relative;
+  position: absolute;
+  inset: var(--tg-space-5) var(--tg-space-5) auto auto;
   z-index: 1;
   color: var(--site-media-panel-label);
   font-size: 0.82rem;
@@ -1606,9 +1748,60 @@ li {
   text-transform: uppercase;
 }
 
+.build-preview-stats-overlay {
+  position: absolute;
+  inset: auto auto var(--tg-space-5) var(--tg-space-5);
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, max-content));
+  gap: var(--tg-space-3);
+  max-width: calc(100% - var(--tg-space-10));
+  margin: 0;
+  padding: var(--tg-space-3);
+  border: 1px solid color-mix(in srgb, var(--tg-color-gray-25) 14%, transparent);
+  background: color-mix(in srgb, var(--tg-color-gray-950) 72%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.build-preview-stats-overlay .build-preview-stat dt {
+  color: color-mix(in srgb, var(--tg-color-gray-25) 68%, transparent);
+}
+
+.build-preview-stats-overlay .build-preview-stat dd {
+  color: var(--tg-color-gray-25);
+}
+
 .build-preview-copy,
 .shop-lane-copy {
   padding: var(--tg-space-5);
+}
+
+.build-preview-copy {
+  display: grid;
+  gap: var(--tg-space-4);
+}
+
+.build-preview-stat {
+  display: grid;
+  gap: var(--tg-space-1);
+  min-width: 0;
+}
+
+.build-preview-stat dt {
+  color: var(--site-subtle-copy);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.build-preview-stat dd {
+  margin: 0;
+  color: var(--site-heading);
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .build-preview:hover,
@@ -1690,18 +1883,12 @@ li {
   width: 100%;
   max-width: 10rem;
   max-height: 2rem;
-  opacity: 0.85;
-  filter: var(--site-brand-logo-filter);
-  transition:
-    filter 180ms ease,
-    opacity 180ms ease,
-    transform 180ms ease;
+  object-fit: contain;
+  transition: transform 180ms ease;
 }
 
 .brand-rail-item:hover .brand-rail-logo,
 .brand-rail-item:focus-within .brand-rail-logo {
-  opacity: 1;
-  filter: grayscale(0) brightness(1);
   transform: translateY(-1px);
 }
 
@@ -2493,15 +2680,6 @@ li {
   color: var(--site-subtle-copy);
 }
 
-select.intake-input {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23717680' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right var(--tg-space-4) center;
-  padding-right: var(--tg-space-8);
-}
-
 .intake-textarea {
   min-height: 6rem;
   padding: var(--tg-space-3) var(--tg-space-4);
@@ -2605,8 +2783,19 @@ select.intake-input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--tg-space-4);
   padding: clamp(0.9rem, 1.8vw, var(--tg-space-4)) clamp(1rem, 2.4vw, var(--tg-space-5));
   border-top: 1px solid var(--site-border-soft);
+}
+
+.intake-save-indicator {
+  margin: 0 auto 0 0;
+  min-width: 9rem;
+  color: var(--site-subtle-copy);
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  opacity: 0.68;
+  text-transform: uppercase;
 }
 
 .intake-back {
@@ -2802,6 +2991,15 @@ select.intake-input {
     padding-inline: var(--tg-space-3);
   }
 
+  .intake-card-footer {
+    flex-wrap: wrap;
+  }
+
+  .intake-save-indicator {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
   .intake-radio-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -2861,6 +3059,10 @@ select.intake-input {
 
   .build-preview:nth-child(1) {
     grid-row: auto;
+  }
+
+  .featured-builds-carousel-slide {
+    flex-basis: clamp(20rem, 62vw, 30rem);
   }
 
   /* Pricing grids: keep 2-col on tablet, collapse independently below. */
@@ -2972,6 +3174,42 @@ select.intake-input {
 }
 
 @media (max-width: 640px) {
+  .featured-builds-carousel {
+    gap: var(--tg-space-3);
+  }
+
+  .featured-builds-carousel-track {
+    gap: var(--tg-space-3);
+  }
+
+  .featured-builds-carousel-slide {
+    flex-basis: calc(100vw - var(--tg-space-10));
+  }
+
+  .featured-builds-carousel .build-preview .build-preview-media {
+    aspect-ratio: 4 / 5;
+  }
+
+  .featured-builds-carousel .build-preview-copy {
+    min-height: var(--tg-space-20);
+  }
+
+  .build-preview-stats-overlay {
+    inset: auto auto var(--tg-space-3) var(--tg-space-3);
+    max-width: calc(100% - var(--tg-space-6));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--tg-space-2);
+    padding: var(--tg-space-2);
+  }
+
+  .build-preview-stat dt {
+    font-size: 0.66rem;
+  }
+
+  .build-preview-stat dd {
+    font-size: 0.82rem;
+  }
+
   .site-header {
     padding-top: var(--tg-space-3);
   }
@@ -3047,6 +3285,177 @@ select.intake-input {
 .services-tab-button[aria-selected="true"] {
   background: color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent);
   border-color: color-mix(in srgb, var(--tg-color-brand-500) 45%, var(--site-border-medium));
+}
+
+.pricing-platform-filter {
+  padding-top: clamp(var(--tg-space-6), 3vw, var(--tg-space-8));
+}
+
+.pricing-platform-filter-row,
+.pricing-platform-filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--tg-space-3);
+  min-width: 0;
+}
+
+.pricing-platform-filter-row {
+  flex-wrap: wrap;
+}
+
+.pricing-platform-filter-row .booking-mini-label {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.pricing-platform-filter-buttons {
+  flex-wrap: wrap;
+}
+
+.pricing-platform-filter-button {
+  min-height: 2.75rem;
+  flex: 0 0 auto;
+  border: 1px solid var(--site-border-medium);
+  background: var(--site-surface-panel);
+  color: var(--site-heading);
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: clamp(0.72rem, 0.5vw + 0.62rem, 0.92rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+  white-space: nowrap;
+}
+
+.pricing-platform-filter-button:hover,
+.pricing-platform-filter-button:focus-visible {
+  background: var(--site-surface-strong);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 45%, var(--site-border-medium));
+  color: var(--site-heading);
+  outline: none;
+}
+
+.pricing-platform-filter-button:focus-visible {
+  outline: 2px solid var(--tg-color-brand-500);
+  outline-offset: 2px;
+}
+
+.pricing-platform-accordion-list {
+  display: grid;
+  gap: var(--tg-space-4);
+}
+
+.pricing-platform-accordion {
+  scroll-margin-top: clamp(4.5rem, 8vw, 6rem);
+  background: var(--site-surface-panel);
+  border: 1px solid var(--site-border-soft);
+  border-left: 2px solid transparent;
+  contain: layout paint;
+  overflow-anchor: none;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.pricing-platform-accordion[data-open="true"] {
+  background: var(--site-surface-strong);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 38%, var(--site-border-soft));
+  border-left-color: var(--tg-color-brand-500);
+}
+
+.pricing-platform-heading {
+  margin: 0;
+}
+
+.pricing-platform-trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--tg-space-4);
+  width: 100%;
+  min-height: 4.5rem;
+  padding: clamp(var(--tg-space-4), 2vw, var(--tg-space-6));
+  border: 0;
+  background: transparent;
+  color: var(--site-heading);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: background 120ms ease;
+}
+
+.pricing-platform-trigger:hover {
+  background: color-mix(in srgb, var(--site-ink) 3%, transparent);
+}
+
+.pricing-platform-trigger:focus-visible {
+  outline: 2px solid var(--tg-color-brand-500);
+  outline-offset: -2px;
+}
+
+.pricing-platform-title-group {
+  display: grid;
+  gap: var(--tg-space-2);
+  min-width: 0;
+}
+
+.pricing-platform-title {
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(1.55rem, 1.8vw + 1rem, 2.45rem);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.pricing-platform-subtitle {
+  color: var(--site-muted-copy);
+  font-size: clamp(0.92rem, 0.24vw + 0.86rem, 1rem);
+  font-weight: 400;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.pricing-platform-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 2.25rem;
+  border: 1px solid var(--site-border-medium);
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.pricing-platform-toggle-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  transform: rotate(0deg);
+  transition: transform 140ms ease;
+}
+
+.pricing-platform-accordion[data-open="true"] .pricing-platform-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.pricing-platform-panel {
+  display: grid;
+  gap: var(--tg-space-5);
+  padding: 0 clamp(var(--tg-space-4), 2vw, var(--tg-space-6)) clamp(var(--tg-space-4), 2vw, var(--tg-space-6));
+}
+
+.pricing-platform-panel[hidden] {
+  display: none;
 }
 
 .pricing-section-header h2,
@@ -3165,6 +3574,17 @@ select.intake-input {
     min-height: 2.75rem;
   }
 
+  .pricing-platform-filter-buttons {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .pricing-platform-filter-buttons::-webkit-scrollbar {
+    display: none;
+  }
+
   .pricing-cheat-sheet-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3215,6 +3635,42 @@ select.intake-input {
   .pricing-cheat-card {
     min-height: 2.75rem;
     padding: var(--tg-space-4);
+  }
+
+  .pricing-platform-filter {
+    padding-top: var(--tg-space-8);
+  }
+
+  .pricing-platform-filter-row {
+    align-items: flex-start;
+    gap: var(--tg-space-3);
+  }
+
+  .pricing-platform-filter-buttons {
+    width: 100%;
+  }
+
+  .pricing-platform-filter-button {
+    min-height: 2.75rem;
+    padding-inline: var(--tg-space-4);
+  }
+
+  .pricing-platform-trigger {
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 3.75rem;
+    padding: var(--tg-space-4);
+  }
+
+  .pricing-platform-trigger .pricing-badge {
+    display: none;
+  }
+
+  .pricing-platform-title {
+    font-size: clamp(1.35rem, 7vw, 2rem);
+  }
+
+  .pricing-platform-panel {
+    padding: 0 var(--tg-space-4) var(--tg-space-4);
   }
 
   /* Pricing grids: full-width single column on mobile. */
@@ -3719,6 +4175,390 @@ select.intake-input {
 .platform-link-rail a:focus-visible {
   border-color: color-mix(in srgb, var(--tg-color-brand-500) 42%, var(--site-border-soft));
   background: var(--site-surface-strong);
+}
+
+.route-intro,
+.booking-shell,
+.route-section,
+.pricing-section,
+.service-detail-shell,
+.haltech-showcase,
+.platform-family-stack,
+.ecu-guide-list,
+.page-hero-grid,
+.haltech-category-tiles,
+.guide-card-grid,
+.service-path-grid,
+.service-path-preview-grid,
+.service-compare-grid,
+.service-checklist-grid,
+.service-timeline,
+.service-stat-grid,
+.fit-check-grid,
+.route-section-split,
+.pricing-card-grid,
+.pricing-support-grid,
+.pricing-cheat-sheet-grid,
+.shop-lane-grid,
+.trust-metric-grid,
+.final-cta-details,
+.booking-stage,
+.booking-progress,
+.booking-intake-grid,
+.booking-next-grid,
+.booking-field-grid,
+.booking-fields,
+.intake-progress,
+.intake-card,
+.intake-meta {
+  max-width: var(--site-container-page);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-heading,
+.booking-stage-header,
+.service-detail-lead,
+.service-detail-columns,
+.pricing-hero-shell,
+.pricing-platform-accordion-list,
+.pricing-platform-filter-row,
+.pricing-policy-grid,
+.pricing-section-header {
+  max-width: var(--site-container-narrow);
+}
+
+.service-preview,
+.service-path-card,
+.service-callout,
+.service-detail-rail,
+.service-checklist,
+.service-timeline-step,
+.service-stat,
+.service-compare-card,
+.fit-check-card,
+.route-section-panel,
+.pricing-card,
+.pricing-addon-panel,
+.pricing-support-card,
+.pricing-policy-panel,
+.pricing-cheat-card,
+.booking-note,
+.booking-intake-card,
+.booking-next-card,
+.booking-path-summary,
+.booking-path-fields-card,
+.booking-submit-bar,
+.booking-success-state,
+.haltech-category-tile,
+.guide-card,
+.shop-lane,
+.build-preview,
+.telemetry-card,
+.legacy-stat {
+  max-width: var(--site-card-max);
+}
+
+.pricing-card,
+.pricing-addon-panel,
+.pricing-support-card,
+.pricing-policy-panel,
+.pricing-cheat-card,
+.service-callout,
+.service-detail-rail,
+.service-checklist,
+.service-timeline-step,
+.service-stat,
+.service-compare-card,
+.fit-check-card,
+.route-section-panel,
+.booking-note,
+.booking-intake-card,
+.booking-next-card,
+.booking-path-summary,
+.booking-path-fields-card,
+.booking-submit-bar,
+.booking-success-state,
+.haltech-category-tile,
+.guide-card,
+.ecu-guide-card {
+  padding: clamp(var(--tg-space-4), 1.2vw + var(--tg-space-2), var(--tg-space-6));
+}
+
+.route-intro,
+.booking-shell {
+  padding-top: clamp(var(--tg-space-10), 5vw, var(--tg-space-16));
+}
+
+.route-grid,
+.service-detail-lead,
+.service-detail-columns,
+.pricing-section-header,
+.pricing-policy-grid,
+.booking-fields {
+  width: 100%;
+  max-width: var(--site-container-page);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-heading h2,
+.route-section-panel h2 {
+  font-size: clamp(2rem, 1.8vw + 1.45rem, 3.5rem);
+  line-height: 0.98;
+}
+
+.section-heading p,
+.service-preview p,
+.service-callout p,
+.service-detail-rail p,
+.service-checklist p,
+.service-timeline-step p,
+.route-section-panel p,
+.guide-card-copy p,
+.haltech-category-tile-body p,
+.booking-note p,
+.booking-intake-card p,
+.booking-next-card p {
+  font-size: clamp(0.94rem, 0.18vw + 0.9rem, 1.04rem);
+  line-height: 1.58;
+}
+
+.service-stat span,
+.booking-progress-step span,
+.booking-mini-label,
+.booking-label,
+.booking-field-label,
+.footer-label,
+.guide-card-copy span,
+.guide-card-copy small,
+.guide-price-strip span,
+.platform-link-rail a,
+.haltech-category-tile-body span,
+.intake-step-counter,
+.intake-card-strip,
+.intake-field-label,
+.intake-marker,
+.intake-review-title,
+.intake-review-label,
+.intake-save-indicator,
+.intake-meta {
+  font-size: clamp(0.68rem, 0.16vw + 0.65rem, 0.8rem);
+}
+
+.haltech-category-tile-body h3 {
+  font-size: clamp(1rem, 0.35vw + 0.95rem, 1.16rem);
+}
+
+.booking-progress-step strong,
+.booking-path-summary strong,
+.intake-step-counter strong,
+.intake-marker-num {
+  font-size: clamp(1rem, 0.8vw + 0.8rem, 1.5rem);
+}
+
+.intake-container {
+  width: var(--site-container-form);
+  max-width: var(--site-container-form);
+  padding: clamp(var(--tg-space-8), 4vw, var(--tg-space-10)) clamp(var(--tg-space-3), 2vw, var(--tg-space-5)) clamp(var(--tg-space-10), 6vw, var(--tg-space-16));
+}
+
+.intake-header {
+  margin-bottom: clamp(var(--tg-space-5), 3vw, var(--tg-space-8));
+}
+
+.intake-header h1 {
+  font-size: clamp(2.05rem, 2.4vw + 1.35rem, 3.4rem);
+}
+
+.intake-product-context {
+  padding: clamp(var(--tg-space-3), 1vw + var(--tg-space-2), var(--tg-space-5));
+}
+
+.intake-product-context span,
+.intake-product-context p,
+.intake-radio-btn,
+.intake-back,
+.intake-continue,
+.intake-toast {
+  font-size: clamp(0.72rem, 0.18vw + 0.68rem, 0.86rem);
+}
+
+.intake-input,
+.intake-review-value {
+  font-size: clamp(0.9rem, 0.18vw + 0.86rem, 0.98rem);
+}
+
+.intake-card-body,
+.intake-success {
+  min-height: clamp(var(--tg-space-80), 34vw, var(--tg-space-120));
+}
+
+.intake-step {
+  padding: clamp(var(--tg-space-4), 1.6vw + var(--tg-space-2), var(--tg-space-6)) clamp(var(--tg-space-3), 1.8vw + var(--tg-space-2), var(--tg-space-5));
+  gap: clamp(var(--tg-space-4), 1.5vw, var(--tg-space-5));
+}
+
+.intake-card-strip,
+.intake-card-footer {
+  padding-inline: clamp(var(--tg-space-3), 1.5vw, var(--tg-space-5));
+}
+
+.guide-card-grid,
+.haltech-category-tiles {
+  grid-template-columns: 1fr;
+}
+
+.pricing-cheat-sheet-grid,
+.service-path-grid,
+.service-path-preview-grid,
+.service-checklist-grid,
+.service-timeline,
+.service-stat-grid,
+.service-compare-grid,
+.fit-check-grid,
+.shop-lane-grid,
+.trust-metric-grid,
+.final-cta-details,
+.booking-progress,
+.booking-intake-grid,
+.booking-next-grid,
+.booking-field-grid,
+.pricing-card-grid,
+.pricing-support-grid {
+  grid-template-columns: 1fr;
+  justify-items: stretch;
+}
+
+@media (min-width: 641px) {
+  .haltech-category-tiles,
+  .guide-card-grid,
+  .pricing-cheat-sheet-grid,
+  .service-path-grid,
+  .service-path-preview-grid,
+  .service-checklist-grid,
+  .service-timeline,
+  .service-stat-grid,
+  .fit-check-grid,
+  .shop-lane-grid,
+  .trust-metric-grid,
+  .final-cta-details,
+  .booking-progress,
+  .booking-intake-grid,
+  .booking-next-grid,
+  .booking-field-grid,
+  .pricing-support-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing-card-grid,
+  .service-compare-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-preview,
+  .service-path-card,
+  .service-callout,
+  .service-detail-rail,
+  .service-checklist,
+  .service-timeline-step,
+  .service-stat,
+  .service-compare-card,
+  .fit-check-card,
+  .route-section-panel,
+  .pricing-card,
+  .pricing-addon-panel,
+  .pricing-support-card,
+  .pricing-policy-panel,
+  .pricing-cheat-card,
+  .booking-note,
+  .booking-intake-card,
+  .booking-next-card,
+  .haltech-category-tile,
+  .guide-card,
+  .shop-lane,
+  .build-preview,
+  .telemetry-card,
+  .legacy-stat {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .page-shell {
+    padding-inline: clamp(var(--tg-space-5), 2vw, var(--tg-space-8));
+  }
+
+  .route-grid,
+  .service-detail-lead,
+  .service-detail-columns,
+  .booking-fields,
+  .page-hero-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(var(--tg-space-80), 0.8fr);
+  }
+
+  .service-path-grid,
+  .service-path-preview-grid,
+  .service-timeline,
+  .service-stat-grid,
+  .fit-check-grid,
+  .booking-progress,
+  .booking-next-grid,
+  .pricing-support-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pricing-cheat-sheet-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .guide-card-grid,
+  .haltech-category-tiles {
+    grid-template-columns: repeat(auto-fit, minmax(var(--site-grid-min), 1fr));
+  }
+
+  .guide-card-grid > *,
+  .haltech-category-tiles > *,
+  .pricing-card-grid > *,
+  .pricing-support-grid > *,
+  .service-path-grid > *,
+  .service-path-preview-grid > *,
+  .service-checklist-grid > *,
+  .service-timeline > *,
+  .service-stat-grid > *,
+  .service-compare-grid > *,
+  .fit-check-grid > *,
+  .shop-lane-grid > *,
+  .trust-metric-grid > *,
+  .final-cta-details > *,
+  .booking-progress > *,
+  .booking-intake-grid > *,
+  .booking-next-grid > *,
+  .booking-field-grid > *,
+  .pricing-cheat-sheet-grid > * {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1281px) {
+  .page-shell {
+    width: var(--site-container-xl);
+  }
+
+  .route-section,
+  .route-intro,
+  .booking-shell,
+  .pricing-section,
+  .haltech-showcase,
+  .platform-family-stack,
+  .ecu-guide-list,
+  .page-hero-grid,
+  .route-grid,
+  .service-detail-lead,
+  .service-detail-columns,
+  .booking-fields {
+    max-width: var(--site-container-lg);
+  }
 }
 
 .ecu-guide-list {

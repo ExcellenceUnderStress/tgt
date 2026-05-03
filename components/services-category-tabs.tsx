@@ -5,6 +5,10 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { PricingAddonPanel } from "@/components/pricing-addon-panel";
 import { PricingCard } from "@/components/pricing-card";
 import { PricingHighlightCard } from "@/components/pricing-highlight-card";
+import {
+  PricingPlatformAccordions,
+  type PricingPlatformRequest,
+} from "@/components/pricing-platform-accordions";
 import { PricingSectionHeader } from "@/components/pricing-section-header";
 import type { ServicePricingTabKey, ServicesPricingContent } from "@/lib/site-content";
 
@@ -17,6 +21,7 @@ type ServicesCategoryTabsProps = {
   onTabChange?: (tab: ServicePricingTabKey) => void;
   /** DOM id for the section wrapper, used as a scroll target. */
   id?: string;
+  platformRequest?: PricingPlatformRequest | null;
 };
 
 const TAB_ORDER: ServicePricingTabKey[] = ["factory", "standalone", "remote"];
@@ -37,6 +42,7 @@ export function ServicesCategoryTabs({
   activeTab: activeTabProp,
   onTabChange,
   id,
+  platformRequest,
 }: ServicesCategoryTabsProps) {
   const [internalTab, setInternalTab] = useState<ServicePricingTabKey>("factory");
   const activeTab = activeTabProp ?? internalTab;
@@ -106,11 +112,7 @@ export function ServicesCategoryTabs({
         hidden={activeTab !== "factory"}
       >
         <PricingSectionHeader kicker={factory.eyebrow} title={factory.title} summary={factory.summary} flag={factory.flag} />
-        <div className="pricing-card-grid">
-          {factory.cards.map((card) => (
-            <PricingCard key={card.title} card={card} />
-          ))}
-        </div>
+        <PricingPlatformAccordions cards={factory.cards} request={platformRequest} />
         <PricingAddonPanel title={factory.addons.title} items={factory.addons.items} />
       </div>
 

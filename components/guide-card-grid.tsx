@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import cardStyles from "./card-surface.module.css";
+
 export type GuideCardItem = {
   title: string;
   body: string;
@@ -18,7 +20,7 @@ export function GuideCardGrid({ items }: GuideCardGridProps) {
   return (
     <div className="guide-card-grid">
       {items.map((item) => (
-        <Link className="guide-card" href={item.href} key={item.href}>
+        <Link className={`guide-card ${cardStyles.premiumCard}`} href={item.href} key={item.href}>
           {item.image ? (
             <div className="guide-card-media">
               <Image

@@ -1,9 +1,60 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import Script from "next/script";
+import {
+  useActionState,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 
-/* ─── Types ─── */
+import { submitIntakeForm } from "@/app/contact/actions";
+import {
+  ECU_PLATFORMS,
+  FUEL_OPTIONS,
+  GOALS,
+  POWER_TARGETS,
+  SESSION_TYPES,
+  TIMELINES,
+} from "@/lib/intake-options";
+import type {
+  IntakeActionState,
+  IntakeFieldName,
+  IntakeFieldErrors,
+} from "@/lib/intake-schema";
+import { useSessionStorageForm } from "@/lib/use-session-storage-form";
+import cardSurfaceStyles from "./card-surface.module.css";
+import styles from "./intake-form.module.css";
+
 type Step = 1 | 2 | 3;
+
+type TurnstileRenderOptions = {
+  sitekey: string;
+  action?: string;
+  appearance?: "always" | "execute" | "interaction-only";
+  execution?: "render" | "execute";
+  callback?: (token: string) => void;
+  "error-callback"?: () => void;
+  "expired-callback"?: () => void;
+  "timeout-callback"?: () => void;
+};
+
+declare global {
+  interface Window {
+    turnstile?: {
+      execute: (widgetId?: string | HTMLElement) => void;
+      getResponse?: (widgetId?: string) => string;
+      isExpired?: (widgetId?: string) => boolean;
+      remove?: (widgetId: string) => void;
+      render: (container: string | HTMLElement, options: TurnstileRenderOptions) => string;
+      reset: (widgetId?: string) => void;
+    };
+  }
+}
 
 export type ProductInquiry = {
   category?: string;
@@ -11,12 +62,12 @@ export type ProductInquiry = {
   sku?: string;
 };
 
-type FormData = {
+type IntakeFormData = {
   productInterest: string;
   year: string;
   make: string;
   model: string;
-  ecuPlatform: string;
+  ecu: string;
   fuel: string;
   mods: string;
   primaryGoal: string;
@@ -28,13 +79,12 @@ type FormData = {
   phone: string;
 };
 
-/* ─── Constants ─── */
-const INITIAL: FormData = {
+const INITIAL: IntakeFormData = {
   productInterest: "",
   year: "",
   make: "",
   model: "",
-  ecuPlatform: "",
+  ecu: "",
   fuel: "",
   mods: "",
   primaryGoal: "",
@@ -46,43 +96,24 @@ const INITIAL: FormData = {
   phone: "",
 };
 
-const ECU_PLATFORMS = [
-  "HP Tuners",
-  "Hondata",
-  "Haltech",
-  "Holley EFI",
-  "MoTeC",
-  "Link ECU",
-  "ECU Master",
-  "MegaSquirt",
-  "MaxxECU",
-  "AEM",
-  "KTuner",
-  "Other",
-];
+const INITIAL_ACTION_STATE: IntakeActionState = {
+  status: "idle",
+};
 
-const FUEL_OPTIONS = ["91", "93", "E85", "Race Gas", "Methanol", "Flex", "Other"];
-
-const GOALS = ["Drivability", "Max Power", "Track", "Drag", "Flex Fuel", "Fix / Diag"];
-
-const POWER_TARGETS = [
-  "Under 300 WHP",
-  "300–500 WHP",
-  "500–700 WHP",
-  "700–1000 WHP",
-  "1000+ WHP",
-  "Not Sure",
-];
-
-const TIMELINES = ["This Week", "Next 2 Weeks", "This Month", "Flexible", "Just Exploring"];
-
-const SESSION_TYPES = ["Dyno in Auburn", "Remote", "Not Sure"];
+const INTAKE_SESSION_STORAGE_KEY = "tgt:intake-form:v1";
+const TURNSTILE_RESPONSE_FIELD = "cf-turnstile-response";
+const TURNSTILE_SITE_KEY =
+  process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY ??
+  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ??
+  "";
 
 const STEP_META: Array<{ num: Step; label: string }> = [
   { num: 1, label: "The Build" },
   { num: 2, label: "The Goal" },
   { num: 3, label: "You" },
 ];
+
+const selectClassName = `intake-input ${styles.select}`;
 
 function formatProductInterest(productInquiry?: ProductInquiry) {
   if (!productInquiry) return "";
@@ -94,7 +125,14 @@ function formatProductInterest(productInquiry?: ProductInquiry) {
   return [productLine, productInquiry.category].filter(Boolean).join("\n");
 }
 
-/* ─── Icons ─── */
+function fieldError(errors: IntakeFieldErrors | undefined, field: IntakeFieldName | "turnstile") {
+  return errors?.[field]?.[0];
+}
+
+function errorId(field: IntakeFieldName | "turnstile") {
+  return `intake-${field}-error`;
+}
+
 function WrenchIcon() {
   return (
     <svg
@@ -161,7 +199,6 @@ function CheckIcon() {
 
 const STEP_ICONS = [WrenchIcon, TargetIcon, UserIcon];
 
-/* ─── Component ─── */
 export function IntakeForm({
   productInquiry,
 }: {
@@ -170,28 +207,139 @@ export function IntakeForm({
   const initialData = useMemo(
     () => ({
       ...INITIAL,
-      ecuPlatform: productInquiry ? "Haltech" : INITIAL.ecuPlatform,
+      ecu: productInquiry ? "Haltech" : INITIAL.ecu,
       productInterest: formatProductInterest(productInquiry),
     }),
     [productInquiry],
   );
 
+  const formRef = useRef<HTMLFormElement>(null);
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
+  const submitAfterTurnstileRef = useRef(false);
   const [step, setStep] = useState<Step>(1);
-  const [data, setData] = useState<FormData>(() => initialData);
-  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const {
+    data,
+    setData,
+    hydrated: formHydrated,
+    saved: formSaved,
+    clearSavedData,
+  } = useSessionStorageForm<IntakeFormData>({
+    key: INTAKE_SESSION_STORAGE_KEY,
+    initialValue: initialData,
+    enabled: !submitted,
+  });
+  const [actionState, formAction, isPending] = useActionState(
+    submitIntakeForm,
+    INITIAL_ACTION_STATE,
+  );
+
+  const resetTurnstile = useCallback(() => {
+    setTurnstileToken("");
+
+    if (turnstileWidgetIdRef.current) {
+      window.turnstile?.reset(turnstileWidgetIdRef.current);
+    }
+  }, []);
+
+  const renderTurnstile = useCallback(() => {
+    if (
+      !TURNSTILE_SITE_KEY ||
+      !turnstileContainerRef.current ||
+      !window.turnstile ||
+      turnstileWidgetIdRef.current
+    ) {
+      return;
+    }
+
+    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      action: "intake",
+      appearance: "interaction-only",
+      execution: "execute",
+      callback: (token) => setTurnstileToken(token),
+      "error-callback": () => setTurnstileToken(""),
+      "expired-callback": () => setTurnstileToken(""),
+      "timeout-callback": () => setTurnstileToken(""),
+    });
+  }, []);
+
+  useEffect(() => {
+    renderTurnstile();
+  }, [renderTurnstile]);
+
+  useEffect(() => {
+    return () => {
+      if (turnstileWidgetIdRef.current) {
+        window.turnstile?.remove?.(turnstileWidgetIdRef.current);
+        turnstileWidgetIdRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!turnstileToken || !submitAfterTurnstileRef.current) return;
+
+    submitAfterTurnstileRef.current = false;
+    formRef.current?.requestSubmit();
+  }, [turnstileToken]);
+
+  useEffect(() => {
+    if (!actionState.submissionId) return;
+
+    if (actionState.status === "success") {
+      setSubmitted(true);
+      setToastVisible(true);
+      clearSavedData();
+      resetTurnstile();
+
+      const timeoutId = window.setTimeout(() => setToastVisible(false), 4000);
+      return () => window.clearTimeout(timeoutId);
+    }
+
+    if (actionState.status === "error") {
+      resetTurnstile();
+
+      const errors = actionState.fieldErrors ?? {};
+      const stepOneFields: Array<IntakeFieldName> = [
+        "year",
+        "make",
+        "model",
+        "ecu",
+        "fuel",
+        "mods",
+        "productInterest",
+      ];
+      const stepTwoFields: Array<IntakeFieldName> = [
+        "primaryGoal",
+        "powerTarget",
+        "timeline",
+        "sessionType",
+      ];
+
+      if (stepOneFields.some((field) => errors[field])) {
+        setStep(1);
+      } else if (stepTwoFields.some((field) => errors[field])) {
+        setStep(2);
+      } else {
+        setStep(3);
+      }
+    }
+  }, [actionState, clearSavedData, resetTurnstile]);
 
   const update = useCallback(
-    (field: keyof FormData) =>
-      (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    (field: keyof IntakeFormData) =>
+      (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setData((prev) => ({ ...prev, [field]: e.target.value }));
       },
     [],
   );
 
   const pick = useCallback(
-    (field: keyof FormData, value: string) => () => {
+    (field: keyof IntakeFormData, value: string) => () => {
       setData((prev) => ({ ...prev, [field]: value }));
     },
     [],
@@ -199,7 +347,7 @@ export function IntakeForm({
 
   const stepValid = useMemo(() => {
     if (step === 1) {
-      return !!(data.year && data.make && data.model && data.ecuPlatform && data.fuel);
+      return !!(data.year && data.make && data.model && data.ecu && data.fuel);
     }
     if (step === 2) {
       return !!(data.primaryGoal && data.powerTarget && data.timeline && data.sessionType);
@@ -223,27 +371,58 @@ export function IntakeForm({
     [step],
   );
 
-  const handleSubmit = useCallback(() => {
-    if (!stepValid || submitting) return;
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-      setToastVisible(true);
-      setTimeout(() => setToastVisible(false), 4000);
-    }, 1500);
-  }, [stepValid, submitting]);
+  const handleFormSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      if (step !== 3 || !stepValid || isPending) {
+        event.preventDefault();
+        return;
+      }
+
+      const widgetId = turnstileWidgetIdRef.current;
+      const tokenExpired = widgetId ? window.turnstile?.isExpired?.(widgetId) : false;
+
+      if (TURNSTILE_SITE_KEY && widgetId && window.turnstile && (!turnstileToken || tokenExpired)) {
+        event.preventDefault();
+        submitAfterTurnstileRef.current = true;
+        window.turnstile.execute(widgetId);
+      }
+    },
+    [isPending, step, stepValid, turnstileToken],
+  );
+
+  const renderError = (field: IntakeFieldName | "turnstile") => {
+    const error = fieldError(actionState.fieldErrors, field);
+
+    if (!error) return null;
+
+    return (
+      <p className="intake-field-error" id={errorId(field)} role="alert">
+        {error}
+      </p>
+    );
+  };
+
+  const describedBy = (field: IntakeFieldName | "turnstile") =>
+    fieldError(actionState.fieldErrors, field) ? errorId(field) : undefined;
 
   const progressWidth = step === 1 ? "33.333%" : step === 2 ? "66.666%" : "100%";
 
   return (
     <div className="intake-container">
+      {TURNSTILE_SITE_KEY ? (
+        <Script
+          onLoad={renderTurnstile}
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="afterInteractive"
+        />
+      ) : null}
+
       {submitted ? (
         <>
           <div className="intake-header">
             <h1>Tell us about the build.</h1>
           </div>
-          <div className="intake-card">
+          <div className={`intake-card ${cardSurfaceStyles.premiumCard}`}>
             <div className="intake-success">
               <CheckIcon />
               <h2>Submission received.</h2>
@@ -256,7 +435,6 @@ export function IntakeForm({
         </>
       ) : (
         <>
-          {/* ── Header ── */}
           <div className="intake-header">
             <h1>Tell us about the build.</h1>
             <div className="intake-step-counter">
@@ -277,9 +455,15 @@ export function IntakeForm({
             </div>
           ) : null}
 
-          {/* ── Progress ── */}
           <div className="intake-progress">
-            <div className="intake-progress-bar">
+            <div
+              aria-label="Form progress"
+              aria-valuemax={3}
+              aria-valuemin={1}
+              aria-valuenow={step}
+              className="intake-progress-bar"
+              role="progressbar"
+            >
               <div className="intake-progress-fill" style={{ width: progressWidth }} />
             </div>
             <div className="intake-markers">
@@ -290,6 +474,7 @@ export function IntakeForm({
                 const cls = isActive ? " is-active" : isComplete ? " is-complete" : "";
                 return (
                   <button
+                    aria-current={isActive ? "step" : undefined}
                     className={`intake-marker${cls}`}
                     disabled={!isComplete}
                     key={s.num}
@@ -307,8 +492,37 @@ export function IntakeForm({
             </div>
           </div>
 
-          {/* ── Form Card ── */}
-          <div className="intake-card">
+          <form
+            action={formAction}
+            className={`intake-card ${cardSurfaceStyles.premiumCard}`}
+            noValidate
+            onSubmit={handleFormSubmit}
+            ref={formRef}
+          >
+            <input name="primaryGoal" readOnly type="hidden" value={data.primaryGoal} />
+            <input name="sessionType" readOnly type="hidden" value={data.sessionType} />
+            <input
+              name={TURNSTILE_RESPONSE_FIELD}
+              readOnly
+              type="hidden"
+              value={turnstileToken}
+            />
+            <div aria-hidden="true" style={{ left: "-10000px", position: "absolute" }}>
+              <label htmlFor="intake-company">Company</label>
+              <input
+                autoComplete="off"
+                id="intake-company"
+                name="company"
+                tabIndex={-1}
+                type="text"
+              />
+            </div>
+            <div
+              aria-hidden="true"
+              ref={turnstileContainerRef}
+              style={{ minHeight: 0, minWidth: 0, position: "absolute" }}
+            />
+
             <div className="intake-card-strip">
               <span>
                 Section {step} / {STEP_META[step - 1].label}
@@ -321,48 +535,72 @@ export function IntakeForm({
                 className="intake-step-track"
                 style={{ transform: `translateX(-${(step - 1) * 100}%)` }}
               >
-                {/* ── Step 1: The Build ── */}
-                <div className="intake-step">
+                <div aria-hidden={step !== 1} className="intake-step" inert={step !== 1}>
                   <div className="intake-row">
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-year">
                       <span className="intake-field-label">Year *</span>
                       <input
+                        aria-describedby={describedBy("year")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "year"))}
+                        aria-required="true"
                         className="intake-input"
+                        id="intake-year"
+                        inputMode="numeric"
+                        name="year"
                         onChange={update("year")}
                         placeholder="e.g. 2018"
                         type="text"
                         value={data.year}
                       />
+                      {renderError("year")}
                     </label>
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-make">
                       <span className="intake-field-label">Make *</span>
                       <input
+                        aria-describedby={describedBy("make")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "make"))}
+                        aria-required="true"
+                        autoComplete="organization"
                         className="intake-input"
+                        id="intake-make"
+                        name="make"
                         onChange={update("make")}
                         placeholder="e.g. Honda"
                         type="text"
                         value={data.make}
                       />
+                      {renderError("make")}
                     </label>
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-model">
                       <span className="intake-field-label">Model *</span>
                       <input
+                        aria-describedby={describedBy("model")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "model"))}
+                        aria-required="true"
                         className="intake-input"
+                        id="intake-model"
+                        name="model"
                         onChange={update("model")}
                         placeholder="e.g. Civic Si"
                         type="text"
                         value={data.model}
                       />
+                      {renderError("model")}
                     </label>
                   </div>
 
                   <div className="intake-row intake-row-2">
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-ecu">
                       <span className="intake-field-label">ECU Platform *</span>
                       <select
-                        className="intake-input"
-                        onChange={update("ecuPlatform")}
-                        value={data.ecuPlatform}
+                        aria-describedby={describedBy("ecu")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "ecu"))}
+                        aria-required="true"
+                        className={selectClassName}
+                        id="intake-ecu"
+                        name="ecu"
+                        onChange={update("ecu")}
+                        value={data.ecu}
                       >
                         <option value="">Select platform</option>
                         {ECU_PLATFORMS.map((p) => (
@@ -371,10 +609,20 @@ export function IntakeForm({
                           </option>
                         ))}
                       </select>
+                      {renderError("ecu")}
                     </label>
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-fuel">
                       <span className="intake-field-label">Fuel *</span>
-                      <select className="intake-input" onChange={update("fuel")} value={data.fuel}>
+                      <select
+                        aria-describedby={describedBy("fuel")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "fuel"))}
+                        aria-required="true"
+                        className={selectClassName}
+                        id="intake-fuel"
+                        name="fuel"
+                        onChange={update("fuel")}
+                        value={data.fuel}
+                      >
                         <option value="">Select fuel</option>
                         {FUEL_OPTIONS.map((f) => (
                           <option key={f} value={f}>
@@ -382,54 +630,81 @@ export function IntakeForm({
                           </option>
                         ))}
                       </select>
+                      {renderError("fuel")}
                     </label>
                   </div>
 
                   {data.productInterest ? (
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-productInterest">
                       <span className="intake-field-label">Product Interest</span>
                       <textarea
+                        aria-describedby={describedBy("productInterest")}
+                        aria-invalid={Boolean(
+                          fieldError(actionState.fieldErrors, "productInterest"),
+                        )}
                         className="intake-input intake-textarea intake-textarea--compact"
+                        id="intake-productInterest"
+                        name="productInterest"
                         onChange={update("productInterest")}
                         value={data.productInterest}
                       />
+                      {renderError("productInterest")}
                     </label>
                   ) : null}
 
-                  <label className="intake-field">
+                  <label className="intake-field" htmlFor="intake-mods">
                     <span className="intake-field-label">Current Mods</span>
                     <textarea
+                      aria-describedby={describedBy("mods")}
+                      aria-invalid={Boolean(fieldError(actionState.fieldErrors, "mods"))}
                       className="intake-input intake-textarea"
+                      id="intake-mods"
+                      name="mods"
                       onChange={update("mods")}
                       placeholder="Turbo kit, exhaust, injectors, intercooler…"
                       value={data.mods}
                     />
+                    {renderError("mods")}
                   </label>
                 </div>
 
-                {/* ── Step 2: The Goal ── */}
-                <div className="intake-step">
+                <div aria-hidden={step !== 2} className="intake-step" inert={step !== 2}>
                   <div className="intake-field">
-                    <span className="intake-field-label">Primary Goal *</span>
-                    <div className="intake-radio-grid">
+                    <span className="intake-field-label" id="intake-primaryGoal-label">
+                      Primary Goal *
+                    </span>
+                    <div
+                      aria-describedby={describedBy("primaryGoal")}
+                      aria-labelledby="intake-primaryGoal-label"
+                      className="intake-radio-grid"
+                      role="radiogroup"
+                    >
                       {GOALS.map((g) => (
                         <button
+                          aria-checked={data.primaryGoal === g}
                           className={`intake-radio-btn${data.primaryGoal === g ? " is-selected" : ""}`}
                           key={g}
                           onClick={pick("primaryGoal", g)}
+                          role="radio"
                           type="button"
                         >
                           {g}
                         </button>
                       ))}
                     </div>
+                    {renderError("primaryGoal")}
                   </div>
 
                   <div className="intake-row intake-row-2">
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-powerTarget">
                       <span className="intake-field-label">Power Target *</span>
                       <select
-                        className="intake-input"
+                        aria-describedby={describedBy("powerTarget")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "powerTarget"))}
+                        aria-required="true"
+                        className={selectClassName}
+                        id="intake-powerTarget"
+                        name="powerTarget"
                         onChange={update("powerTarget")}
                         value={data.powerTarget}
                       >
@@ -440,11 +715,17 @@ export function IntakeForm({
                           </option>
                         ))}
                       </select>
+                      {renderError("powerTarget")}
                     </label>
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-timeline">
                       <span className="intake-field-label">Timeline *</span>
                       <select
-                        className="intake-input"
+                        aria-describedby={describedBy("timeline")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "timeline"))}
+                        aria-required="true"
+                        className={selectClassName}
+                        id="intake-timeline"
+                        name="timeline"
                         onChange={update("timeline")}
                         value={data.timeline}
                       >
@@ -455,59 +736,89 @@ export function IntakeForm({
                           </option>
                         ))}
                       </select>
+                      {renderError("timeline")}
                     </label>
                   </div>
 
                   <div className="intake-field">
-                    <span className="intake-field-label">Session Type *</span>
-                    <div className="intake-radio-grid intake-radio-grid-3">
+                    <span className="intake-field-label" id="intake-sessionType-label">
+                      Session Type *
+                    </span>
+                    <div
+                      aria-describedby={describedBy("sessionType")}
+                      aria-labelledby="intake-sessionType-label"
+                      className="intake-radio-grid intake-radio-grid-3"
+                      role="radiogroup"
+                    >
                       {SESSION_TYPES.map((s) => (
                         <button
+                          aria-checked={data.sessionType === s}
                           className={`intake-radio-btn${data.sessionType === s ? " is-selected" : ""}`}
                           key={s}
                           onClick={pick("sessionType", s)}
+                          role="radio"
                           type="button"
                         >
                           {s}
                         </button>
                       ))}
                     </div>
+                    {renderError("sessionType")}
                   </div>
                 </div>
 
-                {/* ── Step 3: You ── */}
-                <div className="intake-step">
-                  <label className="intake-field">
+                <div aria-hidden={step !== 3} className="intake-step" inert={step !== 3}>
+                  <label className="intake-field" htmlFor="intake-name">
                     <span className="intake-field-label">Name *</span>
                     <input
+                      aria-describedby={describedBy("name")}
+                      aria-invalid={Boolean(fieldError(actionState.fieldErrors, "name"))}
+                      aria-required="true"
+                      autoComplete="name"
                       className="intake-input"
+                      id="intake-name"
+                      name="name"
                       onChange={update("name")}
                       placeholder="Full name"
                       type="text"
                       value={data.name}
                     />
+                    {renderError("name")}
                   </label>
 
                   <div className="intake-row intake-row-2">
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-email">
                       <span className="intake-field-label">Email *</span>
                       <input
+                        aria-describedby={describedBy("email")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "email"))}
+                        aria-required="true"
+                        autoComplete="email"
                         className="intake-input"
+                        id="intake-email"
+                        name="email"
                         onChange={update("email")}
                         placeholder="you@email.com"
                         type="email"
                         value={data.email}
                       />
+                      {renderError("email")}
                     </label>
-                    <label className="intake-field">
+                    <label className="intake-field" htmlFor="intake-phone">
                       <span className="intake-field-label">Phone</span>
                       <input
+                        aria-describedby={describedBy("phone")}
+                        aria-invalid={Boolean(fieldError(actionState.fieldErrors, "phone"))}
+                        autoComplete="tel"
                         className="intake-input"
+                        id="intake-phone"
+                        name="phone"
                         onChange={update("phone")}
                         placeholder="Optional"
                         type="tel"
                         value={data.phone}
                       />
+                      {renderError("phone")}
                     </label>
                   </div>
 
@@ -521,7 +832,7 @@ export function IntakeForm({
                     </div>
                     <div className="intake-review-row">
                       <span className="intake-review-label">ECU</span>
-                      <span className="intake-review-value">{data.ecuPlatform || "—"}</span>
+                      <span className="intake-review-value">{data.ecu || "—"}</span>
                     </div>
                     <div className="intake-review-row">
                       <span className="intake-review-label">Fuel</span>
@@ -546,14 +857,29 @@ export function IntakeForm({
                       </div>
                     ) : null}
                   </div>
+                  {actionState.formError ? (
+                    <p
+                      aria-live="assertive"
+                      className="intake-field-error"
+                      id={errorId("turnstile")}
+                      role="alert"
+                    >
+                      {actionState.formError}
+                    </p>
+                  ) : (
+                    renderError("turnstile")
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="intake-card-footer">
+              <p aria-live="polite" className="intake-save-indicator">
+                {formHydrated && formSaved ? "Form progress saved" : ""}
+              </p>
               <button
                 className="intake-back"
-                disabled={step === 1}
+                disabled={step === 1 || isPending}
                 onClick={goBack}
                 type="button"
               >
@@ -561,11 +887,11 @@ export function IntakeForm({
               </button>
               <button
                 className={`intake-continue${stepValid ? " is-valid" : ""}`}
-                disabled={submitting}
-                onClick={step === 3 ? handleSubmit : goForward}
-                type="button"
+                disabled={isPending}
+                onClick={step === 3 ? undefined : goForward}
+                type={step === 3 ? "submit" : "button"}
               >
-                {submitting ? (
+                {isPending ? (
                   <span className="intake-spinner" />
                 ) : step === 3 ? (
                   "Submit →"
@@ -574,16 +900,14 @@ export function IntakeForm({
                 )}
               </button>
             </div>
-          </div>
+          </form>
         </>
       )}
 
-      {/* ── Footer Meta ── */}
       <p className="intake-meta">
         Auburn, WA · Nationwide Remote &nbsp;|&nbsp; Response 24–48 Hrs &nbsp;|&nbsp; 17+ Years EFI
       </p>
 
-      {/* ── Toast ── */}
       <div
         aria-live="polite"
         className={`intake-toast${toastVisible ? " is-visible" : ""}`}

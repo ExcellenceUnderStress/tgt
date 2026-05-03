@@ -1,22 +1,9 @@
-import type { HomepageBrand } from "@/lib/site-content";
+import { BrandGrid } from "@/components/BrandGrid";
 
 type BrandStripProps = {
-  brands: HomepageBrand[];
+  brands?: unknown[];
 };
 
-export function BrandStrip({ brands }: BrandStripProps) {
-  return (
-    <section className="recognition-strip recognition-strip-brands" aria-label="Supported systems">
-      {brands.map((brand) => (
-        <div className="brand-rail-item" key={brand.name} role="listitem">
-          <img
-            alt={brand.name}
-            className="brand-rail-logo"
-            loading="lazy"
-            src={brand.logo}
-          />
-        </div>
-      ))}
-    </section>
-  );
+export function BrandStrip(_: BrandStripProps) {
+  return <BrandGrid />;
 }
