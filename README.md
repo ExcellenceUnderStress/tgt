@@ -6,7 +6,6 @@ Minimal starter scaffold for the TurboGixxer V2 frontend:
 - route skeletons from the approved sitemap
 - brand-driven base layout and homepage shell
 - Style Dictionary build sourced from `_Primitives/Style.tokens.json`
-- controlled Sanity schema placeholders
 
 ## Images
 

@@ -48,6 +48,7 @@ const OUT_PATH = path.join(ROOT, "lib", "haltech-products.ts");
 
 const PUBLIC_PREFIX =
   "/images/shop/Haltech Product Images for Webstore";
+const MIN_CATALOG_PRICE_USD = 300;
 
 // ----- Image index: SKU -> [public paths sorted by suffix] -----
 function walkImages(dir, results = []) {
@@ -168,6 +169,10 @@ for (const r of rows) {
   const name = cleanName(description, sku);
   const imgs = imageIndex.get(sku) ?? [];
   const images = imgs.map((i) => `${PUBLIC_PREFIX}/${i.rel}`);
+
+  if (price == null || price < MIN_CATALOG_PRICE_USD || images.length === 0) {
+    continue;
+  }
 
   if (!productsBySku.has(sku)) {
     productsBySku.set(sku, {

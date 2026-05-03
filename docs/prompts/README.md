@@ -11,7 +11,6 @@ Before using any prompt:
    - `docs/site-map.md`
    - `docs/homepage-wireframe.md`
    - `docs/booking-flow.md`
-   - `docs/sanity-schema-outline.md`
 2. Tell the AI to treat those files as the project brief.
 3. Paste the prompt that matches the current task.
 4. Keep the AI focused on one phase at a time.
@@ -20,7 +19,6 @@ Before using any prompt:
 
 - `repo-bootstrap.md`
 - `homepage-build.md`
-- `sanity-setup.md`
 - `tokens-style-dictionary.md`
 - `gsap-direction.md`
 

@@ -1655,6 +1655,274 @@ li {
   transform: translateY(-1px);
 }
 
+.shop-guidance-list {
+  display: grid;
+  gap: var(--tg-space-4);
+}
+
+.shop-guidance-item {
+  position: relative;
+  overflow: hidden;
+  padding: var(--tg-space-5);
+  border-top: 1px solid var(--site-border-soft);
+  background: var(--site-surface-gradient);
+}
+
+.shop-guidance-item::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--tg-color-brand-500), transparent 70%);
+}
+
+.shop-guidance-item span {
+  display: block;
+  color: var(--site-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.shop-guidance-item p {
+  margin: var(--tg-space-3) 0 0;
+}
+
+.shop-routing-section {
+  padding-top: var(--tg-space-8);
+}
+
+.shop-lane-grid--route {
+  margin-top: 0;
+}
+
+.haltech-showcase {
+  display: grid;
+  gap: var(--tg-space-8);
+}
+
+.haltech-showcase-header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(22rem, 1.05fr);
+  gap: var(--tg-space-6);
+  align-items: end;
+}
+
+.haltech-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tg-space-4);
+}
+
+.haltech-stat {
+  min-height: 8.5rem;
+  padding: var(--tg-space-5);
+  border-top: 1px solid var(--site-border-soft);
+  background: var(--site-surface-gradient);
+}
+
+.haltech-stat span,
+.haltech-product-meta span {
+  color: var(--site-muted-copy);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.haltech-stat strong {
+  display: block;
+  margin-top: var(--tg-space-3);
+  color: var(--site-heading);
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.14;
+  text-transform: uppercase;
+}
+
+.haltech-category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tg-space-3);
+  padding-block: var(--tg-space-4);
+  border-block: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+}
+
+.haltech-category-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 var(--tg-space-4);
+  border: 1px solid var(--site-border-soft);
+  background: var(--site-surface-soft);
+  color: var(--site-heading);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.haltech-category-nav a:hover,
+.haltech-category-nav a:focus-visible {
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 38%, transparent);
+  background: var(--site-surface-strong);
+  transform: translateY(-2px);
+}
+
+.haltech-product-groups {
+  display: grid;
+  gap: var(--tg-space-12);
+}
+
+.haltech-product-group {
+  display: grid;
+  gap: var(--tg-space-5);
+  scroll-margin-top: 6rem;
+}
+
+.haltech-product-group-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(18rem, 0.45fr);
+  gap: var(--tg-space-5);
+  align-items: end;
+  padding-bottom: var(--tg-space-4);
+  border-bottom: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+}
+
+.haltech-product-group-heading p {
+  margin: 0;
+}
+
+.haltech-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tg-space-5);
+}
+
+.haltech-product-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  min-height: 100%;
+  border-top: 1px solid var(--site-border-soft);
+  background: var(--site-surface-panel);
+  transition:
+    background-color 220ms ease,
+    transform 220ms ease;
+}
+
+.haltech-product-card:hover,
+.haltech-product-card:focus-within {
+  background: var(--site-surface-strong);
+  transform: translateY(-4px);
+}
+
+.haltech-product-media {
+  position: relative;
+  min-height: 15rem;
+  background:
+    radial-gradient(circle at 70% 15%, color-mix(in srgb, var(--tg-color-brand-500) 18%, transparent), transparent 42%),
+    linear-gradient(145deg, color-mix(in srgb, var(--site-ink) 8%, transparent), color-mix(in srgb, var(--site-ink) 2%, transparent));
+}
+
+.haltech-product-media img {
+  object-fit: contain;
+  padding: var(--tg-space-5);
+  filter: drop-shadow(0 1rem 1.8rem rgba(0, 0, 0, 0.24));
+}
+
+.haltech-product-copy {
+  display: grid;
+  gap: var(--tg-space-3);
+  padding: var(--tg-space-5);
+}
+
+.haltech-product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tg-space-2);
+}
+
+.haltech-product-meta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.8rem;
+  padding: 0 var(--tg-space-2);
+  border: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+  background: color-mix(in srgb, var(--tg-color-base-white) 3%, transparent);
+}
+
+.haltech-product-copy h4 {
+  margin: 0;
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(1.7rem, 2.4vw, 2.15rem);
+  font-weight: 400;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.haltech-product-copy p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.58;
+}
+
+.haltech-product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tg-space-4);
+  margin-top: auto;
+  padding-top: var(--tg-space-4);
+  border-top: 1px solid color-mix(in srgb, var(--tg-color-base-white) 10%, transparent);
+}
+
+.haltech-product-footer > span {
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .haltech-showcase-header,
+  .haltech-product-group-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .haltech-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .haltech-stat-grid,
+  .haltech-product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .haltech-category-nav a {
+    flex: 1 1 100%;
+  }
+
+  .haltech-product-footer {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .haltech-product-media {
+    min-height: 13rem;
+  }
+}
+
 .final-cta-panel {
   margin-top: var(--tg-space-16);
   padding: var(--tg-space-10) 0 0;
@@ -3167,7 +3435,6 @@ select.intake-input {
   justify-content: center;
 }
 
-.haltech-card-media :global(img),
 .haltech-card-media img {
   width: 100%;
   height: 100%;
@@ -3326,9 +3593,16 @@ select.intake-input {
   letter-spacing: 0.04em;
 }
 
-.haltech-category-tile-body p:last-child {
+.haltech-category-tile-body p {
   margin: 0;
   font-size: 0.85rem;
   color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+.haltech-category-tile-body span {
+  color: var(--site-muted-copy);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 

@@ -379,9 +379,9 @@ export const homepageSections = {
     {
       title: "Haltech",
       description:
-        "Curated ECUs and accessories we trust.",
+        "High-value ECUs, harnesses, power, and dash hardware.",
       cta: { href: "/shop/haltech", label: "View Haltech" },
-      image: "/images/brands/logos/haltech.svg",
+      image: "/Brands/haltechlogo.png",
       imageMode: "brandmark",
     },
   ] satisfies HomepageShopLane[],
@@ -735,9 +735,9 @@ export const routeHeroes: Record<string, RouteHero> = {
   },
   shop: {
     eyebrow: "Curated Shop",
-    title: "A restrained storefront for merch and Haltech offerings.",
+    title: "Simple paths for merch and serious Haltech hardware.",
     summary:
-      "The shop landing page should route visitors clearly into merch or Haltech without bloating the experience.",
+      "Choose the lane that fits. Merch stays separate, and Haltech stays focused on the higher-value parts customers actually need help selecting.",
     primaryCta: { href: "/shop/merch", label: "Shop Merch" },
     secondaryCta: { href: "/shop/haltech", label: "Shop Haltech" },
   },
@@ -750,9 +750,9 @@ export const routeHeroes: Record<string, RouteHero> = {
   },
   haltech: {
     eyebrow: "Haltech",
-    title: "A guided lane for curated Haltech product visibility and inquiries.",
+    title: "Curated Haltech ECUs, harnesses, and premium hardware.",
     summary:
-      "The Haltech page should support both customers who know what they need and those who need direction first.",
+      "A focused product lane for higher-value Haltech packages with real product imagery and inquiry-first ordering support.",
     primaryCta: { href: "/contact", label: "Inquire" },
   },
   contact: {
@@ -1018,21 +1018,21 @@ export const buildsPageContent: BuildsPageContent = {
 
 export const shopPageContent: ShopPageContent = {
   introLabel: "Curated Storefront",
-  introTitle: "Two clear lanes: merch for the brand, Haltech for supported hardware.",
+  introTitle: "Two lanes, no clutter.",
   introBody:
-    "The shop should stay narrow and intentional. This is not a generic catalog. It is a controlled storefront for branded goods and a guided hardware lane built around products and platforms the shop actually trusts.",
+    "The shop is intentionally narrow: branded goods in one path, premium Haltech hardware in the other. No giant catalog, no cheap filler parts, and no guessing when a build needs guidance first.",
   guidance: [
     {
       title: "Merch",
-      body: "Straightforward branded goods presented cleanly, without turning the site into a cluttered lifestyle shop.",
+      body: "Straightforward branded goods kept separate from performance hardware.",
     },
     {
       title: "Haltech",
-      body: "A guided inquiry lane for ECUs and accessories, built for customers who either know the parts they need or want direction before buying.",
+      body: "A tighter lane for ECUs, harness packages, power distribution, and dash hardware.",
     },
   ],
   finalCta: {
-    title: "Need help choosing the right lane?",
+    title: "Need help choosing the right hardware?",
     summary: "Reach out before ordering if the platform, package, or next step is not clear yet.",
     primaryCta: { href: "/shop/haltech", label: "Shop Haltech" },
     secondaryCta: { href: "/contact", label: "Contact TurboGixxer" },
@@ -1063,18 +1063,18 @@ export const merchPageContent: ShopCollectionPageContent = {
 
 export const haltechPageContent: ShopCollectionPageContent = {
   introLabel: "Haltech",
-  introTitle: "A guided hardware lane for customers who need the right package, not guesswork.",
+  introTitle: "A focused Haltech list for high-value builds.",
   introBody:
-    "This route should help both customers who already know the Haltech parts they want and customers who need direction before committing to hardware.",
+    "This page keeps the catalog simple: Rebel kits, ECU + universal wiring kits, ECU + plug'n'play kits, wiring harnesses, digital displays, and inputs/CAN expansion.",
   bullets: [
-    "Curated ECU and accessory visibility only.",
+    "Curated high-value Haltech hardware only. No low-cost accessories.",
     "Inquiry-first flow for fit, package selection, and next steps.",
-    "Built to support serious projects without bloating the storefront.",
+    "Built to support serious projects without a wall of low-cost accessories.",
   ],
   noteLabel: "How this works",
-  noteTitle: "Use contact when the package or platform fit is still unclear.",
+  noteTitle: "Use contact when the package or platform fit is unclear.",
   noteBody:
-    "The best Haltech conversations start with the car, the power goal, and the features you actually need. This keeps recommendations grounded instead of upsold.",
+    "The best Haltech conversations start with the car, the power goal, and the features you actually need. That keeps recommendations grounded instead of bloated.",
   finalCta: {
     title: "Need Haltech guidance before buying?",
     summary: "Send the vehicle, goals, and current setup details so the shop can point you toward the correct hardware path.",

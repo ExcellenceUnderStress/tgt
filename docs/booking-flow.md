@@ -197,7 +197,7 @@ At minimum, store:
 - preferred timing
 - notes
 
-If Sanity is used, it should hold booking page content and settings, not actual appointment logic.
+Any future content system should hold booking page content and settings, not actual appointment logic.
 
 ## Booking Page Section Outline
 

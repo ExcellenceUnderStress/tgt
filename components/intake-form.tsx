@@ -5,7 +5,14 @@ import { useCallback, useMemo, useState } from "react";
 /* ─── Types ─── */
 type Step = 1 | 2 | 3;
 
+export type ProductInquiry = {
+  category?: string;
+  product: string;
+  sku?: string;
+};
+
 type FormData = {
+  productInterest: string;
   year: string;
   make: string;
   model: string;
@@ -23,6 +30,7 @@ type FormData = {
 
 /* ─── Constants ─── */
 const INITIAL: FormData = {
+  productInterest: "",
   year: "",
   make: "",
   model: "",
@@ -75,6 +83,16 @@ const STEP_META: Array<{ num: Step; label: string }> = [
   { num: 2, label: "The Goal" },
   { num: 3, label: "You" },
 ];
+
+function formatProductInterest(productInquiry?: ProductInquiry) {
+  if (!productInquiry) return "";
+
+  const productLine = [productInquiry.sku, productInquiry.product]
+    .filter(Boolean)
+    .join(" - ");
+
+  return [productLine, productInquiry.category].filter(Boolean).join("\n");
+}
 
 /* ─── Icons ─── */
 function WrenchIcon() {
