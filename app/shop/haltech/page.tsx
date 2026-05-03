@@ -1,3 +1,4 @@
+import { ChecklistGrid } from "@/components/checklist-grid";
 import { DetailRail } from "@/components/detail-rail";
 import { FinalCta } from "@/components/final-cta";
 import { HaltechCatalog, HaltechCategoryNav } from "@/components/haltech-catalog";
@@ -34,6 +35,11 @@ export default function HaltechPage() {
             body={page.noteBody}
           />
         </div>
+      </section>
+
+      {/* ── Lane checklist ── */}
+      <section className="route-section">
+        <ChecklistGrid groups={[{ title: "What this lane is for", items: page.bullets }]} />
       </section>
 
       {/* ── Category quicknav ── */}

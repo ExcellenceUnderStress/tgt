@@ -4,8 +4,9 @@ import Link from "next/link";
 import { FinalCta } from "@/components/final-cta";
 import { RouteIntro } from "@/components/route-intro";
 import { SectionHeading } from "@/components/section-heading";
+import { ShopLaneCard } from "@/components/shop-lane-card";
 import { haltechCategories, haltechProducts } from "@/lib/haltech-products";
-import { routeHeroes, shopPageContent } from "@/lib/site-content";
+import { homepageSections, routeHeroes, shopPageContent } from "@/lib/site-content";
 
 export default function ShopPage() {
   const page = shopPageContent;
@@ -15,21 +16,33 @@ export default function ShopPage() {
     <>
       <RouteIntro hero={routeHeroes.shop} />
 
+      {/* ── Intro ── */}
       <section className="route-section service-detail-shell">
         <SectionHeading kicker={page.introLabel} title={page.introTitle}>
           <p>{page.introBody}</p>
         </SectionHeading>
       </section>
 
+      {/* ── Two lanes ── */}
       <section className="route-section">
-        <div className="section-heading" style={{ maxWidth: "48rem" }}>
-          <p className="section-kicker">Haltech Catalog</p>
-          <h2>Browse {productCount} Haltech products by category.</h2>
-          <p>
-            Hardware sourced from the January 2026 USD pricelist. Tap a category to
-            jump straight to it on the Haltech page.
-          </p>
+        <div className="shop-lane-grid">
+          {homepageSections.shopLanes.map((lane) => (
+            <ShopLaneCard key={lane.title} lane={lane} />
+          ))}
         </div>
+      </section>
+
+      {/* ── Haltech category preview ── */}
+      <section className="route-section">
+        <SectionHeading
+          kicker="Haltech Catalog"
+          title={`Browse ${productCount} Haltech products by category.`}
+        >
+          <p>
+            Hardware sourced from the January 2026 USD pricelist. Tap a category
+            to jump straight to it on the Haltech page.
+          </p>
+        </SectionHeading>
 
         <div className="haltech-category-tiles">
           {haltechCategories.map((c) => {

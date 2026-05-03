@@ -3290,3 +3290,392 @@ select.intake-input {
   color: color-mix(in srgb, currentColor 65%, transparent);
 }
 
+/* ──────────── Cart Trigger (header) ──────────── */
+.site-header {
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
+}
+
+.cart-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 1px solid var(--site-border-soft);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.cart-trigger:hover,
+.cart-trigger:focus-visible {
+  border-color: var(--tg-color-brand-500);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 10%, transparent);
+}
+
+.cart-trigger-count {
+  position: absolute;
+  top: -0.3rem;
+  right: -0.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--tg-color-brand-500);
+  color: var(--tg-color-base-black);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+html[data-hero-active="true"] .cart-trigger {
+  border-color: color-mix(in srgb, #fff 30%, transparent);
+  color: #fff;
+}
+
+/* ──────────── Cart Drawer ──────────── */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: min(24rem, 92vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--site-surface, #0d1117);
+  border-left: 1px solid var(--site-border-soft);
+  box-shadow: -1.5rem 0 3rem -0.5rem rgba(0, 0, 0, 0.45);
+}
+
+.cart-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--tg-space-5) var(--tg-space-5) var(--tg-space-4);
+  border-bottom: 1px solid var(--site-border-soft);
+  flex-shrink: 0;
+}
+
+.cart-drawer-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+}
+
+.cart-drawer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--site-border-soft);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.cart-drawer-close:hover {
+  border-color: var(--tg-color-brand-500);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 10%, transparent);
+}
+
+.cart-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tg-space-5);
+  padding: var(--tg-space-8);
+  text-align: center;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+.cart-lines {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: var(--tg-space-4) var(--tg-space-5);
+  display: grid;
+  gap: var(--tg-space-5);
+  scrollbar-width: thin;
+}
+
+.cart-line {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: var(--tg-space-4);
+  align-items: start;
+}
+
+.cart-line-media {
+  aspect-ratio: 1 / 1;
+  background: color-mix(in srgb, var(--tg-color-base-white) 5%, transparent);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid var(--site-border-soft);
+}
+
+.cart-line-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-line-media-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.cart-line-details {
+  display: grid;
+  gap: var(--tg-space-1);
+  min-width: 0;
+}
+
+.cart-line-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cart-line-variant {
+  margin: 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+.cart-line-price {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--tg-color-brand-500);
+}
+
+.cart-line-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tg-space-3);
+  margin-top: var(--tg-space-2);
+}
+
+.cart-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tg-space-2);
+  border: 1px solid var(--site-border-soft);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.cart-qty-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  transition: color 120ms ease;
+}
+
+.cart-qty-btn:hover {
+  color: var(--tg-color-brand-500);
+}
+
+.cart-qty-btn:disabled,
+.cart-line-remove:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cart-line-remove {
+  border: none;
+  background: transparent;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  transition: color 120ms ease;
+}
+
+.cart-line-remove:hover {
+  color: var(--tg-color-brand-500);
+}
+
+.cart-footer {
+  flex-shrink: 0;
+  display: grid;
+  gap: var(--tg-space-4);
+  padding: var(--tg-space-5);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.cart-total span:last-child {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* ──────────── Merch Product Grid ──────────── */
+.merch-grid {
+  display: grid;
+  gap: var(--tg-space-6);
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  margin-top: var(--tg-space-6);
+}
+
+.merch-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--site-border-soft);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--site-surface-gradient, color-mix(in srgb, var(--tg-color-base-white) 3%, transparent));
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.merch-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 60%, transparent);
+  box-shadow: 0 1.25rem 2rem -1rem color-mix(in srgb, var(--tg-color-brand-500) 35%, transparent);
+}
+
+.merch-card-media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: color-mix(in srgb, var(--tg-color-base-white) 4%, var(--tg-color-base-black));
+}
+
+.merch-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.merch-card-media-fallback {
+  width: 100%;
+  height: 100%;
+}
+
+.merch-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tg-space-3);
+  padding: var(--tg-space-5);
+  flex: 1;
+}
+
+.merch-card-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.merch-card-price {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* ──────────── Pricing — Parts & Hardware Callout ──────────── */
+.pricing-hardware-callout {
+  border-top: 1px solid var(--site-border-soft);
+  padding-top: var(--tg-space-12);
+}
+
+.pricing-hardware-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--tg-space-10);
+  align-items: start;
+}
+
+.pricing-hardware-copy .section-heading {
+  max-width: 38rem;
+}
+
+.pricing-hardware-stats {
+  display: grid;
+  gap: var(--tg-space-6);
+  padding: var(--tg-space-6);
+  border: 1px solid var(--site-border-soft);
+  border-radius: 1rem;
+  background: var(--site-surface-panel);
+  min-width: 14rem;
+}
+
+.pricing-hardware-stat {
+  display: grid;
+  gap: var(--tg-space-1);
+}
+
+.pricing-hardware-stat-value {
+  font-family: var(--font-display, inherit);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--tg-color-brand-500);
+}
+
+.pricing-hardware-stat-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+@media (max-width: 768px) {
+  .pricing-hardware-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-hardware-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    min-width: unset;
+  }
+}
+

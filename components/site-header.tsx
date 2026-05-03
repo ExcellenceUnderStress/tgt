@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import { primaryNavigation } from "@/lib/site-content";
+import { CartTrigger } from "@/components/cart-trigger";
 import { ThemedImage } from "@/components/themed-image";
+import { primaryNavigation } from "@/lib/site-content";
 
 export function SiteHeader() {
   return (
@@ -19,12 +19,13 @@ export function SiteHeader() {
           />
         </span>
         <span className="brand-logo brand-logo-compact" aria-hidden="true">
-          <Image
-            src="/images/logo/1x/mobile-mark-color.png"
+          <ThemedImage
             alt=""
-            width={162}
+            darkSrc="/images/logo/1x/mobile-mark-color.png"
             height={160}
+            lightSrc="/images/logo/1x/mobile-mark-color.png"
             priority
+            width={162}
           />
         </span>
       </Link>
@@ -36,6 +37,8 @@ export function SiteHeader() {
           </Link>
         ))}
       </nav>
+
+      <CartTrigger />
     </header>
   );
 }

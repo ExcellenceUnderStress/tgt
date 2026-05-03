@@ -7,8 +7,6 @@ import {
   type HaltechProduct,
 } from "@/lib/haltech-products";
 
-const PLACEHOLDER = "/images/shop/.gitkeep"; // unused; we render a styled placeholder div instead.
-
 function formatPrice(price: number | null) {
   if (price == null) return "Inquire";
   return new Intl.NumberFormat("en-US", {
@@ -123,5 +121,3 @@ export function HaltechCatalog() {
     </div>
   );
 }
-
-export { PLACEHOLDER };

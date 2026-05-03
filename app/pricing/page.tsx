@@ -9,6 +9,12 @@ import { ServicesCategoryTabs } from "@/components/services-category-tabs";
 import { servicesPricingContent } from "@/lib/site-content";
 import type { ServicePricingTabKey } from "@/lib/site-content";
 
+const HARDWARE_STATS = [
+  { label: "Products", value: "500+" },
+  { label: "Categories", value: "20+" },
+  { label: "Pricelist", value: "Jan 2026" },
+] as const;
+
 const TABS_ID = "pricing-tabs";
 const CHEAT_SHEET_ID = "pricing-cheat-sheet";
 
@@ -46,6 +52,42 @@ export default function ServicesPage() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
+
+      {/* ── Parts & Hardware ── */}
+      <section className="route-section pricing-section pricing-hardware-callout">
+        <div className="pricing-hardware-shell">
+          <div className="pricing-hardware-copy">
+            <SectionHeading
+              kicker="Parts & Hardware"
+              title="Haltech ECUs and accessories, sourced and sold direct."
+            >
+              <p>
+                Parts sales are the third lane alongside dyno and remote. Browse
+                the full Haltech catalog — ECUs, wiring accessories, sensors,
+                and expansion hardware — or start an inquiry if the right
+                package is not yet clear.
+              </p>
+              <div className="cta-row">
+                <Link className="button-primary" href="/shop/haltech">
+                  Browse Haltech
+                </Link>
+                <Link className="button-secondary" href="/contact">
+                  Inquire
+                </Link>
+              </div>
+            </SectionHeading>
+          </div>
+
+          <div className="pricing-hardware-stats">
+            {HARDWARE_STATS.map((s) => (
+              <div key={s.label} className="pricing-hardware-stat">
+                <span className="pricing-hardware-stat-value">{s.value}</span>
+                <span className="pricing-hardware-stat-label">{s.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── Booking & Policy ── */}
       <section className="route-section pricing-section">

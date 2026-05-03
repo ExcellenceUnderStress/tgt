@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Barlow } from "next/font/google";
 
+import { Providers } from "@/app/providers";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -51,11 +52,13 @@ export default function RootLayout({
   return (
     <html data-color-mode="dark" data-scroll-behavior="smooth" lang="en">
       <body className={`${display.variable} ${body.variable}`}>
-        <div className="page-shell">
-          <SiteHeader />
-          <main>{children}</main>
-          <SiteFooter />
-        </div>
+        <Providers>
+          <div className="page-shell">
+            <SiteHeader />
+            <main>{children}</main>
+            <SiteFooter />
+          </div>
+        </Providers>
       </body>
     </html>
   );

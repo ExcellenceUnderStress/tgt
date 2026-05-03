@@ -738,7 +738,7 @@ export const routeHeroes: Record<string, RouteHero> = {
     eyebrow: "Curated Shop",
     title: "A restrained storefront for merch and Haltech offerings.",
     summary:
-      "The shop landing page should route visitors clearly into merch or Haltech without bloating the experience.",
+      "Branded goods and supported Haltech hardware — two focused lanes, nothing extra.",
     primaryCta: { href: "/shop/merch", label: "Shop Merch" },
     secondaryCta: { href: "/shop/haltech", label: "Shop Haltech" },
   },
@@ -746,14 +746,14 @@ export const routeHeroes: Record<string, RouteHero> = {
     eyebrow: "Merch",
     title: "Brand goods presented cleanly, without overwhelming the site.",
     summary:
-      "This route can stay straightforward while still carrying the same visual discipline as the rest of the project.",
+      "Curated apparel and branded goods — kept tight so the site stays focused on the tuning work.",
     primaryCta: { href: "/contact", label: "Contact" },
   },
   haltech: {
     eyebrow: "Haltech",
     title: "A guided lane for curated Haltech product visibility and inquiries.",
     summary:
-      "The Haltech page should support both customers who know what they need and those who need direction first.",
+      "Browse the full Haltech catalog or start an inquiry — works whether you know the part number or need direction on the right package first.",
     primaryCta: { href: "/contact", label: "Inquire" },
   },
   contact: {
@@ -1021,7 +1021,7 @@ export const shopPageContent: ShopPageContent = {
   introLabel: "Curated Storefront",
   introTitle: "Two clear lanes: merch for the brand, Haltech for supported hardware.",
   introBody:
-    "The shop should stay narrow and intentional. This is not a generic catalog. It is a controlled storefront for branded goods and a guided hardware lane built around products and platforms the shop actually trusts.",
+    "Two focused lanes. Branded goods kept clean, supported Haltech hardware built around inquiry. Not a generic catalog — only what the shop tests and trusts.",
   guidance: [
     {
       title: "Merch",
@@ -1066,7 +1066,7 @@ export const haltechPageContent: ShopCollectionPageContent = {
   introLabel: "Haltech",
   introTitle: "A guided hardware lane for customers who need the right package, not guesswork.",
   introBody:
-    "This route should help both customers who already know the Haltech parts they want and customers who need direction before committing to hardware.",
+    "Browse the full Haltech catalog or start an inquiry if the right package is not yet clear. Customers who know exactly what they need and those still working out the platform both have a path here.",
   bullets: [
     "Curated ECU and accessory visibility only.",
     "Inquiry-first flow for fit, package selection, and next steps.",
