@@ -2261,6 +2261,37 @@ li {
   color: var(--site-heading);
 }
 
+.intake-product-context {
+  display: grid;
+  gap: var(--tg-space-2);
+  margin: calc(var(--tg-space-4) * -1) 0 var(--tg-space-7);
+  padding: var(--tg-space-4) var(--tg-space-5);
+  border: 1px solid color-mix(in srgb, var(--tg-color-brand-500) 36%, transparent);
+  background: color-mix(in srgb, var(--tg-color-brand-500) 8%, transparent);
+}
+
+.intake-product-context span {
+  color: var(--tg-color-brand-500);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.intake-product-context strong {
+  color: var(--site-heading);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.16;
+}
+
+.intake-product-context p {
+  margin: 0;
+  color: var(--site-muted-copy);
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 /* ── Progress ── */
 
 .intake-progress {
@@ -2427,6 +2458,10 @@ select.intake-input {
   resize: vertical;
 }
 
+.intake-textarea--compact {
+  min-height: 4.75rem;
+}
+
 /* ── Radio Grid ── */
 
 .intake-radio-grid {
@@ -2511,6 +2546,7 @@ select.intake-input {
   color: var(--site-heading);
   font-size: 0.92rem;
   text-align: right;
+  white-space: pre-line;
 }
 
 /* ── Card Footer ── */

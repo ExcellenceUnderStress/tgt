@@ -162,9 +162,22 @@ function CheckIcon() {
 const STEP_ICONS = [WrenchIcon, TargetIcon, UserIcon];
 
 /* ─── Component ─── */
-export function IntakeForm() {
+export function IntakeForm({
+  productInquiry,
+}: {
+  productInquiry?: ProductInquiry;
+}) {
+  const initialData = useMemo(
+    () => ({
+      ...INITIAL,
+      ecuPlatform: productInquiry ? "Haltech" : INITIAL.ecuPlatform,
+      productInterest: formatProductInterest(productInquiry),
+    }),
+    [productInquiry],
+  );
+
   const [step, setStep] = useState<Step>(1);
-  const [data, setData] = useState<FormData>(INITIAL);
+  const [data, setData] = useState<FormData>(() => initialData);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
@@ -253,6 +266,16 @@ export function IntakeForm() {
               </strong>
             </div>
           </div>
+
+          {data.productInterest ? (
+            <div className="intake-product-context" aria-label="Product inquiry">
+              <span>Product Inquiry</span>
+              <strong>{productInquiry?.product ?? data.productInterest.split("\n")[0]}</strong>
+              <p>
+                {[productInquiry?.sku, productInquiry?.category].filter(Boolean).join(" / ")}
+              </p>
+            </div>
+          ) : null}
 
           {/* ── Progress ── */}
           <div className="intake-progress">
@@ -361,6 +384,17 @@ export function IntakeForm() {
                       </select>
                     </label>
                   </div>
+
+                  {data.productInterest ? (
+                    <label className="intake-field">
+                      <span className="intake-field-label">Product Interest</span>
+                      <textarea
+                        className="intake-input intake-textarea intake-textarea--compact"
+                        onChange={update("productInterest")}
+                        value={data.productInterest}
+                      />
+                    </label>
+                  ) : null}
 
                   <label className="intake-field">
                     <span className="intake-field-label">Current Mods</span>
@@ -505,6 +539,12 @@ export function IntakeForm() {
                       <span className="intake-review-label">Session</span>
                       <span className="intake-review-value">{data.sessionType || "—"}</span>
                     </div>
+                    {data.productInterest ? (
+                      <div className="intake-review-row">
+                        <span className="intake-review-label">Product</span>
+                        <span className="intake-review-value">{data.productInterest}</span>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
