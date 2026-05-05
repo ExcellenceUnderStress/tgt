@@ -1,34 +1,13 @@
 .premiumCard.premiumCard {
-  --premium-card-accent: var(--color-accent-teal, var(--tg-color-brand-500));
-  --premium-card-highlight: var(--color-accent-light-yellow, var(--tg-color-yellow-100));
-  --premium-card-surface:
-    radial-gradient(
-      circle at 8% 18%,
-      color-mix(in srgb, var(--premium-card-highlight) 15%, transparent),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 100% 0%,
-      color-mix(in srgb, var(--premium-card-accent) 16%, transparent),
-      transparent 38%
-    ),
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--tg-color-base-white) 7%, var(--site-surface-panel)),
-      color-mix(in srgb, var(--site-ink) 3%, transparent) 58%,
-      color-mix(in srgb, var(--premium-card-accent) 7%, transparent)
-    );
-
   position: relative;
-  border-left: 4px solid var(--premium-card-accent);
-  border-radius: max(20px, 1.25rem);
-  background: var(--premium-card-surface);
-  backdrop-filter: blur(14px) saturate(1.08);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--premium-card-highlight) 34%, transparent),
-    inset 0 -1px 0 color-mix(in srgb, var(--tg-color-base-black) 18%, transparent),
-    0 1.4rem 3.2rem -1.4rem rgba(0, 0, 0, 0.34),
-    0 0.55rem 1.25rem -0.65rem rgba(0, 0, 0, 0.26),
-    0 0 2.4rem -1.5rem color-mix(in srgb, var(--premium-card-accent) 55%, transparent),
-    0 0 1.65rem -1.2rem color-mix(in srgb, var(--premium-card-highlight) 46%, transparent);
+  border: 1px solid var(--site-border-soft);
+  border-radius: 0;
+  background: var(--site-surface-panel);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.premiumCard.premiumCard:hover,
+.premiumCard.premiumCard:focus-within {
+  border-color: color-mix(in srgb, var(--tg-color-brand-500) 48%, var(--site-border-soft));
 }
