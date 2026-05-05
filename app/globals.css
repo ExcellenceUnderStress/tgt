@@ -4637,3 +4637,175 @@ li {
   }
 }
 
+
+/* ─── Dyno Tuning Page ─── */
+
+.route-price-note {
+  margin: var(--tg-space-4) 0 0;
+  color: var(--site-muted-copy);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* How It Works — numbered vertical process list */
+
+.dyno-step-list {
+  display: grid;
+  gap: 0;
+  margin: var(--tg-space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dyno-step {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--tg-space-6);
+  align-items: start;
+  padding: var(--tg-space-6) 0;
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.dyno-step:last-child {
+  border-bottom: 1px solid var(--site-border-soft);
+}
+
+.dyno-step-num {
+  margin: 0;
+  color: var(--tg-color-brand-500);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.dyno-step-body {
+  display: grid;
+  gap: var(--tg-space-3);
+}
+
+.dyno-step-body h3 {
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+}
+
+/* Platforms — horizontal text strip */
+
+.dyno-platforms {
+  display: grid;
+  gap: var(--tg-space-5);
+  margin-top: var(--tg-space-6);
+}
+
+.dyno-platform-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tg-space-3) var(--tg-space-6);
+  padding: var(--tg-space-5) 0;
+  border-top: 1px solid var(--site-border-soft);
+  border-bottom: 1px solid var(--site-border-soft);
+}
+
+.dyno-platform-name {
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.dyno-platform-note {
+  margin: 0;
+  color: var(--site-muted-copy);
+}
+
+/* Before You Book — numbered checklist */
+
+.dyno-before-list {
+  display: grid;
+  gap: 0;
+  margin: var(--tg-space-6) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: dyno-before;
+}
+
+.dyno-before-list li {
+  counter-increment: dyno-before;
+  position: relative;
+  padding: var(--tg-space-3) 0 var(--tg-space-3) 3rem;
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.dyno-before-list li:last-child {
+  border-bottom: 1px solid var(--site-border-soft);
+}
+
+.dyno-before-list li::before {
+  content: counter(dyno-before, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: var(--tg-space-3);
+  color: var(--tg-color-brand-500);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+}
+
+.dyno-before-note {
+  margin: var(--tg-space-4) 0 0;
+  color: var(--site-muted-copy);
+}
+
+/* FAQ — static Q/A pairs */
+
+.dyno-faq {
+  display: grid;
+  gap: 0;
+  margin-top: var(--tg-space-8);
+}
+
+.dyno-faq-item {
+  padding: var(--tg-space-6) 0;
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.dyno-faq-item:last-child {
+  border-bottom: 1px solid var(--site-border-soft);
+}
+
+.dyno-faq-item h3 {
+  margin-bottom: var(--tg-space-3);
+  font-size: clamp(1.1rem, 2vw, 1.55rem);
+}
+
+.dyno-faq-item p {
+  margin: 0;
+  max-width: 64rem;
+}
+
+/* Dyno page responsive */
+
+@media (max-width: 1024px) {
+  .dyno-step {
+    grid-template-columns: 3.5rem 1fr;
+    gap: var(--tg-space-4);
+  }
+}
+
+@media (max-width: 640px) {
+  .dyno-step {
+    grid-template-columns: 2.8rem 1fr;
+    gap: var(--tg-space-3);
+  }
+
+  .dyno-step-num {
+    font-size: 1.8rem;
+  }
+
+  .dyno-before-list li {
+    padding-left: 2.4rem;
+  }
+}
