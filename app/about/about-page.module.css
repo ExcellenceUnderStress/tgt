@@ -1,0 +1,208 @@
+.section {
+  padding-top: clamp(var(--tg-space-12), 6vw, var(--tg-space-24));
+}
+
+.sectionWide {
+  padding-top: clamp(var(--tg-space-16), 8vw, var(--tg-space-32));
+}
+
+.eyebrow {
+  margin: 0 0 var(--tg-space-3);
+  color: var(--tg-color-brand-500);
+  font-size: 0.85rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.headline {
+  margin: 0;
+  max-width: 24ch;
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  line-height: 0.96;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.headlineLarge {
+  margin: 0;
+  max-width: 18ch;
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.body {
+  margin: var(--tg-space-5) 0 0;
+  max-width: 38rem;
+  color: var(--site-body-copy);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.heroBlock {
+  display: grid;
+  gap: var(--tg-space-6);
+  max-width: 64rem;
+}
+
+.heroCta {
+  margin-top: var(--tg-space-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tg-space-3);
+}
+
+.heroMedia {
+  margin-top: clamp(var(--tg-space-8), 5vw, var(--tg-space-16));
+}
+
+.split {
+  display: grid;
+  gap: clamp(var(--tg-space-6), 4vw, var(--tg-space-12));
+  align-items: start;
+}
+
+.splitText > .body:first-of-type {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.bullets {
+  list-style: none;
+  margin: var(--tg-space-6) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--tg-space-3);
+  max-width: 48rem;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: var(--tg-space-6);
+  color: var(--site-body-copy);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.bullets li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--tg-color-brand-500);
+  font-weight: 400;
+}
+
+.steps {
+  display: grid;
+  gap: clamp(var(--tg-space-6), 3vw, var(--tg-space-10));
+  margin-top: clamp(var(--tg-space-8), 4vw, var(--tg-space-12));
+}
+
+@media (min-width: 1024px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.step {
+  display: grid;
+  gap: var(--tg-space-3);
+  padding-top: var(--tg-space-5);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.stepNumber {
+  margin: 0;
+  color: var(--tg-color-brand-500);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: 0.08em;
+}
+
+.stepTitle {
+  margin: 0;
+  color: var(--site-heading);
+  font-family: var(--font-display, "Bebas Neue", sans-serif);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stepBody {
+  margin: 0;
+  color: var(--site-body-copy);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.howItWorksMedia {
+  margin-top: clamp(var(--tg-space-10), 5vw, var(--tg-space-16));
+}
+
+.quotes {
+  display: grid;
+  gap: clamp(var(--tg-space-6), 3vw, var(--tg-space-10));
+  margin-top: clamp(var(--tg-space-8), 4vw, var(--tg-space-12));
+}
+
+@media (min-width: 768px) {
+  .quotes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.quote {
+  display: grid;
+  gap: var(--tg-space-4);
+  padding-top: var(--tg-space-5);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.quoteBody {
+  margin: 0;
+  color: var(--site-heading);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+}
+
+.quoteAttribution {
+  margin: 0;
+  color: var(--site-subtle-copy);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.closing {
+  margin-top: clamp(var(--tg-space-16), 8vw, var(--tg-space-32));
+  padding: clamp(var(--tg-space-10), 5vw, var(--tg-space-16)) 0 var(--tg-space-10);
+  border-top: 1px solid var(--site-border-soft);
+}
+
+.closingBlock {
+  display: grid;
+  gap: var(--tg-space-5);
+  max-width: 48rem;
+}
+
+.closingCta {
+  margin-top: var(--tg-space-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tg-space-3);
+}
