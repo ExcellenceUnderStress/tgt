@@ -336,7 +336,7 @@ export const homepageSections = {
     },
     {
       eyebrow: "REMOTE",
-      title: "E-Tune",
+      title: "Remote Tuning",
       description:
         "Tuned from your datalogs. Revisions until it's clean.",
       startingAtPrice: "$500",
