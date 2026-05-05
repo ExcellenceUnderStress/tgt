@@ -2,9 +2,27 @@
 
 import * as React from "react";
 
-const HERO_VIDEO_SRC = "/Heromp4.mp4";
+interface ISmoothScrollVideoHeroProps {
+  video: string;
+  videoWebm?: string;
+  poster?: string;
+  eyebrow?: string;
+  title: string;
+  summary: string;
+  location: string;
+  learnMoreHref: string;
+}
 
-const SmoothScrollVideoHero = () => {
+const SmoothScrollVideoHero: React.FC<ISmoothScrollVideoHeroProps> = ({
+  video,
+  videoWebm,
+  poster,
+  eyebrow,
+  title,
+  summary,
+  location,
+  learnMoreHref,
+}) => {
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
 
   React.useEffect(() => {
@@ -25,39 +43,32 @@ const SmoothScrollVideoHero = () => {
             playsInline
             autoPlay
             preload="auto"
+            poster={poster ?? undefined}
           >
-            <source src={HERO_VIDEO_SRC} type="video/mp4" />
+            {videoWebm ? <source src={videoWebm} type="video/webm" /> : null}
+            <source src={video} type="video/mp4" />
           </video>
           <div className="hero-video-tint" aria-hidden="true" />
+          <div className="hero-video-vignette" aria-hidden="true" />
         </div>
       </div>
 
       <div className="hero-overlay-copy">
-        <p className="hero-eyebrow">TURBOGIXXER TUNING</p>
-
-        <h1 className="hero-display-title">
-          TUNED TO DRIVE.
-          <br />
-          NOT JUST TO DYNO.
-        </h1>
-
-        <div className="hero-action-block">
-          <p className="hero-summary">
-            Dyno and remote EFI tuning. Street, track, high-power. Auburn, Washington.
-          </p>
-          <div className="hero-cta-row" aria-label="Hero calls to action">
-            <a className="button button-primary hero-cta" href="/contact">
+        <div className="hero-copy-stack">
+          {eyebrow ? (
+            <p className="hero-eyebrow">
+              <span className="hero-eyebrow-mark" aria-hidden="true" />
+              {eyebrow}
+            </p>
+          ) : null}
+          <h1 className="hero-display-title">{title}</h1>
+          <div className="hero-detail">
+            <p className="hero-summary">{summary}</p>
+            <p className="hero-location">{location}</p>
+            <a className="button button-primary hero-cta" href={learnMoreHref}>
               Start Booking
             </a>
-            <a className="button button-secondary hero-cta" href="/services">
-              View Services
-            </a>
           </div>
-        </div>
-
-        <div className="hero-scroll-indicator" aria-hidden="true">
-          <span>SCROLL</span>
-          <span className="hero-scroll-arrow">↓</span>
         </div>
       </div>
     </div>
