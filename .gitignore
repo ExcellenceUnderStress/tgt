@@ -6,3 +6,4 @@ coverage
 .codex-temp
 .claude/
 tsconfig.tsbuildinfo
+lib/brand-logos.generated.ts

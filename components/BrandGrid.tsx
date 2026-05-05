@@ -1,68 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import Image from "next/image";
 
+import { brandLogos } from "@/lib/brand-logos.generated";
 import styles from "@/styles/brands.module.css";
-
-type BrandLogo = {
-  name: string;
-  src: string;
-};
-
-const BRAND_DIRECTORY = "brands";
-const IMAGE_EXTENSIONS = new Set([".avif", ".gif", ".jpeg", ".jpg", ".png", ".svg", ".webp"]);
-
-function resolveBrandDirectory() {
-  const publicDirectory = path.join(process.cwd(), "public");
-  const directoryName = fs
-    .readdirSync(publicDirectory, { withFileTypes: true })
-    .find((entry) => entry.isDirectory() && entry.name.toLowerCase() === BRAND_DIRECTORY)?.name;
-
-  if (!directoryName) {
-    return null;
-  }
-
-  return {
-    name: directoryName,
-    path: path.join(publicDirectory, directoryName),
-  };
-}
-
-function formatBrandName(fileName: string) {
-  const slug = path
-    .basename(fileName, path.extname(fileName))
-    .replace(/-color$/iu, "")
-    .replace(/logo$/iu, "");
-
-  return slug
-    .split(/[-_\s]+/u)
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-function getBrandLogos(): BrandLogo[] {
-  const brandDirectory = resolveBrandDirectory();
-
-  if (!brandDirectory) {
-    return [];
-  }
-
-  return fs
-    .readdirSync(brandDirectory.path, { withFileTypes: true })
-    .filter(
-      (entry) =>
-        entry.isFile() && IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase()),
-    )
-    .map((entry) => ({
-      name: formatBrandName(entry.name),
-      src: `/${brandDirectory.name}/${encodeURIComponent(entry.name)}`,
-    }))
-    .sort((firstBrand, secondBrand) => firstBrand.name.localeCompare(secondBrand.name));
-}
-
-const brandLogos = getBrandLogos();
 
 export function BrandGrid() {
   if (brandLogos.length === 0) {
